@@ -1,4 +1,15 @@
-<diagram program="umletino" version="15.1"><zoom_level>6</zoom_level><element><id>UMLClass</id><coordinates><x>396</x><y>450</y><w>126</w><h>108</h></coordinates><panel_attributes>Player
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>740</y>
+      <w>210</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Player
 --
 -int id
 -char profile
@@ -10,37 +21,125 @@
 +saveProgram()
 +insertIntoTeam(Team)
 +equipment()
-+stats()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>468</x><y>588</y><w>126</w><h>60</h></coordinates><panel_attributes>Training_Program
++stats()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>970</y>
+      <w>210</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Training_Program
 --
 -Exercise exercises
 --
 +createProgram(Exercises)
-+calculateStats(nodeID, player)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>468</x><y>696</y><w>126</w><h>42</h></coordinates><panel_attributes>Exercise
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>546</y><w>150</w><h>54</h></coordinates><panel_attributes>Battle
++calculateStats(nodeID, player)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>1150</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Exercise
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1390</x>
+      <y>900</y>
+      <w>250</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Battle
 --
 -id
 --
 +generateBattleSession(nodeID, battleObj) 
 +checkCamFail()
-+checkParamFail()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>156</x><y>588</y><w>126</w><h>42</h></coordinates><panel_attributes>Shop
++checkParamFail()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>250</x>
+      <y>970</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Shop
 --
 -Item items
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>198</x><y>696</y><w>126</w><h>66</h></coordinates><panel_attributes>Item
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>320</x>
+      <y>1150</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Item
 --
 -char stats
 -int value
 --
 +isEquipment() 
 +itemUsageChoice()
-+itemSell()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>216</x><y>624</y><w>48</w><h>84</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;
-</panel_attributes><additional_attributes>60;120;60;80;10;80;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>330</y><w>126</w><h>66</h></coordinates><panel_attributes>Map
++itemSell()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>1030</y>
+      <w>80</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+</panel_attributes>
+    <additional_attributes>60.0;120.0;60.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1390</x>
+      <y>540</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Map
 --
 
 --
 +chooseLevel()
 +getProgress()
 +selectFight(nodeID)
-+shProgress()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>486</x><y>312</y><w>162</w><h>84</h></coordinates><panel_attributes>Team
++shProgress()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>510</y>
+      <w>270</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Team
 --
 -Players
 -Στοιχεία ομάδας
@@ -48,13 +147,68 @@
 +getTeamInfo()
 +createTeam(Στοιχεία Ομάδας)
 +checkTeamForm(Στοιχεία Ομάδας)
-+sendMemberNotificaton(Player,Μύνημα)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>468</x><y>390</y><w>96</w><h>72</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;100;10;40;140;40;140;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>636</x><y>552</y><w>126</w><h>42</h></coordinates><panel_attributes>Team_Battle
++sendMemberNotificaton(Player,Μήνυμα)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>640</y>
+      <w>160</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;40.0;140.0;40.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>910</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Team_Battle
 --
 -double remaining_time
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>756</x><y>558</y><w>96</w><h>24</h></coordinates><panel_attributes>lt=-&gt;&gt;
-</panel_attributes><additional_attributes>10;20;140;20</additional_attributes></element><element><id>Relation</id><coordinates><x>564</x><y>390</y><w>144</w><h>174</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
-</panel_attributes><additional_attributes>220;270;220;40;10;40;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>630</y><w>126</w><h>84</h></coordinates><panel_attributes>Enemy
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1250</x>
+      <y>920</y>
+      <w>160</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>640</y>
+      <w>240</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
+</panel_attributes>
+    <additional_attributes>220.0;270.0;220.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1390</x>
+      <y>1040</y>
+      <w>210</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Enemy
 --
 -int id
 -int hp
@@ -63,41 +217,261 @@
 calculateDamage(repObj)
 updateHealth()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>522</x><y>642</y><w>18</w><h>66</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>390</y><w>18</w><h>72</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;
-</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>594</y><w>54</w><h>48</h></coordinates><panel_attributes>lt=-
-Συμμετέχει</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>450</y><w>126</w><h>48</h></coordinates><panel_attributes>Level
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>1060</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1480</x>
+      <y>640</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1480</x>
+      <y>980</y>
+      <w>100</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-
+Συμμετέχει</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1390</x>
+      <y>740</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Level
 --
 -bool isLocked
 --
 isLocked()
 isUnlocked()
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>492</y><w>18</w><h>66</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>306</x><y>588</y><w>126</w><h>54</h></coordinates><panel_attributes>Inventory
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1480</x>
+      <y>810</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>500</x>
+      <y>970</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Inventory
 --
 -Item items
 +penInventoryTab()
 +battleUseItem() 
-+itemList()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>366</x><y>552</y><w>102</w><h>48</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes><additional_attributes>10;60;10;20;150;20;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>264</x><y>636</y><w>120</w><h>72</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;
-</panel_attributes><additional_attributes>10;100;10;60;180;60;180;10</additional_attributes></element><element><id>Relation</id><coordinates><x>516</x><y>498</y><w>354</w><h>60</h></coordinates><panel_attributes>lt=-
-Συμμετέχει</panel_attributes><additional_attributes>570;80;570;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>516</x><y>366</y><w>336</w><h>138</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>540;10;390;10;390;210;10;210</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1212</x><y>282</y><w>126</w><h>48</h></coordinates><panel_attributes>Message_Window
++itemList()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>910</y>
+      <w>170</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;20.0;150.0;20.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>1050</y>
+      <w>200</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;60.0;180.0;60.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>820</y>
+      <w>590</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+Συμμετέχει</panel_attributes>
+    <additional_attributes>570.0;80.0;570.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>600</y>
+      <w>560</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>540.0;10.0;390.0;10.0;390.0;210.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2010</x>
+      <y>460</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Message_Window
 --
 -char message
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>426</x><y>420</y><w>666</w><h>42</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>1090;10;10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>504</x><y>552</y><w>18</w><h>48</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>456</x><y>228</y><w>204</w><h>72</h></coordinates><panel_attributes>Team_Form
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>690</y>
+      <w>1110</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>1090.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>830</x>
+      <y>910</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>370</y>
+      <w>340</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Team_Form
 --
 -Πεδία
 --
 +checkTeamForm(Στοιχεία Ομάδας, Επιλογές φίλων)
-+createTeamForm()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>204</x><y>450</y><w>120</w><h>72</h></coordinates><panel_attributes>Friend_List
++createTeamForm()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>330</x>
+      <y>740</y>
+      <w>200</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Friend_List
 --
 -Player players
 --
 +getFriendsList()
 +sendFriendRequest(Player)
 +addFriend(Player)
-+deleteFriend(player)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>318</x><y>480</y><w>90</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>130;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>246</x><y>258</y><w>222</w><h>204</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;320;10;10;350;10</additional_attributes></element><element><id>Relation</id><coordinates><x>426</x><y>276</y><w>42</w><h>186</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>50;290;50;80;10;80;10;10;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>588</x><y>378</y><w>264</w><h>258</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>420;10;340;10;340;410;10;410</additional_attributes></element><element><id>UMLClass</id><coordinates><x>792</x><y>204</y><w>204</w><h>102</h></coordinates><panel_attributes>Database_communication
++deleteFriend(player)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>790</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>420</y>
+      <w>370</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;320.0;10.0;10.0;350.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>450</y>
+      <w>70</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>50.0;290.0;50.0;80.0;10.0;80.0;10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>620</y>
+      <w>440</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>420.0;10.0;340.0;10.0;340.0;410.0;10.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1310</x>
+      <y>330</y>
+      <w>340</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>Database_communication
 --
 -
 --
@@ -109,42 +483,232 @@ isUnlocked()
 +getItems()
 +updateItems()
 +updateGold(int)
-+updateStats()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>654</x><y>258</y><w>150</w><h>18</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>230;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>984</x><y>300</y><w>18</w><h>270</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;10;430;10;430</additional_attributes></element><element><id>Relation</id><coordinates><x>564</x><y>300</y><w>264</w><h>300</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>420;10;420;20;270;20;270;260;10;260;10;480</additional_attributes></element><element><id>UMLClass</id><coordinates><x>672</x><y>654</y><w>126</w><h>48</h></coordinates><panel_attributes>Repetition
++updateStats()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1080</x>
+      <y>420</y>
+      <w>250</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1630</x>
+      <y>490</y>
+      <w>30</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;430.0;10.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>490</y>
+      <w>440</w>
+      <h>500</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>420.0;10.0;420.0;20.0;270.0;20.0;270.0;260.0;10.0;260.0;10.0;480.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1110</x>
+      <y>1080</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Repetition
 --
 -id
 --
 +trackRepetitions(videoFeed) 
 +isDetected(repObj)
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>516</x><y>522</y><w>228</w><h>144</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>360;220;360;190;160;190;160;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1236</x><y>390</y><w>126</w><h>60</h></coordinates><panel_attributes>Inactivity window
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>860</y>
+      <w>380</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>360.0;220.0;360.0;190.0;160.0;190.0;160.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2050</x>
+      <y>640</y>
+      <w>210</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Inactivity window
 --
 
 --
 +inactivityWindow()
 +isUserActiveGestures()
-+resume()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1080</x><y>384</y><w>126</w><h>60</h></coordinates><panel_attributes>Warning
++resume()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1790</x>
+      <y>630</y>
+      <w>210</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Warning
 --
 
 --
 +declineDanger()
 +acceptDanger()
-+createDangerWarning()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1152</x><y>324</y><w>96</w><h>72</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>140;10;140;80;10;80;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>1284</x><y>324</y><w>18</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1386</x><y>390</y><w>126</w><h>60</h></coordinates><panel_attributes>Loss/Win window
++createDangerWarning()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1910</x>
+      <y>530</y>
+      <w>160</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;140.0;80.0;10.0;80.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2130</x>
+      <y>530</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2300</x>
+      <y>640</y>
+      <w>210</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Loss/Win window
 --
 
 --
 showLoss()
-showWin()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1314</x><y>324</y><w>132</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70;200;70;200;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>348</y><w>126</w><h>48</h></coordinates><panel_attributes>Session
+showWin()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2180</x>
+      <y>530</y>
+      <w>220</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;200.0;70.0;200.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>570</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Session
 --
 -bool hasInternetConnection
 --
-+hasInternetConnection()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>366</x><y>390</y><w>60</w><h>72</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>80;100;80;40;10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>6</x><y>6</y><w>114</w><h>30</h></coordinates><panel_attributes>lt=-
++hasInternetConnection()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>640</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;100.0;80.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=0..n
 m2=0..1
-teaches to &gt;</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>6</x><y>6</y><w>114</w><h>30</h></coordinates><panel_attributes>lt=-
+teaches to &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=0..n
 m2=0..1
-teaches to &gt;</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>6</x><y>6</y><w>114</w><h>30</h></coordinates><panel_attributes>lt=-
+teaches to &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=0..n
 m2=0..1
-teaches to &gt;</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>906</x><y>300</y><w>18</w><h>42</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element></diagram>
+teaches to &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1500</x>
+      <y>490</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+</diagram>
