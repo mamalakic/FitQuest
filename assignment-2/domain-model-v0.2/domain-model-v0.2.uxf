@@ -64,7 +64,7 @@
     </coordinates>
     <panel_attributes>Battle
 --
--id
+-int id
 --
 +generateBattleSession(nodeID, battleObj) 
 +checkCamFail()
@@ -96,12 +96,13 @@
       <x>246</x>
       <y>756</y>
       <w>126</w>
-      <h>66</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>Item
 --
 -char stats
 -int value
+-bool isEquipment
 --
 +isEquipment() 
 +itemUsageChoice()
@@ -530,7 +531,7 @@ isUnlocked()
     </coordinates>
     <panel_attributes>Repetition
 --
--id
+
 --
 +trackRepetitions(videoFeed) 
 +isDetected(repObj)
@@ -852,7 +853,7 @@ Enemy enemies
       <x>930</x>
       <y>108</y>
       <w>132</w>
-      <h>60</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Team_Battle_Results
 --
