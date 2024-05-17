@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 
+using System.Configuration;
+
 namespace WindowsFormsApp2
 {
     public partial class FriendsList : Form
@@ -19,13 +21,15 @@ namespace WindowsFormsApp2
 
 
             // Attach the event handler to the Load event of the form
-            this.Load += Form1_Load;
+            this.Load += FriendsList_Load;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FriendsList_Load(object sender, EventArgs e)
         {
             // connection
-            SQLiteConnection con = new SQLiteConnection("DataSource=C:\\Users\\harris\\FitQuest.db");
+            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            Console.WriteLine(connectionString);
+            SQLiteConnection con = new SQLiteConnection(connectionString);
             con.Open();
             // query
             string query = "SELECT * FROM Friends";
