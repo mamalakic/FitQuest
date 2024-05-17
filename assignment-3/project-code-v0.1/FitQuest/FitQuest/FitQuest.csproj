@@ -80,6 +80,12 @@
     <Compile Include="FriendsList.Designer.cs">
       <DependentUpon>FriendsList.cs</DependentUpon>
     </Compile>
+    <Compile Include="TrainingProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrainingProgram.Designer.cs">
+      <DependentUpon>TrainingProgram.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FriendsList.resx">
       <DependentUpon>FriendsList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrainingProgram.resx">
+      <DependentUpon>TrainingProgram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>

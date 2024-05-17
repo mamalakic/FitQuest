@@ -30,16 +30,7 @@ namespace FitQuest
             CombatForm.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void button2_Click_1(object sender, EventArgs e)
         {
             // Hide the current form (main menu)
@@ -52,7 +43,11 @@ namespace FitQuest
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-
+            this.Hide();
+            TrainingProgram TrainingProgramForm = new TrainingProgram();
+            TrainingProgramForm.Show();
+            // Show the friends list form
+            
         }
     }
 
