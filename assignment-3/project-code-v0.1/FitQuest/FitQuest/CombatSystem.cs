@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp2
+namespace FitQuest
 {
     public partial class CombatSystem : Form
     {
-        // counts in 1
+        int combatTimeSeconds = 0;
         int secondsAfk = 0;
         public CombatSystem()
         {
@@ -29,7 +29,7 @@ namespace WindowsFormsApp2
             this.enemyNameLabel.Text = "Goblin boss";
 
             this.nodeInfo.Text = getNodeInfo(1);
-            this.ticksPassedLabel.Text = "0";
+            this.secondsPassedLabel.Text = "00:00";
             combatTimer.Interval = 1000;
             combatTimer.Start();
         }
@@ -168,12 +168,17 @@ namespace WindowsFormsApp2
 
         }
 
+        public static string FormatSecondsToMMSS(int totalSeconds)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(totalSeconds);
+            return timeSpan.ToString(@"mm\:ss");
+        }
+
         private void combatTimer_Tick(object sender, EventArgs e)
         {
-            secondsAfk += 1;
-            int seconds = Int32.Parse(this.ticksPassedLabel.Text);
-            seconds += 1;
-            this.ticksPassedLabel.Text = seconds.ToString();
+            this.secondsAfk += 1;
+            this.combatTimeSeconds += 1;
+            this.secondsPassedLabel.Text = FormatSecondsToMMSS(this.combatTimeSeconds);
 
             if (secondsAfk == 45)
             {
@@ -182,6 +187,11 @@ namespace WindowsFormsApp2
         }
 
         private void playerCharacterPictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ticksPassedLabel_Click(object sender, EventArgs e)
         {
 
         }

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp2
+﻿namespace FitQuest
 {
     partial class CombatSystem
     {
@@ -40,9 +40,11 @@
             this.playerCharacterPictureBox = new System.Windows.Forms.PictureBox();
             this.enemyNameLabel = new System.Windows.Forms.Label();
             this.nodeInfo = new System.Windows.Forms.Label();
-            this.ticksPassedLabel = new System.Windows.Forms.Label();
+            this.secondsPassedLabel = new System.Windows.Forms.Label();
+            this.timeCounterGroupBox = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).BeginInit();
+            this.timeCounterGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // combatTimer
@@ -132,21 +134,32 @@
             // nodeInfo
             // 
             this.nodeInfo.AutoSize = true;
-            this.nodeInfo.Location = new System.Drawing.Point(451, 9);
+            this.nodeInfo.Location = new System.Drawing.Point(451, 12);
             this.nodeInfo.Name = "nodeInfo";
             this.nodeInfo.Size = new System.Drawing.Size(35, 13);
             this.nodeInfo.TabIndex = 8;
             this.nodeInfo.Text = "label1";
             this.nodeInfo.Click += new System.EventHandler(this.nodeInfo_Click);
             // 
-            // ticksPassedLabel
+            // secondsPassedLabel
             // 
-            this.ticksPassedLabel.AutoSize = true;
-            this.ticksPassedLabel.Location = new System.Drawing.Point(131, 9);
-            this.ticksPassedLabel.Name = "ticksPassedLabel";
-            this.ticksPassedLabel.Size = new System.Drawing.Size(35, 13);
-            this.ticksPassedLabel.TabIndex = 9;
-            this.ticksPassedLabel.Text = "label1";
+            this.secondsPassedLabel.AutoSize = true;
+            this.secondsPassedLabel.Location = new System.Drawing.Point(6, 16);
+            this.secondsPassedLabel.Name = "secondsPassedLabel";
+            this.secondsPassedLabel.Size = new System.Drawing.Size(35, 13);
+            this.secondsPassedLabel.TabIndex = 9;
+            this.secondsPassedLabel.Text = "label1";
+            this.secondsPassedLabel.Click += new System.EventHandler(this.ticksPassedLabel_Click);
+            // 
+            // timeCounterGroupBox
+            // 
+            this.timeCounterGroupBox.Controls.Add(this.secondsPassedLabel);
+            this.timeCounterGroupBox.Location = new System.Drawing.Point(30, 12);
+            this.timeCounterGroupBox.Name = "timeCounterGroupBox";
+            this.timeCounterGroupBox.Size = new System.Drawing.Size(200, 35);
+            this.timeCounterGroupBox.TabIndex = 10;
+            this.timeCounterGroupBox.TabStop = false;
+            this.timeCounterGroupBox.Text = "Time";
             // 
             // CombatSystem
             // 
@@ -155,7 +168,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(963, 552);
-            this.Controls.Add(this.ticksPassedLabel);
+            this.Controls.Add(this.timeCounterGroupBox);
             this.Controls.Add(this.nodeInfo);
             this.Controls.Add(this.enemyNameLabel);
             this.Controls.Add(this.playerCharacterPictureBox);
@@ -172,6 +185,8 @@
             this.Load += new System.EventHandler(this.CombatSystem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).EndInit();
+            this.timeCounterGroupBox.ResumeLayout(false);
+            this.timeCounterGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,6 +204,7 @@
         private System.Windows.Forms.PictureBox playerCharacterPictureBox;
         private System.Windows.Forms.Label enemyNameLabel;
         private System.Windows.Forms.Label nodeInfo;
-        private System.Windows.Forms.Label ticksPassedLabel;
+        private System.Windows.Forms.Label secondsPassedLabel;
+        private System.Windows.Forms.GroupBox timeCounterGroupBox;
     }
 }

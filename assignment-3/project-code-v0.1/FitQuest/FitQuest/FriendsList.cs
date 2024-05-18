@@ -10,14 +10,21 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 
 using System.Configuration;
+using System.Runtime.CompilerServices;
 
-namespace WindowsFormsApp2
+namespace FitQuest
 {
     public partial class FriendsList : Form
     {
+        string connectionString;
+        bool hasInternetConnectionBool;
         public FriendsList()
         {
+            this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+
             InitializeComponent();
+
+            this.hasInternetConnectionBool = hasInternetConnection();
 
 
             // Attach the event handler to the Load event of the form
@@ -26,32 +33,59 @@ namespace WindowsFormsApp2
 
         private void FriendsList_Load(object sender, EventArgs e)
         {
-            // connection
-            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
-            Console.WriteLine(connectionString);
-            SQLiteConnection con = new SQLiteConnection(connectionString);
-            con.Open();
-            // query
-            string query = "SELECT * FROM Friends";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            // data
-            DataTable dt = new DataTable();
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-            adapter.Fill(dt);
+            if (this.hasInternetConnectionBool)
+            {
+                fetchFriendsList(false);
+            }
+            else
+            {
+                fetchFriendsList(true);
+            }
 
-            dataGridView1.DataSource = dt;
 
-            // query
-            string query2 = "SELECT * FROM PendingFriendRequests";
-            SQLiteCommand cmd2 = new SQLiteCommand(query2, con);
-            // data
-            DataTable dt2 = new DataTable();
-            SQLiteDataAdapter adapter2 = new SQLiteDataAdapter(cmd2);
-            adapter2.Fill(dt2);
 
-            dataGridView2.DataSource = dt2;
-            dataGridView2.ColumnHeadersHeight = 23;
 
+        }
+
+        private void fetchFriendsList(bool cached = false)
+        {
+            // read only
+            if (cached)
+            {
+                AddFriend.Visible = false;
+                friendsTabMenuStrip.Visible = false;
+                friendRequestsMenuStrip.Visible = false;
+            }
+            else
+            {
+                // connection
+                using (SQLiteConnection con = new SQLiteConnection(connectionString))
+                {
+                    con.Open();
+                    // query
+                    string query = "SELECT * FROM Friends";
+                    SQLiteCommand cmd = new SQLiteCommand(query, con);
+                    // data
+                    DataTable dt = new DataTable();
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+                    adapter.Fill(dt);
+
+                    dataGridView1.DataSource = dt;
+
+                    // query
+                    string query2 = "SELECT * FROM PendingFriendRequests";
+                    SQLiteCommand cmd2 = new SQLiteCommand(query2, con);
+                    // data
+                    DataTable dt2 = new DataTable();
+                    SQLiteDataAdapter adapter2 = new SQLiteDataAdapter(cmd2);
+                    adapter2.Fill(dt2);
+
+                    dataGridView2.DataSource = dt2;
+                    dataGridView2.ColumnHeadersHeight = 23;
+
+                }
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -74,13 +108,26 @@ namespace WindowsFormsApp2
 
         }
 
+        private bool sendFriendReq(string friendName)
+        {
+            // network success
+            return true;
+        }
+
         private void btnSendRequest_Click(object sender, EventArgs e)
         {
             string friendName = txtFriendName.Text;
 
             if (!string.IsNullOrEmpty(friendName))
             {
-                lblResult.Text = "Friend request sent!";
+                if (sendFriendReq(friendName))
+                {
+                    lblResult.Text = "Friend request sent!";
+                }
+                else
+                {
+                    lblResult.Text = "Couldn't send friend request!";
+                }
             }
             else
             {
@@ -133,13 +180,23 @@ namespace WindowsFormsApp2
 
         }
 
+        private bool hasInternetConnection()
+        {
+            return true;
+        }
+
         private void buttonGenerateFriendLink_Click(object sender, EventArgs e)
+        {
+            txtfriendLink.Text = generateLink();
+        }
+
+        private string generateLink()
         {
             string basicLink = "fit.quest/";
             string randomUrl = "";
-            for (int i=0;i<6;i++)
-                randomUrl += GetLetter().ToString();
-            txtfriendLink.Text = basicLink + GetLetter();
+            randomUrl += GetLetter().ToString();
+
+            return basicLink + randomUrl;
         }
 
         public static string GetLetter()
@@ -172,9 +229,9 @@ namespace WindowsFormsApp2
             // Hide the current form (main menu)
             this.Hide();
 
-            // Show the friends list form
-            CombatSystem CombatForm = new CombatSystem();
-            CombatForm.Show();
+            // Show the menu form
+            MainMenu MenuForm= new MainMenu();
+            MenuForm.Show();
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -190,6 +247,70 @@ namespace WindowsFormsApp2
                 e.Value = greenIcon;
             }
             */
+        }
+
+        private bool inviteFriendToClan(string friendName)
+        {
+            return true;
+        }
+
+        private bool deleteFriend(string friendName)
+        {
+            return true;
+        }
+
+        private void displayFriendActionSuccess(string action, string friendName)
+        {
+            switch (action)
+            {
+                case "clan":
+                    SuccessFriendActionLabel.Visible = true;
+                    SuccessFriendActionLabel.Text = "You invited " + friendName + " to your clan!";
+                    break;
+
+                case "delete":
+                    SuccessFriendActionLabel.Visible = true;
+                    SuccessFriendActionLabel.Text = "You removed " + friendName + " from your friends list!";
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+
+        private void friendsTabMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            Console.WriteLine(e.ClickedItem);
+
+            switch(e.ClickedItem.Text)
+            {
+                case "Invite to clan":
+                    // pass friendName from datagridview when clicked
+                    inviteFriendToClan("friendName");
+                    displayFriendActionSuccess("clan", "friendName");
+                    break;
+
+                case "Remove friend":
+                    // pass friendName from datagridview when clicked
+                    if (deleteFriend("friendName"))
+                    {
+                        fetchFriendsList(false);
+                        displayFriendActionSuccess("delete", "friendName");
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        private void FriendsTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // reset info label
+            SuccessFriendActionLabel.Visible = false;
+            SuccessFriendActionLabel.Text = "";
         }
     }
 }

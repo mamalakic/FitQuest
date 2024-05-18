@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp2
+﻿namespace FitQuest
 {
     partial class FriendsList
     {
@@ -29,11 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FriendsList));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FriendsList));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.friendsTabMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.inviteToClanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblNamePrompt = new System.Windows.Forms.Label();
             this.txtFriendName = new System.Windows.Forms.TextBox();
             this.btnSendRequest = new System.Windows.Forms.Button();
@@ -43,23 +46,21 @@
             this.FriendsTabPage = new System.Windows.Forms.TabPage();
             this.PendingRequestsTabPage = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.friendRequestsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.acceptFriendRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.declineFriendRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblfriendLink = new System.Windows.Forms.Label();
             this.txtfriendLink = new System.Windows.Forms.TextBox();
             this.sqLiteCommandBuilder1 = new System.Data.SQLite.SQLiteCommandBuilder();
             this.buttonGenerateFriendLink = new System.Windows.Forms.Button();
-            this.friendsTabMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.inviteToClanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGoBack = new System.Windows.Forms.Button();
-            this.friendRequestsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.acceptFriendRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.declineFriendRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SuccessFriendActionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.friendsTabMenuStrip.SuspendLayout();
             this.FriendsTab.SuspendLayout();
             this.FriendsTabPage.SuspendLayout();
             this.PendingRequestsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.friendsTabMenuStrip.SuspendLayout();
             this.friendRequestsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,14 +75,14 @@
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.ContextMenuStrip = this.friendsTabMenuStrip;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.GridColor = System.Drawing.Color.White;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
@@ -93,6 +94,29 @@
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            // 
+            // friendsTabMenuStrip
+            // 
+            this.friendsTabMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inviteToClanToolStripMenuItem,
+            this.removeFriendToolStripMenuItem});
+            this.friendsTabMenuStrip.Name = "friendsTabMenuStrip";
+            this.friendsTabMenuStrip.ShowImageMargin = false;
+            this.friendsTabMenuStrip.Size = new System.Drawing.Size(127, 48);
+            this.friendsTabMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.friendsTabMenuStrip_Opening);
+            this.friendsTabMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.friendsTabMenuStrip_ItemClicked);
+            // 
+            // inviteToClanToolStripMenuItem
+            // 
+            this.inviteToClanToolStripMenuItem.Name = "inviteToClanToolStripMenuItem";
+            this.inviteToClanToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.inviteToClanToolStripMenuItem.Text = "Invite to clan";
+            // 
+            // removeFriendToolStripMenuItem
+            // 
+            this.removeFriendToolStripMenuItem.Name = "removeFriendToolStripMenuItem";
+            this.removeFriendToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.removeFriendToolStripMenuItem.Text = "Remove friend";
             // 
             // lblNamePrompt
             // 
@@ -156,6 +180,7 @@
             this.FriendsTab.SelectedIndex = 0;
             this.FriendsTab.Size = new System.Drawing.Size(406, 291);
             this.FriendsTab.TabIndex = 9;
+            this.FriendsTab.SelectedIndexChanged += new System.EventHandler(this.FriendsTab_SelectedIndexChanged);
             // 
             // FriendsTabPage
             // 
@@ -185,24 +210,24 @@
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.ContextMenuStrip = this.friendRequestsMenuStrip;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView2.GridColor = System.Drawing.Color.White;
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
@@ -213,6 +238,26 @@
             this.dataGridView2.Size = new System.Drawing.Size(398, 265);
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            // 
+            // friendRequestsMenuStrip
+            // 
+            this.friendRequestsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.acceptFriendRequestToolStripMenuItem,
+            this.declineFriendRequestToolStripMenuItem});
+            this.friendRequestsMenuStrip.Name = "friendRequestsMenuStrip";
+            this.friendRequestsMenuStrip.Size = new System.Drawing.Size(190, 48);
+            // 
+            // acceptFriendRequestToolStripMenuItem
+            // 
+            this.acceptFriendRequestToolStripMenuItem.Name = "acceptFriendRequestToolStripMenuItem";
+            this.acceptFriendRequestToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.acceptFriendRequestToolStripMenuItem.Text = "Accept friend request";
+            // 
+            // declineFriendRequestToolStripMenuItem
+            // 
+            this.declineFriendRequestToolStripMenuItem.Name = "declineFriendRequestToolStripMenuItem";
+            this.declineFriendRequestToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.declineFriendRequestToolStripMenuItem.Text = "Decline friend request";
             // 
             // lblfriendLink
             // 
@@ -251,28 +296,6 @@
             this.buttonGenerateFriendLink.Visible = false;
             this.buttonGenerateFriendLink.Click += new System.EventHandler(this.buttonGenerateFriendLink_Click);
             // 
-            // friendsTabMenuStrip
-            // 
-            this.friendsTabMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.inviteToClanToolStripMenuItem,
-            this.removeFriendToolStripMenuItem});
-            this.friendsTabMenuStrip.Name = "friendsTabMenuStrip";
-            this.friendsTabMenuStrip.ShowImageMargin = false;
-            this.friendsTabMenuStrip.Size = new System.Drawing.Size(127, 48);
-            this.friendsTabMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.friendsTabMenuStrip_Opening);
-            // 
-            // inviteToClanToolStripMenuItem
-            // 
-            this.inviteToClanToolStripMenuItem.Name = "inviteToClanToolStripMenuItem";
-            this.inviteToClanToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.inviteToClanToolStripMenuItem.Text = "Invite to clan";
-            // 
-            // removeFriendToolStripMenuItem
-            // 
-            this.removeFriendToolStripMenuItem.Name = "removeFriendToolStripMenuItem";
-            this.removeFriendToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.removeFriendToolStripMenuItem.Text = "Remove friend";
-            // 
             // btnGoBack
             // 
             this.btnGoBack.BackColor = System.Drawing.Color.Transparent;
@@ -290,33 +313,24 @@
             this.btnGoBack.UseVisualStyleBackColor = false;
             this.btnGoBack.Click += new System.EventHandler(this.btnGoBack_Click);
             // 
-            // friendRequestsMenuStrip
+            // SuccessFriendActionLabel
             // 
-            this.friendRequestsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.acceptFriendRequestToolStripMenuItem,
-            this.declineFriendRequestToolStripMenuItem});
-            this.friendRequestsMenuStrip.Name = "friendRequestsMenuStrip";
-            this.friendRequestsMenuStrip.Size = new System.Drawing.Size(190, 48);
+            this.SuccessFriendActionLabel.AutoSize = true;
+            this.SuccessFriendActionLabel.Location = new System.Drawing.Point(13, 310);
+            this.SuccessFriendActionLabel.Name = "SuccessFriendActionLabel";
+            this.SuccessFriendActionLabel.Size = new System.Drawing.Size(35, 13);
+            this.SuccessFriendActionLabel.TabIndex = 16;
+            this.SuccessFriendActionLabel.Text = "label1";
+            this.SuccessFriendActionLabel.Visible = false;
             // 
-            // acceptFriendRequestToolStripMenuItem
-            // 
-            this.acceptFriendRequestToolStripMenuItem.Name = "acceptFriendRequestToolStripMenuItem";
-            this.acceptFriendRequestToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.acceptFriendRequestToolStripMenuItem.Text = "Accept friend request";
-            // 
-            // declineFriendRequestToolStripMenuItem
-            // 
-            this.declineFriendRequestToolStripMenuItem.Name = "declineFriendRequestToolStripMenuItem";
-            this.declineFriendRequestToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.declineFriendRequestToolStripMenuItem.Text = "Decline friend request";
-            // 
-            // Form1
+            // FriendsList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1034, 552);
+            this.Controls.Add(this.SuccessFriendActionLabel);
             this.Controls.Add(this.btnGoBack);
             this.Controls.Add(this.buttonGenerateFriendLink);
             this.Controls.Add(this.txtfriendLink);
@@ -329,15 +343,15 @@
             this.Controls.Add(this.lblNamePrompt);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "FriendsList";
             this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.FriendsList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.friendsTabMenuStrip.ResumeLayout(false);
             this.FriendsTab.ResumeLayout(false);
             this.FriendsTabPage.ResumeLayout(false);
             this.PendingRequestsTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.friendsTabMenuStrip.ResumeLayout(false);
             this.friendRequestsMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -366,6 +380,7 @@
         private System.Windows.Forms.ContextMenuStrip friendRequestsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem acceptFriendRequestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem declineFriendRequestToolStripMenuItem;
+        private System.Windows.Forms.Label SuccessFriendActionLabel;
     }
 }
 

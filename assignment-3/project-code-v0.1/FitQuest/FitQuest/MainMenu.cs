@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApp2;
+using FitQuest;
 
 namespace FitQuest
 {
@@ -48,6 +48,11 @@ namespace FitQuest
             TrainingProgramForm.Show();
             // Show the friends list form
             
+        }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
