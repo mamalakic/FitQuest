@@ -14,11 +14,15 @@ namespace FitQuest
     
     public partial class MainMenu : Form
     {
+        private Profile userProfile;
+
         public MainMenu()
         {
             InitializeComponent();
+            // Initialize the user profile (example values)
+            userProfile = new Profile("John Doe", 1, 25, 10);
         }
-        
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -41,13 +45,13 @@ namespace FitQuest
             FriendsListForm.Show();
         }
 
+      
         private void button3_Click_1(object sender, EventArgs e)
         {
             this.Hide();
-            TrainingProgram TrainingProgramForm = new TrainingProgram();
+            TrainingProgram TrainingProgramForm = new TrainingProgram(userProfile);
             TrainingProgramForm.Show();
-            // Show the friends list form
-            
+            // Show the training program form
         }
 
         private void MainMenu_Load(object sender, EventArgs e)
@@ -60,22 +64,30 @@ namespace FitQuest
     {
         // Variables for character profile
         private string name;
+        private int id;
         private int age;
         private int level;
-        private bool hasProgram;
 
         // Constructor to initialize variables
-        public Profile(string name, int age, int level)
+        public Profile(string name, int id, int age, int level)
         {
             this.name = name;
+            this.id = id;
             this.age = age;
             this.level = level;
         }
 
-        // Method to display character profile
-        public bool getProfileHasProgram()
+        public int Age
         {
-            return hasProgram;
+            get { return age; }
+        }
+
+        public int Level
+        {
+            get { return level; }
         }
     }
+
+
+    
 }
