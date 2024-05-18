@@ -14,6 +14,7 @@ namespace FitQuest
         private int userAge;
         private int userLevel;
         string connectionString;
+        private Profile userProfile;
 
         public TrainingProgram(Profile userProfile)
         {
@@ -21,6 +22,7 @@ namespace FitQuest
             InitializeComponent();
             userAge = userProfile.Age;
             userLevel = userProfile.Level;
+            this.userProfile = userProfile;
 
             // Populate the buttons with exercise programs
             getPrograms();
@@ -29,17 +31,27 @@ namespace FitQuest
         private void button1_Click(object sender, EventArgs e)
         {
             // Hide the current form (main menu)
+            chooseProgram("Push");
+            CombatSystem CombatForm = new CombatSystem();
+            CombatForm.Show();
             this.Hide();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             // Hide the current form (main menu)
+            chooseProgram("Pull");
+            CombatSystem CombatForm = new CombatSystem();
+            CombatForm.Show();
             this.Hide();
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
+            // Hide the current form (main menu)
+            chooseProgram("Legs");
+            CombatSystem CombatForm = new CombatSystem();
+            CombatForm.Show();
             this.Hide();
         }
         public class Exercise
@@ -57,9 +69,12 @@ namespace FitQuest
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
                 adapter.Fill(dt);
 
+
                 var (pushExercises, pullExercises, legExercises) = calculateTrainingProgram(dt, userAge, userLevel);
-                Debug.WriteLine(pullExercises);
-                Debug.WriteLine(pushExercises);
+
+                Debug.WriteLine(string.Join(", ", pullExercises));
+                Debug.WriteLine(string.Join(", ", pushExercises));
+
                 // Convert exercise names to Exercise objects
                 List<Exercise> exercises = pushExercises.Select(ex => new Exercise { Name = ex }).ToList();
                 // Print them in the grid views
@@ -136,6 +151,41 @@ namespace FitQuest
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            chooseProgram("makeOwnProgram");
+        }
+
+        private void chooseProgram(string text)
+        {
+            if (text == "Push")
+            {
+                userProfile.Exercises["Push"] = (dataGridView1.DataSource as List<Exercise>)?.Select(ex => ex.Name).ToList();
+            }
+            else if (text == "Pull")
+            {
+                userProfile.Exercises["Pull"] = (dataGridView2.DataSource as List<Exercise>)?.Select(ex => ex.Name).ToList();
+            }
+            else if (text == "Legs")
+            {
+                userProfile.Exercises["Legs"] = (dataGridView3.DataSource as List<Exercise>)?.Select(ex => ex.Name).ToList();
+            }
+            else if (text == "makeOwnProgram")
+            {
+               
+            }
+            else if (text == "choosePastProgram")
+            {
+
+            }
+        }
+
+        private void chooseProgram(object sender, EventArgs e)
+        {
+
+        }
+
     }
 
     

@@ -63,7 +63,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(147, 37);
             this.button3.TabIndex = 2;
-            this.button3.Text = "Eksatomikeush";
+            this.button3.Text = "Clan";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
