@@ -86,7 +86,7 @@
             this.attackButton.Name = "attackButton";
             this.attackButton.Size = new System.Drawing.Size(154, 54);
             this.attackButton.TabIndex = 3;
-            this.attackButton.Text = "Attack";
+            this.attackButton.Text = "Repetition";
             this.attackButton.UseVisualStyleBackColor = true;
             this.attackButton.Click += new System.EventHandler(this.attackButton_Click);
             // 

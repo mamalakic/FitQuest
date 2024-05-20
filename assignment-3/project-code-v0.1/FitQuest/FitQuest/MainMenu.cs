@@ -91,16 +91,16 @@ namespace FitQuest
     public class Profile
     {
         // Variables for character profile
-        private string id;
+        public string id;
         private int age;
         private int level;
         private string team_id;
         private Dictionary<string, List<string>> exercises;
 
         // Constructor to initialize variables with only id
-        public Profile(string id)
+        public Profile(string user_id)
         {
-            this.id = id;
+            this.id = user_id;
             this.exercises = new Dictionary<string, List<string>>()
             {
                 { "Push", new List<string>() },
@@ -139,6 +139,8 @@ namespace FitQuest
         }
 
         // Getters, setters
+      
+
         public int Age
         {
             get { return age; }
