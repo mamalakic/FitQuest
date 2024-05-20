@@ -79,6 +79,12 @@
     <Compile Include="CombatSystem.Designer.cs">
       <DependentUpon>CombatSystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inventory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory.Designer.cs">
+      <DependentUpon>Inventory.cs</DependentUpon>
+    </Compile>
     <Compile Include="FriendEntry.cs" />
     <Compile Include="FriendsList.cs">
       <SubType>Form</SubType>
@@ -108,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FriendsList.resx">
       <DependentUpon>FriendsList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory.resx">
+      <DependentUpon>Inventory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TrainingProgram.resx">
       <DependentUpon>TrainingProgram.cs</DependentUpon>
