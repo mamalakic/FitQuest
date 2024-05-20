@@ -86,6 +86,15 @@ namespace FitQuest
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            // Show the friends list form
+            Inventory invBackpack = new Inventory();
+            invBackpack.Show();
+        }
     }
 
     public class Profile
