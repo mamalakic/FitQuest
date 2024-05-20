@@ -64,6 +64,7 @@
             this.Controls.Add(this.button1);
             this.Name = "Clan";
             this.Text = "Clan";
+            this.Load += new System.EventHandler(this.Clan_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

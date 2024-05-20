@@ -72,8 +72,6 @@ namespace FitQuest
 
                 var (pushExercises, pullExercises, legExercises) = calculateTrainingProgram(dt, userAge, userLevel);
 
-                Debug.WriteLine(string.Join(", ", pullExercises));
-                Debug.WriteLine(string.Join(", ", pushExercises));
 
                 // Convert exercise names to Exercise objects
                 List<Exercise> exercises = pushExercises.Select(ex => new Exercise { Name = ex }).ToList();
@@ -157,7 +155,7 @@ namespace FitQuest
             chooseProgram("makeOwnProgram");
         }
 
-        private void chooseProgram(string text)
+        private void chooseProgram(string text)  //This can be modified to it chooses programs based on age, level, weight etc.
         {
             if (text == "Push")
             {
@@ -181,10 +179,7 @@ namespace FitQuest
             }
         }
 
-        private void chooseProgram(object sender, EventArgs e)
-        {
 
-        }
 
     }
 

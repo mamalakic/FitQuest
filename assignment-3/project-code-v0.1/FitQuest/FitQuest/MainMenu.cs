@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SQLite;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FitQuest
 {
@@ -12,8 +15,13 @@ namespace FitQuest
         public MainMenu()
         {
             InitializeComponent();
-            // Initialize the user profile (example values)
-            userProfile = new Profile("John Doe", 1, 25, 10);
+
+            // Initialize the user profile with only the id
+            userProfile = new Profile("John Doe");
+
+            // Load the rest of the profile details from the database
+            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            userProfile.LoadProfileFromDatabase(connectionString, textBox1);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,8 +48,6 @@ namespace FitQuest
                 TrainingProgram TrainingProgramForm = new TrainingProgram(userProfile);
                 TrainingProgramForm.Show();
             }
-
-            
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -56,13 +62,27 @@ namespace FitQuest
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            Clan ClanForm = new Clan();
+            Clan ClanForm = new Clan(userProfile);
             ClanForm.Show();
             this.Hide();
-
         }
 
         private void MainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -71,19 +91,16 @@ namespace FitQuest
     public class Profile
     {
         // Variables for character profile
-        private string name;
-        private int id;
+        private string id;
         private int age;
         private int level;
+        private string team_id;
         private Dictionary<string, List<string>> exercises;
 
-        // Constructor to initialize variables
-        public Profile(string name, int id, int age, int level)
+        // Constructor to initialize variables with only id
+        public Profile(string id)
         {
-            this.name = name;
             this.id = id;
-            this.age = age;
-            this.level = level;
             this.exercises = new Dictionary<string, List<string>>()
             {
                 { "Push", new List<string>() },
@@ -92,6 +109,36 @@ namespace FitQuest
             };
         }
 
+        // Method to populate profile details from database
+        public void LoadProfileFromDatabase(string connectionString, System.Windows.Forms.TextBox textBox1)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                var command = new SQLiteCommand("SELECT age, level, team_id FROM Profiles WHERE id = @id", connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        age = reader.GetInt32(reader.GetOrdinal("age"));
+                        level = reader.GetInt32(reader.GetOrdinal("level"));
+                        team_id = reader.IsDBNull(reader.GetOrdinal("team_id")) ? null : reader.GetString(reader.GetOrdinal("team_id"));
+
+                        // Populate textBox1 with the profile info
+                        textBox1.Text = $"ID: {id}, Age: {age}, Level: {level}, Team ID: {(team_id ?? "null")}";
+                    }
+                    else
+                    {
+                        // If no profile exists with the given ID
+                        textBox1.Text = "There isn't a profile with that name.";
+                    }
+                }
+            }
+        }
+
+        // Getters, setters
         public int Age
         {
             get { return age; }
@@ -100,6 +147,11 @@ namespace FitQuest
         public int Level
         {
             get { return level; }
+        }
+
+        public string Team_id
+        {
+            get { return team_id; }
         }
 
         public Dictionary<string, List<string>> Exercises
@@ -118,4 +170,5 @@ namespace FitQuest
     {
         public string Name { get; set; }
     }
+
 }
