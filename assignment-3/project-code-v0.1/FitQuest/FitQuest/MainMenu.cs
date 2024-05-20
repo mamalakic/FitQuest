@@ -66,15 +66,6 @@ namespace FitQuest
             ClanForm.Show();
             this.Hide();
         }
-        private void button4_Click(object sender, EventArgs e)
-        {
-            // Hide the current form (main menu)
-            this.Hide();
-
-            // Show the Backpack
-            Inventory invBackpack = new Inventory();
-            invBackpack.Show();
-        }
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
@@ -95,7 +86,6 @@ namespace FitQuest
         {
 
         }
-
     }
 
     public class Profile
