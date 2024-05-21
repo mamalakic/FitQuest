@@ -30,7 +30,6 @@
         {
             this.backButton = new System.Windows.Forms.Button();
             this.clantablabel = new System.Windows.Forms.Label();
-            this.notinaclanLabel = new System.Windows.Forms.Label();
             this.joinaclanButton = new System.Windows.Forms.Button();
             this.createaclanbutton = new System.Windows.Forms.Button();
             this.createaclanLabel = new System.Windows.Forms.Label();
@@ -38,18 +37,29 @@
             this.clannameTextBox = new System.Windows.Forms.TextBox();
             this.confirmcreateButton = new System.Windows.Forms.Button();
             this.notinaclanPanel = new System.Windows.Forms.Panel();
+            this.notinaclanLabel = new System.Windows.Forms.Label();
             this.createaclanPanel = new System.Windows.Forms.Panel();
             this.invitefriendspanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.invitedoneButton = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.clancampPanel = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.teambattleButton = new System.Windows.Forms.Button();
+            this.clanmembersGrid = new System.Windows.Forms.DataGridView();
             this.clannamecampLabel = new System.Windows.Forms.Label();
+            this.joinaclanPanel = new System.Windows.Forms.Panel();
+            this.jointheclanButton = new System.Windows.Forms.Button();
+            this.chooseafriendLabel = new System.Windows.Forms.Label();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.notinaclanPanel.SuspendLayout();
             this.createaclanPanel.SuspendLayout();
             this.invitefriendspanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.clancampPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.clanmembersGrid)).BeginInit();
+            this.joinaclanPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
             // 
             // backButton
@@ -74,16 +84,6 @@
             this.clantablabel.TabIndex = 1;
             this.clantablabel.Text = "Clan Camp";
             // 
-            // notinaclanLabel
-            // 
-            this.notinaclanLabel.AutoSize = true;
-            this.notinaclanLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.notinaclanLabel.Location = new System.Drawing.Point(293, 13);
-            this.notinaclanLabel.Name = "notinaclanLabel";
-            this.notinaclanLabel.Size = new System.Drawing.Size(472, 24);
-            this.notinaclanLabel.TabIndex = 2;
-            this.notinaclanLabel.Text = "You are not in a clan yet, please create one or join one.";
-            // 
             // joinaclanButton
             // 
             this.joinaclanButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
@@ -93,6 +93,7 @@
             this.joinaclanButton.TabIndex = 3;
             this.joinaclanButton.Text = "Join a Clan";
             this.joinaclanButton.UseVisualStyleBackColor = true;
+            this.joinaclanButton.Click += new System.EventHandler(this.joinaclanButton_Click);
             // 
             // createaclanbutton
             // 
@@ -151,11 +152,21 @@
             this.notinaclanPanel.Controls.Add(this.createaclanbutton);
             this.notinaclanPanel.Controls.Add(this.joinaclanButton);
             this.notinaclanPanel.Controls.Add(this.notinaclanLabel);
-            this.notinaclanPanel.Location = new System.Drawing.Point(257, 110);
+            this.notinaclanPanel.Location = new System.Drawing.Point(141, 145);
             this.notinaclanPanel.Name = "notinaclanPanel";
-            this.notinaclanPanel.Size = new System.Drawing.Size(1028, 574);
+            this.notinaclanPanel.Size = new System.Drawing.Size(1063, 594);
             this.notinaclanPanel.TabIndex = 9;
             this.notinaclanPanel.Visible = false;
+            // 
+            // notinaclanLabel
+            // 
+            this.notinaclanLabel.AutoSize = true;
+            this.notinaclanLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.notinaclanLabel.Location = new System.Drawing.Point(293, 13);
+            this.notinaclanLabel.Name = "notinaclanLabel";
+            this.notinaclanLabel.Size = new System.Drawing.Size(472, 24);
+            this.notinaclanLabel.TabIndex = 2;
+            this.notinaclanLabel.Text = "You are not in a clan yet, please create one or join one.";
             // 
             // createaclanPanel
             // 
@@ -164,7 +175,7 @@
             this.createaclanPanel.Controls.Add(this.clannameTextBox);
             this.createaclanPanel.Controls.Add(this.clannameLabel);
             this.createaclanPanel.Controls.Add(this.createaclanLabel);
-            this.createaclanPanel.Location = new System.Drawing.Point(229, 93);
+            this.createaclanPanel.Location = new System.Drawing.Point(97, 235);
             this.createaclanPanel.Name = "createaclanPanel";
             this.createaclanPanel.Size = new System.Drawing.Size(1034, 588);
             this.createaclanPanel.TabIndex = 10;
@@ -176,29 +187,11 @@
             this.invitefriendspanel.Controls.Add(this.invitedoneButton);
             this.invitefriendspanel.Controls.Add(this.dataGridView1);
             this.invitefriendspanel.Controls.Add(this.label1);
-            this.invitefriendspanel.Location = new System.Drawing.Point(211, 123);
+            this.invitefriendspanel.Location = new System.Drawing.Point(78, 281);
             this.invitefriendspanel.Name = "invitefriendspanel";
             this.invitefriendspanel.Size = new System.Drawing.Size(1142, 539);
             this.invitefriendspanel.TabIndex = 9;
             this.invitefriendspanel.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.label1.Location = new System.Drawing.Point(488, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 25);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Invite friends!";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(353, 66);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(410, 385);
-            this.dataGridView1.TabIndex = 10;
             // 
             // invitedoneButton
             // 
@@ -211,32 +204,125 @@
             this.invitedoneButton.UseVisualStyleBackColor = true;
             this.invitedoneButton.Click += new System.EventHandler(this.invitedoneButton_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(353, 66);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(410, 385);
+            this.dataGridView1.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.label1.Location = new System.Drawing.Point(488, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(140, 25);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Invite friends!";
+            // 
             // clancampPanel
             // 
             this.clancampPanel.BackColor = System.Drawing.Color.Transparent;
+            this.clancampPanel.Controls.Add(this.label2);
+            this.clancampPanel.Controls.Add(this.teambattleButton);
+            this.clancampPanel.Controls.Add(this.clanmembersGrid);
             this.clancampPanel.Controls.Add(this.clannamecampLabel);
-            this.clancampPanel.Location = new System.Drawing.Point(196, 172);
+            this.clancampPanel.Location = new System.Drawing.Point(296, 92);
             this.clancampPanel.Name = "clancampPanel";
             this.clancampPanel.Size = new System.Drawing.Size(1139, 576);
             this.clancampPanel.TabIndex = 11;
             this.clancampPanel.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(129, 109);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(208, 31);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Clan\'s Members";
+            // 
+            // teambattleButton
+            // 
+            this.teambattleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.teambattleButton.Location = new System.Drawing.Point(740, 143);
+            this.teambattleButton.Name = "teambattleButton";
+            this.teambattleButton.Size = new System.Drawing.Size(235, 81);
+            this.teambattleButton.TabIndex = 4;
+            this.teambattleButton.Text = "Team Battle";
+            this.teambattleButton.UseVisualStyleBackColor = true;
+            // 
+            // clanmembersGrid
+            // 
+            this.clanmembersGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.clanmembersGrid.Location = new System.Drawing.Point(65, 157);
+            this.clanmembersGrid.Name = "clanmembersGrid";
+            this.clanmembersGrid.ReadOnly = true;
+            this.clanmembersGrid.Size = new System.Drawing.Size(345, 292);
+            this.clanmembersGrid.TabIndex = 3;
             // 
             // clannamecampLabel
             // 
             this.clannamecampLabel.AutoSize = true;
             this.clannamecampLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.clannamecampLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.clannamecampLabel.Location = new System.Drawing.Point(409, 25);
+            this.clannamecampLabel.Location = new System.Drawing.Point(447, 35);
             this.clannamecampLabel.Name = "clannamecampLabel";
             this.clannamecampLabel.Size = new System.Drawing.Size(86, 31);
             this.clannamecampLabel.TabIndex = 0;
             this.clannamecampLabel.Text = "label2";
+            // 
+            // joinaclanPanel
+            // 
+            this.joinaclanPanel.Controls.Add(this.jointheclanButton);
+            this.joinaclanPanel.Controls.Add(this.chooseafriendLabel);
+            this.joinaclanPanel.Controls.Add(this.dataGridView3);
+            this.joinaclanPanel.Location = new System.Drawing.Point(38, 467);
+            this.joinaclanPanel.Name = "joinaclanPanel";
+            this.joinaclanPanel.Size = new System.Drawing.Size(985, 531);
+            this.joinaclanPanel.TabIndex = 12;
+            this.joinaclanPanel.Visible = false;
+            // 
+            // jointheclanButton
+            // 
+            this.jointheclanButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.jointheclanButton.Location = new System.Drawing.Point(386, 414);
+            this.jointheclanButton.Name = "jointheclanButton";
+            this.jointheclanButton.Size = new System.Drawing.Size(169, 65);
+            this.jointheclanButton.TabIndex = 2;
+            this.jointheclanButton.Text = "Join the Clan!";
+            this.jointheclanButton.UseVisualStyleBackColor = true;
+            this.jointheclanButton.Click += new System.EventHandler(this.jointheclanButton_Click);
+            // 
+            // chooseafriendLabel
+            // 
+            this.chooseafriendLabel.AutoSize = true;
+            this.chooseafriendLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
+            this.chooseafriendLabel.Location = new System.Drawing.Point(362, 30);
+            this.chooseafriendLabel.Name = "chooseafriendLabel";
+            this.chooseafriendLabel.Size = new System.Drawing.Size(219, 58);
+            this.chooseafriendLabel.TabIndex = 1;
+            this.chooseafriendLabel.Text = "Choose a friend to\r\njoin their clan.";
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Location = new System.Drawing.Point(299, 102);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.ReadOnly = true;
+            this.dataGridView3.Size = new System.Drawing.Size(345, 292);
+            this.dataGridView3.TabIndex = 0;
             // 
             // Clan
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1509, 793);
             this.Controls.Add(this.clancampPanel);
+            this.Controls.Add(this.joinaclanPanel);
             this.Controls.Add(this.invitefriendspanel);
             this.Controls.Add(this.createaclanPanel);
             this.Controls.Add(this.notinaclanPanel);
@@ -252,6 +338,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.clancampPanel.ResumeLayout(false);
             this.clancampPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.clanmembersGrid)).EndInit();
+            this.joinaclanPanel.ResumeLayout(false);
+            this.joinaclanPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,7 +351,6 @@
 
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label clantablabel;
-        private System.Windows.Forms.Label notinaclanLabel;
         private System.Windows.Forms.Button joinaclanButton;
         private System.Windows.Forms.Button createaclanbutton;
         private System.Windows.Forms.Label createaclanLabel;
@@ -276,5 +365,13 @@
         private System.Windows.Forms.Button invitedoneButton;
         private System.Windows.Forms.Panel clancampPanel;
         private System.Windows.Forms.Label clannamecampLabel;
+        private System.Windows.Forms.Panel joinaclanPanel;
+        private System.Windows.Forms.Label chooseafriendLabel;
+        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.Button jointheclanButton;
+        private System.Windows.Forms.Label notinaclanLabel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button teambattleButton;
+        private System.Windows.Forms.DataGridView clanmembersGrid;
     }
 }

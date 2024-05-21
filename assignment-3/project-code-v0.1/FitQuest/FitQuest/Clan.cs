@@ -19,12 +19,14 @@ namespace FitQuest
         private Profile userProfile;
         private string team_id;
         private SQLiteConnection connection;
+        bool hasInternetConnectionBool;
 
 
         public Clan(Profile userProfile)
         {
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             this.connection = new SQLiteConnection(connectionString); // Initialize the connection
+            this.hasInternetConnectionBool = hasInternetConnection();
 
             InitializeComponent();
             this.userProfile = userProfile;
@@ -32,8 +34,8 @@ namespace FitQuest
             
 
             // Check if team_id is null
-            if (true)
-                //if (string.IsNullOrEmpty(this.team_id))               DELETE THIS WHEN DONE WITH CREATING/JOINING CLAN CODE-----------------------------------
+            //if (true)
+            if (string.IsNullOrEmpty(this.team_id))       
             {
                 notinaclanPanel.Visible = true;
                 createaclanPanel.Visible = false;
@@ -42,7 +44,13 @@ namespace FitQuest
             else
             {
                 //load clan details if team_id is not null (user is in a clan)
-                LoadClanCamp();
+                if (hasInternetConnectionBool)
+                {
+                    LoadClanCamp();
+
+                }
+                else { MessageBox.Show("Please connect to the internet first"); }
+
             }
         }
 
@@ -50,6 +58,17 @@ namespace FitQuest
         {
             clancampPanel.Visible = true;
             clannamecampLabel.Text = "Clan's " + team_id + " Camp";
+           
+            string query = "SELECT * FROM Profiles WHERE team_id == '" + team_id + "';";
+            SQLiteCommand cmd = new SQLiteCommand(query, connection);
+
+            //dataTable to hold the data
+            DataTable dt = new DataTable();
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            adapter.Fill(dt);
+
+            //populate the grid with the clan's members
+            clanmembersGrid.DataSource = dt;
 
         }
 
@@ -122,11 +141,9 @@ namespace FitQuest
                 // Set DataGridView properties for the checkbox
                 dataGridView1.Columns["Select"].DisplayIndex = 0;
                 dataGridView1.Columns["Select"].HeaderText = "Select";
+                connection.Close();
 
             }
-
-            // Close the connection
-            connection.Close();
         }
 
         private bool checkForm(string teamName)
@@ -152,7 +169,6 @@ namespace FitQuest
 
                 // Execute the query
                 int count = Convert.ToInt32(command.ExecuteScalar());
-                Debug.WriteLine(count);
                 // If count is greater than 0, it means the name already exists
                 if (count > 0)
                 {
@@ -215,6 +231,55 @@ namespace FitQuest
         {
 
         }
+
+        private void joinaclanButton_Click(object sender, EventArgs e)
+        {
+            joinaclanPanel.Visible = true;
+
+            //sql
+            string query = "SELECT * FROM Friends WHERE clanID != 'null'";
+            SQLiteCommand cmd = new SQLiteCommand(query, connection);
+
+            //dataTable to hold the data
+            DataTable dt = new DataTable();
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            adapter.Fill(dt);
+
+
+            //set the DataSource of the DataGridView
+            dataGridView3.DataSource = dt;
+            dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+
+
+
+        private void jointheclanButton_Click(object sender, EventArgs e)
+        {
+            // Check if any row is selected
+            if (dataGridView3.SelectedRows.Count > 0)
+            {
+                // Get the value of the first column (assuming it's the friend name)
+                string clanName = dataGridView3.SelectedRows[0].Cells[1].Value.ToString();
+                // You can adjust the index (1) if the friend name is in a different column
+                MessageBox.Show($"You have joined: {clanName}");
+                joinaclanPanel.Visible = false;
+                this.team_id = clanName;
+                LoadClanCamp();
+            }
+            else
+            {
+                
+                
+                MessageBox.Show("Please select a friend.");
+            }
+        }
+        private bool hasInternetConnection()
+        {
+            return true;
+        }
+
+       
     }
-    }
+}
 
