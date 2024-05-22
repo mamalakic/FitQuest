@@ -42,9 +42,11 @@
             this.nodeInfo = new System.Windows.Forms.Label();
             this.secondsPassedLabel = new System.Windows.Forms.Label();
             this.timeCounterGroupBox = new System.Windows.Forms.GroupBox();
+            this.exerciseDataGrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).BeginInit();
             this.timeCounterGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.exerciseDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // combatTimer
@@ -119,7 +121,6 @@
             this.playerCharacterPictureBox.Size = new System.Drawing.Size(182, 314);
             this.playerCharacterPictureBox.TabIndex = 6;
             this.playerCharacterPictureBox.TabStop = false;
-            this.playerCharacterPictureBox.Click += new System.EventHandler(this.playerCharacterPictureBox_Click);
             // 
             // enemyNameLabel
             // 
@@ -139,7 +140,6 @@
             this.nodeInfo.Size = new System.Drawing.Size(35, 13);
             this.nodeInfo.TabIndex = 8;
             this.nodeInfo.Text = "label1";
-            this.nodeInfo.Click += new System.EventHandler(this.nodeInfo_Click);
             // 
             // secondsPassedLabel
             // 
@@ -149,7 +149,6 @@
             this.secondsPassedLabel.Size = new System.Drawing.Size(35, 13);
             this.secondsPassedLabel.TabIndex = 9;
             this.secondsPassedLabel.Text = "label1";
-            this.secondsPassedLabel.Click += new System.EventHandler(this.ticksPassedLabel_Click);
             // 
             // timeCounterGroupBox
             // 
@@ -161,6 +160,15 @@
             this.timeCounterGroupBox.TabStop = false;
             this.timeCounterGroupBox.Text = "Time";
             // 
+            // exerciseDataGrid
+            // 
+            this.exerciseDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.exerciseDataGrid.Location = new System.Drawing.Point(291, 45);
+            this.exerciseDataGrid.Name = "exerciseDataGrid";
+            this.exerciseDataGrid.ReadOnly = true;
+            this.exerciseDataGrid.Size = new System.Drawing.Size(358, 150);
+            this.exerciseDataGrid.TabIndex = 11;
+            // 
             // CombatSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -168,6 +176,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(963, 552);
+            this.Controls.Add(this.exerciseDataGrid);
             this.Controls.Add(this.timeCounterGroupBox);
             this.Controls.Add(this.nodeInfo);
             this.Controls.Add(this.enemyNameLabel);
@@ -187,6 +196,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).EndInit();
             this.timeCounterGroupBox.ResumeLayout(false);
             this.timeCounterGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.exerciseDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,5 +216,6 @@
         private System.Windows.Forms.Label nodeInfo;
         private System.Windows.Forms.Label secondsPassedLabel;
         private System.Windows.Forms.GroupBox timeCounterGroupBox;
+        private System.Windows.Forms.DataGridView exerciseDataGrid;
     }
 }

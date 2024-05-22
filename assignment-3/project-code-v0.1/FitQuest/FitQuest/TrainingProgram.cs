@@ -18,39 +18,38 @@ namespace FitQuest
 
         public TrainingProgram(Profile userProfile)
         {
+            //initialize connection
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             InitializeComponent();
             userAge = userProfile.Age;
             userLevel = userProfile.Level;
             this.userProfile = userProfile;
 
-            // Populate the buttons with exercise programs
+            //populate the buttons with exercise programs
             getPrograms();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        //buttons 1,2 and 3 choose push, pull and legs training programs respectively
+        private void button1_Click(object sender, EventArgs e) 
         {
-            // Hide the current form (main menu)
             chooseProgram("Push");
-            CombatSystem CombatForm = new CombatSystem();
+            CombatSystem CombatForm = new CombatSystem(userProfile);
             CombatForm.Show();
             this.Hide();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            // Hide the current form (main menu)
             chooseProgram("Pull");
-            CombatSystem CombatForm = new CombatSystem();
+            CombatSystem CombatForm = new CombatSystem(userProfile);
             CombatForm.Show();
             this.Hide();
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            // Hide the current form (main menu)
             chooseProgram("Legs");
-            CombatSystem CombatForm = new CombatSystem();
+            CombatSystem CombatForm = new CombatSystem(userProfile);
             CombatForm.Show();
             this.Hide();
         }
@@ -73,9 +72,9 @@ namespace FitQuest
                 var (pushExercises, pullExercises, legExercises) = calculateTrainingProgram(dt, userAge, userLevel);
 
 
-                // Convert exercise names to Exercise objects
+                //convert exercise names to exercise objects
                 List<Exercise> exercises = pushExercises.Select(ex => new Exercise { Name = ex }).ToList();
-                // Print them in the grid views
+                //print them in the grid views
                 dataGridView1.DataSource = exercises;
 
                 exercises = pullExercises.Select(ex => new Exercise { Name = ex }).ToList();
@@ -92,13 +91,13 @@ namespace FitQuest
             var pullExercises = new List<string>();
             var legExercises = new List<string>();
 
-            // Filter exercises based on age and level
+            //filter exercises based on age and level (not implemented yet)
             foreach (DataRow row in dt.Rows)
             {
                 string exerciseName = row["exercise_name"].ToString();
                 string category = row["muscle"].ToString();
 
-                //  categorize exercises based on muscle category
+                //categorize exercises based on muscle category
                 if (category == "Push")
                 {
                     pushExercises.Add(exerciseName);
@@ -120,7 +119,7 @@ namespace FitQuest
 
         private void TrainingProgram_Load(object sender, EventArgs e)
         {
-            // You can perform any necessary initialization here
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -128,7 +127,7 @@ namespace FitQuest
 
         }
 
-   
+
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -156,6 +155,7 @@ namespace FitQuest
         }
 
         private void chooseProgram(string text)  //This can be modified to it chooses programs based on age, level, weight etc.
+            //update the userProfile's exercises with the selected program's exercises
         {
             if (text == "Push")
             {
@@ -171,12 +171,17 @@ namespace FitQuest
             }
             else if (text == "makeOwnProgram")
             {
-               
+                createProgramMaker();
             }
             else if (text == "choosePastProgram")
             {
-
+                
             }
+        }
+
+        private void createProgramMaker()
+        {
+
         }
 
 

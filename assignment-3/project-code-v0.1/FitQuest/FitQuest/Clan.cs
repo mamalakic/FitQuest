@@ -24,6 +24,7 @@ namespace FitQuest
 
         public Clan(Profile userProfile)
         {
+            //initialize connection and components
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             this.connection = new SQLiteConnection(connectionString); // Initialize the connection
             this.hasInternetConnectionBool = hasInternetConnection();
@@ -33,7 +34,7 @@ namespace FitQuest
             this.team_id = userProfile.Team_id;
             
 
-            // Check if team_id is null
+            //check if team_id is null
             //if (true)
             if (string.IsNullOrEmpty(this.team_id))       
             {
@@ -56,13 +57,14 @@ namespace FitQuest
 
         private void LoadClanCamp()
         {
+            //load the clan camp
             clancampPanel.Visible = true;
             clannamecampLabel.Text = "Clan's " + team_id + " Camp";
            
             string query = "SELECT * FROM Profiles WHERE team_id == '" + team_id + "';";
             SQLiteCommand cmd = new SQLiteCommand(query, connection);
 
-            //dataTable to hold the data
+            //dataTable to hold the data of the clan members
             DataTable dt = new DataTable();
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
             adapter.Fill(dt);
@@ -74,26 +76,13 @@ namespace FitQuest
 
         private void backButton_Click(object sender, EventArgs e)
         {
+            //leaves the clan camp
             MainMenu MainMenuForm = new MainMenu();
             MainMenuForm.Show();
             this.Hide();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Clan_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void createaclanbutton_Click(object sender, EventArgs e)
-        {
-           
-        }
-
+    
         private void confirmcreateButton_Click_1(object sender, EventArgs e)
         {
             string teamName = clannameTextBox.Text.Trim(); // Get the team name from the textbox
@@ -148,7 +137,7 @@ namespace FitQuest
 
         private bool checkForm(string teamName)
         {
-            // Check if the team name is empty
+            //check if a team name has been inputted
             if (string.IsNullOrWhiteSpace(teamName))
             {
                 // Show an error message or handle the empty name case as needed
@@ -158,13 +147,13 @@ namespace FitQuest
 
           
 
-            // SQL command to check if the team name exists in the "teams" table
+            //sQL command to check if the team name exists in the teams table
             string query = "SELECT COUNT(*) FROM teams WHERE team_id = '" + teamName + "';";
 
-            // Create and execute the command
+            //create and execute the command
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                // Add parameter for the team id
+                //add parameter for the team id
                 command.Parameters.AddWithValue("@TeamID", teamName);
 
                 // Execute the query
@@ -190,36 +179,25 @@ namespace FitQuest
             createaclanPanel.Visible = true;
         }
 
-        private void createaclanLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void namerrorLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
 
         private void invitedoneButton_Click(object sender, EventArgs e)
         { 
-            // Initialize a list to keep selected names
+            //initialize a list to keep selected names
             List<string> selectedNames = new List<string>();
 
-            // Loop through the DataGridView rows
+            //loop through the DataGridView rows
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                // Check if the CheckBox is selected
+                //check if the CheckBox is selected
                 if (row.Cells["Select"].Value != DBNull.Value && row.Cells["Select"].Value != null)
                 {
-                    // Get the friend's name and add to the list
-                    string name = row.Cells["friendID"].Value.ToString(); // Adjust column name as necessary
+                    //get the friend's name and add to the list
+                    string name = row.Cells["friendID"].Value.ToString(); //adjust column name as necessary
                     selectedNames.Add(name);
                 }
             }
 
-            // Convert the list of names to a single string
+            //convert the list of names to a single string
             string selectedNamesString = string.Join(", ", selectedNames);
 
             insertIntoTeam(selectedNamesString);
@@ -256,21 +234,18 @@ namespace FitQuest
 
         private void jointheclanButton_Click(object sender, EventArgs e)
         {
-            // Check if any row is selected
+            //check if any row is selected
             if (dataGridView3.SelectedRows.Count > 0)
             {
-                // Get the value of the first column (assuming it's the friend name)
+                //get the value of the the clan name
                 string clanName = dataGridView3.SelectedRows[0].Cells[1].Value.ToString();
-                // You can adjust the index (1) if the friend name is in a different column
                 MessageBox.Show($"You have joined: {clanName}");
                 joinaclanPanel.Visible = false;
                 this.team_id = clanName;
                 LoadClanCamp();
             }
-            else
+            else //case where button is pressed without any friend selected
             {
-                
-                
                 MessageBox.Show("Please select a friend.");
             }
         }
@@ -279,7 +254,53 @@ namespace FitQuest
             return true;
         }
 
-       
+        private void leaveclanButton_Click(object sender, EventArgs e)
+        {
+            //confirm if the user wants to leave the clan
+            var confirmResult = MessageBox.Show("Are you sure you want to leave the clan?", "Confirm Leave Clan", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                using (var connection = new SQLiteConnection(connectionString))
+                {
+                    try
+                    {
+                        //update the database
+                        connection.Open();
+                        string updateQuery = "UPDATE Profiles SET team_id = NULL WHERE id = @UserID;";
+
+                        using (var cmd = new SQLiteCommand(updateQuery, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@UserID", userProfile.id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        //update the user profile and UI
+                        this.team_id = null;
+                        userProfile.UpdateTeamId(null);
+
+                        //hide clan camp and show the panel for creating/joining a clan
+                        clancampPanel.Visible = false;
+                        notinaclanPanel.Visible = true;
+                        createaclanPanel.Visible = false;
+
+                        MessageBox.Show("You have left the clan.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error leaving the clan: " + ex.Message);
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void Clan_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

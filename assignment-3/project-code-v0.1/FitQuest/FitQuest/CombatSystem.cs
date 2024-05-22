@@ -15,15 +15,18 @@ namespace FitQuest
     {
         int combatTimeSeconds = 0;
         int secondsAfk = 0;
-        public CombatSystem()
+        private Profile userProfile;
+        public CombatSystem(Profile userProfile)
         {
             InitializeComponent();
+            this.userProfile = userProfile;
         }
 
         private void CombatSystem_Load(object sender, EventArgs e)
         {
             // TODO: Get this from outside (based on room node)
-            this.enemyHealthBar.Maximum = 100;
+
+            this.enemyHealthBar.Maximum = 900;
             this.enemyHealthBar.Value = this.enemyHealthBar.Maximum;
             this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
             this.enemyNameLabel.Text = "Goblin boss";
@@ -32,7 +35,32 @@ namespace FitQuest
             this.secondsPassedLabel.Text = "00:00";
             combatTimer.Interval = 1000;
             combatTimer.Start();
+            PopulateExerciseDataGrid();
         }
+
+        private void PopulateExerciseDataGrid()
+        {
+            DataTable exerciseTable = new DataTable();
+            exerciseTable.Columns.Add("Exercise Name", typeof(string));
+            exerciseTable.Columns.Add("Sets", typeof(int));
+            exerciseTable.Columns.Add("Repetitions", typeof(int));
+
+            foreach (var program in userProfile.Exercises.Values)
+            {
+                foreach (string exercise in program)
+                {
+                    DataRow row = exerciseTable.NewRow();
+                    row["Exercise Name"] = exercise;
+                    row["Sets"] = 3; // Default sets
+                    row["Repetitions"] = 10; // Default repetitions
+                    exerciseTable.Rows.Add(row);
+                }
+            }
+
+            exerciseDataGrid.DataSource = exerciseTable;
+            exerciseDataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
 
         private void enemyHealthBar_Click(object sender, EventArgs e)
         {
@@ -51,12 +79,46 @@ namespace FitQuest
 
         private void attackButton_Click(object sender, EventArgs e)
         {
+            if (exerciseDataGrid.SelectedRows.Count > 0)
+            {
+                //get the selected row
+                DataGridViewRow selectedRow = exerciseDataGrid.SelectedRows[0];
+                int repetitions = Convert.ToInt32(selectedRow.Cells["Repetitions"].Value);
+                int sets = Convert.ToInt32(selectedRow.Cells["Sets"].Value);
+
+                //reduce selected exercise's reps
+                repetitions--;
+
+                if (repetitions <= 0)
+                {
+                    //reduce set if done with the set's reps
+                    sets--;
+                    if (sets <= 0)
+                    {
+                        //remove exercise from the table when sets are done
+                        exerciseDataGrid.Rows.Remove(selectedRow);
+                    }
+                    else
+                    {
+                        //restore reps if there are more sets
+                        repetitions = 10;
+                        selectedRow.Cells["Sets"].Value = sets;
+                        selectedRow.Cells["Repetitions"].Value = repetitions;
+                    }
+                }
+                else
+                {
+                    //update reps if reps there are more than 0
+                    selectedRow.Cells["Repetitions"].Value = repetitions;
+                }
+            }
+
             // Call function to calculate damage
             int damageDeal = calculateDamage(1, 1, 1);
-
             reduceEnemyHealth(this.enemyHealthBar, 10);
 
-            if (isEnemyDead(this.enemyHealthBar)) {
+            if (isEnemyDead(this.enemyHealthBar))
+            {
                 victorySequence();
             }
         }
@@ -163,10 +225,6 @@ namespace FitQuest
             return 10;
         }
 
-        private void nodeInfo_Click(object sender, EventArgs e)
-        {
-
-        }
 
         public static string FormatSecondsToMMSS(int totalSeconds)
         {
@@ -186,14 +244,6 @@ namespace FitQuest
             }
         }
 
-        private void playerCharacterPictureBox_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ticksPassedLabel_Click(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }

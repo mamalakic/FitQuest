@@ -38,7 +38,7 @@ namespace FitQuest
                     Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
                 }
                 // Show the friends list form
-                CombatSystem CombatForm = new CombatSystem();
+                CombatSystem CombatForm = new CombatSystem(userProfile);
                 CombatForm.Show();
             }
             else
@@ -67,25 +67,7 @@ namespace FitQuest
             this.Hide();
         }
 
-        private void MainMenu_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+    
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -164,7 +146,10 @@ namespace FitQuest
         {
             get { return team_id; }
         }
-
+        public void UpdateTeamId(string newTeamId)
+        {
+            this.team_id = newTeamId;
+        }
         public Dictionary<string, List<string>> Exercises
         {
             get { return exercises; }
