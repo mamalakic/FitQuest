@@ -329,7 +329,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1034, 552);
+            this.ClientSize = new System.Drawing.Size(963, 552);
             this.Controls.Add(this.SuccessFriendActionLabel);
             this.Controls.Add(this.btnGoBack);
             this.Controls.Add(this.buttonGenerateFriendLink);

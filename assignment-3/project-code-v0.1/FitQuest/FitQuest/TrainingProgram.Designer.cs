@@ -65,7 +65,7 @@
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(121, 70);
+            this.groupBox1.Location = new System.Drawing.Point(227, 85);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(533, 342);
             this.groupBox1.TabIndex = 1;
@@ -155,10 +155,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(963, 552);
             this.Controls.Add(this.groupBox1);
             this.Name = "TrainingProgram";
-            this.Text = "Form1";
+            this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.TrainingProgram_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

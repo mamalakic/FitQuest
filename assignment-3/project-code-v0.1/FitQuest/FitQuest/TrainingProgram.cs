@@ -24,9 +24,19 @@ namespace FitQuest
             userAge = userProfile.Age;
             userLevel = userProfile.Level;
             this.userProfile = userProfile;
+            if (userProfile.TimesTrained > 4)
+            {
+                createDangerWarning();
+                //if user accepts ->getPrograms(), if not get him back to the main menu
+            }
 
             //populate the buttons with exercise programs
             getPrograms();
+        }
+
+        public void createDangerWarning()
+        {
+            //a warning that the user has to accept to continue
         }
 
         //buttons 1,2 and 3 choose push, pull and legs training programs respectively

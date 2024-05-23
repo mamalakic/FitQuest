@@ -77,6 +77,12 @@ namespace FitQuest
             Inventory invBackpack = new Inventory();
             invBackpack.Show();
         }
+
+        private void shopButton_Click(object sender, EventArgs e)
+        {
+            ItemShop ItemShopForm = new ItemShop();
+            ItemShopForm.Show();
+        }
     }
 
     public class Profile
@@ -87,6 +93,7 @@ namespace FitQuest
         private int level;
         private string team_id;
         private Dictionary<string, List<string>> exercises;
+        private int timesTrained=0;
 
         // Constructor to initialize variables with only id
         public Profile(string user_id)
@@ -145,6 +152,11 @@ namespace FitQuest
         public string Team_id
         {
             get { return team_id; }
+        }
+        public int TimesTrained
+        {
+            get { return timesTrained; }
+            set { timesTrained = value; }
         }
         public void UpdateTeamId(string newTeamId)
         {
