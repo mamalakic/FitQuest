@@ -30,11 +30,11 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.shopButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.shopButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,48 +61,7 @@
             this.groupBox1.Size = new System.Drawing.Size(720, 489);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.button4.Location = new System.Drawing.Point(229, 265);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(230, 60);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Inventory";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.button3.Location = new System.Drawing.Point(229, 176);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(230, 60);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Clan Camp";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.button2.Location = new System.Drawing.Point(229, 87);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(230, 60);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Friend List";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.Silver;
-            this.textBox1.Location = new System.Drawing.Point(19, 22);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 180);
-            this.textBox1.TabIndex = 2;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // shopButton
             // 
@@ -114,6 +73,48 @@
             this.shopButton.Text = "Shop";
             this.shopButton.UseVisualStyleBackColor = true;
             this.shopButton.Click += new System.EventHandler(this.shopButton_Click);
+            // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.button4.Location = new System.Drawing.Point(229, 265);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(230, 60);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "Inventory";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.InventoryButton_Click);
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.button3.Location = new System.Drawing.Point(229, 176);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(230, 60);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Clan Camp";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.ClanButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.button2.Location = new System.Drawing.Point(229, 87);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(230, 60);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Friend List";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.FriendsListButton_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.Silver;
+            this.textBox1.Location = new System.Drawing.Point(19, 22);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 180);
+            this.textBox1.TabIndex = 2;
             // 
             // MainMenu
             // 

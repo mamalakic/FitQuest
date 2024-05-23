@@ -43,10 +43,15 @@
             this.secondsPassedLabel = new System.Windows.Forms.Label();
             this.timeCounterGroupBox = new System.Windows.Forms.GroupBox();
             this.exerciseDataGrid = new System.Windows.Forms.DataGridView();
+            this.inactivityTimer = new System.Windows.Forms.Timer(this.components);
+            this.afkCheckGroupBox = new System.Windows.Forms.GroupBox();
+            this.afkCheckLabel = new System.Windows.Forms.Label();
+            this.afkCheckButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).BeginInit();
             this.timeCounterGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.exerciseDataGrid)).BeginInit();
+            this.afkCheckGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // combatTimer
@@ -71,7 +76,6 @@
             this.enemyHealthBar.Size = new System.Drawing.Size(261, 23);
             this.enemyHealthBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.enemyHealthBar.TabIndex = 1;
-            this.enemyHealthBar.Click += new System.EventHandler(this.enemyHealthBar_Click);
             // 
             // inventoryButton
             // 
@@ -100,6 +104,7 @@
             this.fleeButton.TabIndex = 4;
             this.fleeButton.Text = "Flee combat";
             this.fleeButton.UseVisualStyleBackColor = true;
+            this.fleeButton.Click += new System.EventHandler(this.fleeButton_Click);
             // 
             // healthBarLabel
             // 
@@ -109,7 +114,6 @@
             this.healthBarLabel.Size = new System.Drawing.Size(35, 13);
             this.healthBarLabel.TabIndex = 5;
             this.healthBarLabel.Text = "label1";
-            this.healthBarLabel.Click += new System.EventHandler(this.healthBarLabel_Click);
             // 
             // playerCharacterPictureBox
             // 
@@ -130,7 +134,6 @@
             this.enemyNameLabel.Size = new System.Drawing.Size(35, 13);
             this.enemyNameLabel.TabIndex = 7;
             this.enemyNameLabel.Text = "label1";
-            this.enemyNameLabel.Click += new System.EventHandler(this.enemyNameLabel_Click);
             // 
             // nodeInfo
             // 
@@ -169,6 +172,40 @@
             this.exerciseDataGrid.Size = new System.Drawing.Size(358, 150);
             this.exerciseDataGrid.TabIndex = 11;
             // 
+            // inactivityTimer
+            // 
+            this.inactivityTimer.Tick += new System.EventHandler(this.inactivityTimer_Tick);
+            // 
+            // afkCheckGroupBox
+            // 
+            this.afkCheckGroupBox.Controls.Add(this.afkCheckButton);
+            this.afkCheckGroupBox.Controls.Add(this.afkCheckLabel);
+            this.afkCheckGroupBox.Location = new System.Drawing.Point(360, 255);
+            this.afkCheckGroupBox.Name = "afkCheckGroupBox";
+            this.afkCheckGroupBox.Size = new System.Drawing.Size(200, 121);
+            this.afkCheckGroupBox.TabIndex = 12;
+            this.afkCheckGroupBox.TabStop = false;
+            this.afkCheckGroupBox.Visible = false;
+            // 
+            // afkCheckLabel
+            // 
+            this.afkCheckLabel.AutoSize = true;
+            this.afkCheckLabel.Location = new System.Drawing.Point(7, 9);
+            this.afkCheckLabel.Name = "afkCheckLabel";
+            this.afkCheckLabel.Size = new System.Drawing.Size(115, 13);
+            this.afkCheckLabel.TabIndex = 0;
+            this.afkCheckLabel.Text = "Hey! Are you still here?";
+            // 
+            // afkCheckButton
+            // 
+            this.afkCheckButton.Location = new System.Drawing.Point(10, 25);
+            this.afkCheckButton.Name = "afkCheckButton";
+            this.afkCheckButton.Size = new System.Drawing.Size(96, 48);
+            this.afkCheckButton.TabIndex = 1;
+            this.afkCheckButton.Text = "I\'m here!";
+            this.afkCheckButton.UseVisualStyleBackColor = true;
+            this.afkCheckButton.Click += new System.EventHandler(this.afkCheckButton_Click);
+            // 
             // CombatSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,6 +213,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(963, 552);
+            this.Controls.Add(this.afkCheckGroupBox);
             this.Controls.Add(this.exerciseDataGrid);
             this.Controls.Add(this.timeCounterGroupBox);
             this.Controls.Add(this.nodeInfo);
@@ -197,6 +235,8 @@
             this.timeCounterGroupBox.ResumeLayout(false);
             this.timeCounterGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.exerciseDataGrid)).EndInit();
+            this.afkCheckGroupBox.ResumeLayout(false);
+            this.afkCheckGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,5 +257,9 @@
         private System.Windows.Forms.Label secondsPassedLabel;
         private System.Windows.Forms.GroupBox timeCounterGroupBox;
         private System.Windows.Forms.DataGridView exerciseDataGrid;
+        private System.Windows.Forms.Timer inactivityTimer;
+        private System.Windows.Forms.GroupBox afkCheckGroupBox;
+        private System.Windows.Forms.Button afkCheckButton;
+        private System.Windows.Forms.Label afkCheckLabel;
     }
 }

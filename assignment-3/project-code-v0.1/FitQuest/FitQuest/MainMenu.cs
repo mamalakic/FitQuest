@@ -50,7 +50,7 @@ namespace FitQuest
             }
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void FriendsListButton_Click(object sender, EventArgs e)
         {
             // Hide the current form (main menu)
             this.Hide();
@@ -60,7 +60,7 @@ namespace FitQuest
             FriendsListForm.Show();
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void ClanButton_Click(object sender, EventArgs e)
         {
             Clan ClanForm = new Clan(userProfile);
             ClanForm.Show();
@@ -69,7 +69,7 @@ namespace FitQuest
 
     
 
-        private void button4_Click(object sender, EventArgs e)
+        private void InventoryButton_Click(object sender, EventArgs e)
         {
             this.Hide();
 
@@ -82,6 +82,11 @@ namespace FitQuest
         {
             ItemShop ItemShopForm = new ItemShop();
             ItemShopForm.Show();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 

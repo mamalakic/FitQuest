@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.CodeDom;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,8 +8,14 @@ namespace FitQuest
 {
     public partial class CombatSystem : Form
     {
-        int combatTimeSeconds = 0;
-        int secondsAfk = 0;
+        private readonly int afkMaxSeconds = 10;
+        private readonly int inactivityMaxSeconds = 5;
+        private int inactivitySeconds = 0;
+        // 0 is for afk timer, 1 is for waiting for activity
+        private int inactiveTimerType = 0;
+
+        private int combatTimeSeconds = 0;
+
         private Profile userProfile;
         public CombatSystem(Profile userProfile)
         {
@@ -26,16 +27,22 @@ namespace FitQuest
         {
             // TODO: Get this from outside (based on room node)
 
-            this.enemyHealthBar.Maximum = 900;
+            this.enemyHealthBar.Maximum = 100;
             this.enemyHealthBar.Value = this.enemyHealthBar.Maximum;
             this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
             this.enemyNameLabel.Text = "Goblin boss";
 
             this.nodeInfo.Text = getNodeInfo(1);
+            PopulateExerciseDataGrid();
+
             this.secondsPassedLabel.Text = "00:00";
             combatTimer.Interval = 1000;
             combatTimer.Start();
-            PopulateExerciseDataGrid();
+
+            inactivityTimer.Interval = 1000; // 1 second
+            StartInactivityTimer(0);
+
+
         }
 
         private void PopulateExerciseDataGrid()
@@ -62,20 +69,6 @@ namespace FitQuest
         }
 
 
-        private void enemyHealthBar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void healthBarLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void enemyNameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void attackButton_Click(object sender, EventArgs e)
         {
@@ -125,15 +118,13 @@ namespace FitQuest
 
         private void victorySequence()
         {
-            saveBattleRecord();
-            calculateRewards();
-            saveRewardsToAccount();
-            showVictoryScreen();
-        }
+            combatTimer.Stop();
+            inactivityTimer.Stop();
 
-        private void fleeCombat()
-        {
-            defeatSequence();
+            saveBattleRecord();
+            Rewards rewardsObj = calculateRewards();
+            saveRewardsToAccount(rewardsObj);
+            showVictoryScreen(rewardsObj);
         }
 
         private void defeatSequence()
@@ -147,27 +138,54 @@ namespace FitQuest
             // Save in database
         }
 
-        private void calculateRewards()
+        // pass player or smth
+        private Rewards calculateRewards()
         {
             // Given lvl and item bonuses get a "points value"
-            // divide that points value in various rewards
+            // lvl + dayStreak
+            int rewardPoints = 100;
+            // divide that points value in various rewards (handled from rewards object)
             // rewards obj
+            return new Rewards(100);
         }
 
-        private void showVictoryScreen()
+        private void showVictoryScreen(Rewards rewardsObj)
         {
             // Create form or dim screen
             // from the reward obj passed show the rewards
+
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl.Visible)
+                {
+                    ctrl.Visible = false;
+                }
+            }
+
+            this.Controls.Add(new VictoryScreen(rewardsObj));
+
         }
 
         private void showDefeatScreen()
         {
             // Create form or dim screen
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl.Visible)
+                {
+                    ctrl.Visible = false;
+                }
+            }
+
+            this.Controls.Add(new DefeatScreen());
         }
 
-        private void saveRewardsToAccount()
+        private bool saveRewardsToAccount(Rewards rewardsObj)
         {
             // Save in database
+
+            // if successful return true
+            return true;
         }
 
 
@@ -185,19 +203,18 @@ namespace FitQuest
 
             return false;
         }
-
-        private void afkCheck()
+        private void StartInactivityTimer(int type)
         {
-            // see if player is ok
-            // count 25 seconds if player not respond flee combat
-            int secondsNotRespond = 0;
+            inactivityTimer.Stop();
+            inactiveTimerType = type;
+            inactivitySeconds = 0;
+            inactivityTimer.Start();
 
-            while (secondsNotRespond < 25)
+            // show activity confirmation
+            if (inactiveTimerType == 1)
             {
-                // if user press, cancel
+                //ShowAfkCheckDialog()
             }
-
-            defeatSequence();
         }
 
         private bool reduceEnemyHealth(ProgressBar enemyHealthBar, int damage)
@@ -234,16 +251,51 @@ namespace FitQuest
 
         private void combatTimer_Tick(object sender, EventArgs e)
         {
-            this.secondsAfk += 1;
-            this.combatTimeSeconds += 1;
+            this.combatTimeSeconds++;
             this.secondsPassedLabel.Text = FormatSecondsToMMSS(this.combatTimeSeconds);
-
-            if (secondsAfk == 45)
-            {
-                afkCheck();
-            }
         }
 
-      
+        // TODO: Tie inactivity to mouse clicks etc
+        private void inactivityTimer_Tick(object sender, EventArgs e)
+        {
+            inactivitySeconds++;
+            switch (this.inactiveTimerType)
+            {
+                // afk countdown
+                case 0:
+                    // original 300
+                    if (inactivitySeconds == afkMaxSeconds)
+                    {
+                        afkCheckGroupBox.Visible = true;
+                        StartInactivityTimer(1);
+                    }
+                    break;
+
+                case 1:
+                    // original 60
+                    afkCheckButton.Text = "I'm here!\n(" + (inactivityMaxSeconds-inactivitySeconds) + "s left)";
+                    if (inactivitySeconds == inactivityMaxSeconds)
+                    {
+                        defeatSequence();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        private void afkCheckButton_Click(object sender, EventArgs e)
+        {
+            // so he's here
+            afkCheckGroupBox.Visible = false;
+            StartInactivityTimer(0);
+        }
+
+        private void fleeButton_Click(object sender, EventArgs e)
+        {
+            defeatSequence();
+        }
     }
 }
