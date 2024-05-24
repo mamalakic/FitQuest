@@ -196,9 +196,9 @@
             // invitedoneButton
             // 
             this.invitedoneButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            this.invitedoneButton.Location = new System.Drawing.Point(450, 474);
+            this.invitedoneButton.Location = new System.Drawing.Point(150, 244);
             this.invitedoneButton.Name = "invitedoneButton";
-            this.invitedoneButton.Size = new System.Drawing.Size(235, 54);
+            this.invitedoneButton.Size = new System.Drawing.Size(135, 54);
             this.invitedoneButton.TabIndex = 11;
             this.invitedoneButton.Text = "Done";
             this.invitedoneButton.UseVisualStyleBackColor = true;

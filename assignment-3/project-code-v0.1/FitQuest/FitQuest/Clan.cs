@@ -82,8 +82,13 @@ namespace FitQuest
             this.Hide();
         }
 
-    
+
         private void confirmcreateButton_Click_1(object sender, EventArgs e)
+        {
+            createClan();
+
+        }
+        private void createClan()
         {
             string teamName = clannameTextBox.Text.Trim(); // Get the team name from the textbox
             bool formGood = false;
@@ -100,7 +105,7 @@ namespace FitQuest
                     updateCommand.ExecuteNonQuery();
                 }
 
-                string insertQuery = "INSERT INTO teams (team_id) VALUES ('" + teamName+ "');";
+                string insertQuery = "INSERT INTO teams (team_id) VALUES ('" + teamName + "');";
 
                 using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
                 {
@@ -134,6 +139,7 @@ namespace FitQuest
 
             }
         }
+    
 
         private bool checkForm(string teamName)
         {
@@ -213,6 +219,7 @@ namespace FitQuest
         private void joinaclanButton_Click(object sender, EventArgs e)
         {
             joinaclanPanel.Visible = true;
+            notinaclanPanel.Visible = false;
 
             //sql
             string query = "SELECT * FROM Friends WHERE clanID != 'null'";
@@ -237,17 +244,22 @@ namespace FitQuest
             //check if any row is selected
             if (dataGridView3.SelectedRows.Count > 0)
             {
-                //get the value of the the clan name
-                string clanName = dataGridView3.SelectedRows[0].Cells[1].Value.ToString();
-                MessageBox.Show($"You have joined: {clanName}");
-                joinaclanPanel.Visible = false;
-                this.team_id = clanName;
-                LoadClanCamp();
+                jointheclan();
             }
             else //case where button is pressed without any friend selected
             {
                 MessageBox.Show("Please select a friend.");
             }
+        }
+
+        private void jointheclan()
+        {
+            //get the value of the the clan name
+            string clanName = dataGridView3.SelectedRows[0].Cells[1].Value.ToString();
+            MessageBox.Show($"You have joined: {clanName}");
+            joinaclanPanel.Visible = false;
+            this.team_id = clanName;
+            LoadClanCamp();
         }
         private bool hasInternetConnection()
         {
