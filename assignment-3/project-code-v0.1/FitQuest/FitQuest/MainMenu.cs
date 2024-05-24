@@ -88,6 +88,11 @@ namespace FitQuest
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class Profile
@@ -97,6 +102,7 @@ namespace FitQuest
         private int age;
         private int level;
         private string team_id;
+        private int gold;
         private Dictionary<string, List<string>> exercises;
         private int timesTrained=0;
 
@@ -118,7 +124,7 @@ namespace FitQuest
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                var command = new SQLiteCommand("SELECT age, level, team_id FROM Profiles WHERE id = @id", connection);
+                var command = new SQLiteCommand("SELECT age, level, team_id, gold FROM Profiles WHERE id = @id", connection);
                 command.Parameters.AddWithValue("@id", id);
 
                 using (var reader = command.ExecuteReader())
@@ -128,9 +134,10 @@ namespace FitQuest
                         age = reader.GetInt32(reader.GetOrdinal("age"));
                         level = reader.GetInt32(reader.GetOrdinal("level"));
                         team_id = reader.IsDBNull(reader.GetOrdinal("team_id")) ? null : reader.GetString(reader.GetOrdinal("team_id"));
+                        gold = reader.GetInt32(reader.GetOrdinal("gold"));
 
                         // Populate textBox1 with the profile info
-                        textBox1.Text = $"ID: {id}, Age: {age}, Level: {level}, Team ID: {(team_id ?? "null")}";
+                        textBox1.Text = $"ID: {id}, Age: {age}, Level: {level}, Team ID: {(team_id ?? "null")}, Gold: {gold}";
                     }
                     else
                     {
@@ -158,6 +165,11 @@ namespace FitQuest
         {
             get { return team_id; }
         }
+        public int Gold
+        {
+            get { return gold; }
+        }
+
         public int TimesTrained
         {
             get { return timesTrained; }

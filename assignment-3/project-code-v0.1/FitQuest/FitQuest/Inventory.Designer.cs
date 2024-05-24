@@ -36,20 +36,6 @@ namespace FitQuest
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(1, 41);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(361, 485);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details; // Set to Details view
-            this.listView1.Columns.Add("ID", 50);
-            this.listView1.Columns.Add("Name", 100);
-            this.listView1.Columns.Add("Category", 100);
-            this.listView1.Columns.Add("Description", 150);
-            this.listView1.Columns.Add("Quantity", 70);
-            this.listView1.Columns.Add("Value", 70);
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -63,7 +49,6 @@ namespace FitQuest
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-
             this.SuspendLayout();
             // 
             // label7
@@ -92,6 +77,12 @@ namespace FitQuest
             this.listView1.Size = new System.Drawing.Size(361, 485);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.Columns.Add("Name", 100);
+            this.listView1.Columns.Add("Category", 100);
+            this.listView1.Columns.Add("Description", 150);
+            this.listView1.Columns.Add("Quantity", 70);
+            this.listView1.Columns.Add("Value", 70);
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // textBox6
@@ -218,7 +209,7 @@ namespace FitQuest
             // 
             // Inventory
             // 
-            this.ClientSize = new System.Drawing.Size(816, 527);
+            this.ClientSize = new System.Drawing.Size(631, 527);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -239,7 +230,6 @@ namespace FitQuest
             this.Load += new System.EventHandler(this.Inventory_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
