@@ -32,6 +32,12 @@
             this.backButton = new System.Windows.Forms.Button();
             this.itemsList = new System.Windows.Forms.ListView();
             this.purchaseButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.attributeColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.itemAttributes = new System.Windows.Forms.ListView();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // clantablabel
@@ -63,6 +69,7 @@
             this.itemsList.HideSelection = false;
             this.itemsList.Location = new System.Drawing.Point(312, 98);
             this.itemsList.Name = "itemsList";
+            this.itemsList.ShowItemToolTips = true;
             this.itemsList.Size = new System.Drawing.Size(785, 602);
             this.itemsList.TabIndex = 4;
             this.itemsList.UseCompatibleStateImageBehavior = false;
@@ -72,13 +79,55 @@
             // 
             this.purchaseButton.BackColor = System.Drawing.Color.LimeGreen;
             this.purchaseButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.purchaseButton.Location = new System.Drawing.Point(1186, 124);
+            this.purchaseButton.Location = new System.Drawing.Point(1242, 587);
             this.purchaseButton.Name = "purchaseButton";
-            this.purchaseButton.Size = new System.Drawing.Size(127, 88);
+            this.purchaseButton.Size = new System.Drawing.Size(159, 113);
             this.purchaseButton.TabIndex = 6;
             this.purchaseButton.Text = "PURCHASE";
             this.purchaseButton.UseVisualStyleBackColor = false;
             this.purchaseButton.Click += new System.EventHandler(this.purchaseButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.label1.Location = new System.Drawing.Point(1151, 272);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(259, 55);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Item Name";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::FitQuest.Properties.Resources.placeholder;
+            this.pictureBox1.Location = new System.Drawing.Point(1195, 98);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(170, 160);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // attributeColumn
+            // 
+            this.attributeColumn.Text = "Attribute";
+            // 
+            // valueColumn
+            // 
+            this.valueColumn.Text = "Value";
+            this.valueColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // itemAttributes
+            // 
+            this.itemAttributes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.attributeColumn,
+            this.valueColumn});
+            this.itemAttributes.HideSelection = false;
+            this.itemAttributes.Location = new System.Drawing.Point(1152, 330);
+            this.itemAttributes.Name = "itemAttributes";
+            this.itemAttributes.Size = new System.Drawing.Size(249, 251);
+            this.itemAttributes.TabIndex = 7;
+            this.itemAttributes.UseCompatibleStateImageBehavior = false;
+            this.itemAttributes.View = System.Windows.Forms.View.Details;
+            this.itemAttributes.SelectedIndexChanged += new System.EventHandler(this.itemAttributes_SelectedIndexChanged);
             // 
             // ItemShop
             // 
@@ -86,6 +135,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1444, 849);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.itemAttributes);
             this.Controls.Add(this.purchaseButton);
             this.Controls.Add(this.itemsList);
             this.Controls.Add(this.backButton);
@@ -94,6 +146,7 @@
             this.Name = "ItemShop";
             this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.ItemShop_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,5 +158,10 @@
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.ListView itemsList;
         private System.Windows.Forms.Button purchaseButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ColumnHeader attributeColumn;
+        private System.Windows.Forms.ColumnHeader valueColumn;
+        private System.Windows.Forms.ListView itemAttributes;
     }
 }
