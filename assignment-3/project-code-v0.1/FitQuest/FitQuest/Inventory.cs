@@ -15,11 +15,18 @@ namespace FitQuest
 {
     public partial class Inventory : Form
     {
-        public Inventory()
+
+        private Profile userProfile;
+        private string id;
+        private int Gold;
+
+        public Inventory(Profile userProfile)
         {
+            this.userProfile = userProfile;
+            this.id = userProfile.id;
+            this.Gold = userProfile.Gold;
             InitializeComponent();
             this.Load += new System.EventHandler(this.Inventory_Load);
-            this.button6.Click += new System.EventHandler(this.button6_Click);
 
         }
 
@@ -83,26 +90,27 @@ namespace FitQuest
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                int quantity = int.Parse(selectedItem.SubItems[3].Text);
+                string name = selectedItem.SubItems[0].Text; // Get the name of the item
 
+                    MessageBox.Show($"You equiped: {name}");
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button6_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listView1.SelectedItems[0];
                 int quantity = int.Parse(selectedItem.SubItems[3].Text);
-                int value = int.Parse(selectedItem.SubItems[4].Text);
+                string name = selectedItem.SubItems[0].Text; // Get the name of the item
 
                 if (quantity > 0)
                 {
                     quantity--;
-                
                     if (quantity == 0)
                     {
                         // Delete the item from the database
@@ -117,6 +125,43 @@ namespace FitQuest
                         ExecuteNonQuery(updateQuery, selectedItem, quantity);
                         selectedItem.SubItems[3].Text = quantity.ToString();
                     }
+
+
+                    MessageBox.Show($"You used: {name}");
+                }
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                int quantity = int.Parse(selectedItem.SubItems[3].Text);
+                int value = int.Parse(selectedItem.SubItems[4].Text);
+
+                if (quantity > 0)
+                {
+                    quantity--;
+
+                    if (quantity == 0)
+                    {
+                        // Delete the item from the database
+                        string deleteQuery = "DELETE FROM Inventory WHERE Name = @name AND Category = @category AND Description = @description";
+                        ExecuteNonQuery(deleteQuery, selectedItem);
+                        listView1.Items.Remove(selectedItem);
+                    }
+                    else
+                    {
+                        // Update the quantity in the database
+                        string updateQuery = "UPDATE Inventory SET Quantity = @quantity WHERE Name = @name AND Category = @category AND Description = @description";
+                        ExecuteNonQuery(updateQuery, selectedItem, quantity);
+                        selectedItem.SubItems[3].Text = quantity.ToString();
+                    }
+
+                    this.Gold += value;
+                    string updateGoldQuery = "UPDATE Profiles SET gold = @gold WHERE id = @id";
+                    UpdateUserGold(updateGoldQuery, this.id, this.Gold);
 
                     MessageBox.Show($"You just got {value} gold. Item sold successfully.");
                 }
@@ -138,6 +183,28 @@ namespace FitQuest
                         command.Parameters.AddWithValue("@quantity", quantity.Value);
                     }
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void UpdateUserGold(string query, string userId, int newGoldAmount)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@gold", newGoldAmount);
+                        command.Parameters.AddWithValue("@id", userId);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating gold: " + ex.Message);
                 }
             }
         }
