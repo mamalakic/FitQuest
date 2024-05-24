@@ -69,6 +69,7 @@
             this.itemsList.HideSelection = false;
             this.itemsList.Location = new System.Drawing.Point(312, 98);
             this.itemsList.Name = "itemsList";
+            this.itemsList.OwnerDraw = true;
             this.itemsList.ShowItemToolTips = true;
             this.itemsList.Size = new System.Drawing.Size(785, 602);
             this.itemsList.TabIndex = 4;

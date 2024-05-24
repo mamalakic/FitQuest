@@ -17,7 +17,8 @@ namespace FitQuest
         {
            Weapon = 0,
            Armour = 1,
-           Consumable = 2
+           Accessory = 2,
+           Consumable = 3
         };
         private categories category;
 
