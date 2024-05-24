@@ -7,6 +7,11 @@ namespace FitQuest
 {
     partial class Inventory
     {
+        private System.Windows.Forms.ColumnHeader columnHeaderName;
+        private System.Windows.Forms.ColumnHeader columnHeaderCategory;
+        private System.Windows.Forms.ColumnHeader columnHeaderDescription;
+        private System.Windows.Forms.ColumnHeader columnHeaderQuantity;
+        private System.Windows.Forms.ColumnHeader columnHeaderValue;
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -33,9 +38,12 @@ namespace FitQuest
         /// </summary>
         private void InitializeComponent()
         {
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeaderName = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderCategory = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderDescription = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderQuantity = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderValue = new System.Windows.Forms.ColumnHeader();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -49,28 +57,17 @@ namespace FitQuest
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.backButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label7.Location = new System.Drawing.Point(12, 1);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(136, 37);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Inventory";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(483, 171);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(0, 13);
-            this.label8.TabIndex = 1;
             // 
             // listView1
             // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderCategory,
+            this.columnHeaderDescription,
+            this.columnHeaderQuantity,
+            this.columnHeaderValue});
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(1, 41);
             this.listView1.Name = "listView1";
@@ -78,12 +75,32 @@ namespace FitQuest
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.Columns.Add("Name", 100);
-            this.listView1.Columns.Add("Category", 100);
-            this.listView1.Columns.Add("Description", 150);
-            this.listView1.Columns.Add("Quantity", 70);
-            this.listView1.Columns.Add("Value", 70);
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // columnHeaderName
+            // 
+            this.columnHeaderName.Text = "Name";
+            this.columnHeaderName.Width = 100;
+            // 
+            // columnHeaderCategory
+            // 
+            this.columnHeaderCategory.Text = "Category";
+            this.columnHeaderCategory.Width = 100;
+            // 
+            // columnHeaderDescription
+            // 
+            this.columnHeaderDescription.Text = "Description";
+            this.columnHeaderDescription.Width = 100;
+            // 
+            // columnHeaderQuantity
+            // 
+            this.columnHeaderQuantity.Text = "Quantity";
+            this.columnHeaderQuantity.Width = 100;
+            // 
+            // columnHeaderValue
+            // 
+            this.columnHeaderValue.Text = "Value";
+            this.columnHeaderValue.Width = 100;
             // 
             // textBox6
             // 
@@ -207,9 +224,22 @@ namespace FitQuest
             this.label13.TabIndex = 15;
             this.label13.Text = "Value:";
             // 
+            // backButton
+            // 
+            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            this.backButton.Location = new System.Drawing.Point(1, 1);
+            this.backButton.Name = "backButton";
+            this.backButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.backButton.Size = new System.Drawing.Size(100, 34);
+            this.backButton.TabIndex = 16;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
             // Inventory
             // 
-            this.ClientSize = new System.Drawing.Size(631, 527);
+            this.ClientSize = new System.Drawing.Size(716, 567);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -265,5 +295,6 @@ namespace FitQuest
         private Label label11;
         private Label label12;
         private Label label13;
+        private Button backButton;
     }
 }

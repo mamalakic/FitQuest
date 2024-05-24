@@ -96,7 +96,7 @@ namespace FitQuest
                 int quantity = int.Parse(selectedItem.SubItems[3].Text);
                 string name = selectedItem.SubItems[0].Text; // Get the name of the item
 
-                    MessageBox.Show($"You equiped: {name}");
+                MessageBox.Show($"You equiped: {name}");
             }
         }
 
@@ -207,6 +207,14 @@ namespace FitQuest
                     MessageBox.Show("Error updating gold: " + ex.Message);
                 }
             }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+
+            MainMenu MainMenuForm = new MainMenu();
+            MainMenuForm.Show();
+            this.Hide();
         }
     }
 }
