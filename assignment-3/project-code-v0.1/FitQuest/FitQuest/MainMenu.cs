@@ -67,7 +67,7 @@ namespace FitQuest
             this.Hide();
         }
 
-    
+        
 
         private void InventoryButton_Click(object sender, EventArgs e)
         {
@@ -84,6 +84,13 @@ namespace FitQuest
             ItemShopForm.Show();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Map  MapView = new Map(userProfile);
+            MapView.Show();
+            this.Hide();
+        }
+
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
@@ -93,6 +100,7 @@ namespace FitQuest
         {
 
         }
+
     }
 
     public class Profile

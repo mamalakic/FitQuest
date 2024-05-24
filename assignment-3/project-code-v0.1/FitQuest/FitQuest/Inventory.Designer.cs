@@ -39,11 +39,11 @@ namespace FitQuest
         private void InitializeComponent()
         {
             this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeaderName = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderCategory = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderDescription = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderQuantity = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderValue = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderQuantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -58,6 +58,7 @@ namespace FitQuest
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listView1
@@ -236,9 +237,20 @@ namespace FitQuest
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label7.Location = new System.Drawing.Point(283, 1);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(143, 37);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Inventory";
+            // 
             // Inventory
             // 
             this.ClientSize = new System.Drawing.Size(716, 567);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -254,12 +266,11 @@ namespace FitQuest
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
             this.Name = "Inventory";
             this.Load += new System.EventHandler(this.Inventory_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -279,8 +290,6 @@ namespace FitQuest
         private Label label5;
         private Label label6;
         private TextBox textBox5;
-        private Label label7;
-        private Label label8;
         private ListView listView1;
         private TextBox textBox6;
         private Button button2;
@@ -296,5 +305,6 @@ namespace FitQuest
         private Label label12;
         private Label label13;
         private Button backButton;
+        private Label label7;
     }
 }

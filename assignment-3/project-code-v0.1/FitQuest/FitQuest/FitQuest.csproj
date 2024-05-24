@@ -79,6 +79,13 @@
     <Compile Include="DefeatScreen.Designer.cs">
       <DependentUpon>DefeatScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Level.cs" />
+    <Compile Include="Map.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Map.Designer.cs">
+      <DependentUpon>Map.cs</DependentUpon>
+    </Compile>
     <Compile Include="Item.cs" />
     <Compile Include="Rewards.cs" />
     <Compile Include="CombatSystem.cs">
@@ -152,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainPanel.resx">
       <DependentUpon>MainPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map.resx">
+      <DependentUpon>Map.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TrainingProgram.resx">
       <DependentUpon>TrainingProgram.cs</DependentUpon>
