@@ -24,32 +24,6 @@ namespace FitQuest
             userProfile.LoadProfileFromDatabase(connectionString, textBox1);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Hide the current form (main menu)
-            this.Hide();
-
-            // Check if exercises are populated
-            if (userProfile.AreExercisesPopulated())
-            {
-                Console.WriteLine("Training program is chosen:");
-                foreach (var category in userProfile.Exercises.Keys)
-                {
-                    Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
-                }
-                // Show the friends list form
-                CombatSystem CombatForm = new CombatSystem(userProfile);
-                CombatForm.Show();
-            }
-            else
-            {
-                Console.WriteLine("Training program not chosen");
-                this.Hide();
-                TrainingProgram TrainingProgramForm = new TrainingProgram(userProfile);
-                TrainingProgramForm.Show();
-            }
-        }
-
         private void FriendsListButton_Click(object sender, EventArgs e)
         {
             // Hide the current form (main menu)

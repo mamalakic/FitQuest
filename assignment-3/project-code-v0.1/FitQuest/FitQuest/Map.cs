@@ -8,6 +8,7 @@ namespace FitQuest
     public partial class Map : Form
     {
         private Profile userProfile;
+        private Level currentLevel;
 
         public Map(Profile userProfile)
         {
@@ -67,8 +68,8 @@ namespace FitQuest
 
                 try
                 {
-                    Level level = Level.GetLevel(levelNumber);
-                    MessageBox.Show($"Level {level.Count} clicked!\nEnemy: {level.EnemyName}\nHP: {level.EnemyHP}");
+                    currentLevel = new Level(levelNumber);
+                    MessageBox.Show($"Level {currentLevel.Count} clicked!\nEnemy: {currentLevel.EnemyName}\nHP: {currentLevel.EnemyHP}");
                 }
                 catch (Exception ex)
                 {
@@ -109,7 +110,7 @@ namespace FitQuest
                     Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
                 }
                 // Show the friends list form
-                CombatSystem CombatForm = new CombatSystem(userProfile);
+                CombatSystem CombatForm = new CombatSystem(userProfile, currentLevel);
                 CombatForm.Show();
             }
             else
@@ -118,6 +119,7 @@ namespace FitQuest
                 this.Hide();
                 TrainingProgram TrainingProgramForm = new TrainingProgram(userProfile);
                 TrainingProgramForm.Show();
+
             }
         }
 

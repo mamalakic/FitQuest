@@ -8,6 +8,7 @@ namespace FitQuest
 {
     public partial class CombatSystem : Form
     {
+        private readonly Level currentLevel;
         private readonly int afkMaxSeconds = 10;
         private readonly int inactivityMaxSeconds = 5;
         private int inactivitySeconds = 0;
@@ -17,22 +18,45 @@ namespace FitQuest
         private int combatTimeSeconds = 0;
 
         private Profile userProfile;
+        public CombatSystem(Profile userProfile, Level currentLevel)
+        {
+            InitializeComponent();
+            this.userProfile = userProfile;
+            this.currentLevel = currentLevel;
+
+            // TODO: Get this from outside (based on room node)
+            this.enemyHealthBar.Maximum = currentLevel.EnemyHP;
+            this.enemyHealthBar.Value = this.enemyHealthBar.Maximum;
+            this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
+            this.enemyNameLabel.Text = currentLevel.EnemyName;
+            this.nodeInfo.Text = getLevelInfo(currentLevel);
+        }
+
         public CombatSystem(Profile userProfile)
         {
             InitializeComponent();
             this.userProfile = userProfile;
+
+            // TODO: Get this from outside (based on room node)
+            if (currentLevel != null)
+            {
+                this.enemyHealthBar.Maximum = currentLevel.EnemyHP;
+                this.enemyHealthBar.Value = this.enemyHealthBar.Maximum;
+                this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
+                this.enemyNameLabel.Text = currentLevel.EnemyName;
+                this.nodeInfo.Text = getLevelInfo(currentLevel);
+
+            }
+            this.enemyHealthBar.Maximum = 100;
+            this.enemyHealthBar.Value = 100;
+            this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
+            this.enemyNameLabel.Text = "aaa";
+            this.nodeInfo.Text = getLevelInfo(null);
         }
 
         private void CombatSystem_Load(object sender, EventArgs e)
         {
-            // TODO: Get this from outside (based on room node)
 
-            this.enemyHealthBar.Maximum = 100;
-            this.enemyHealthBar.Value = this.enemyHealthBar.Maximum;
-            this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
-            this.enemyNameLabel.Text = "Goblin boss";
-
-            this.nodeInfo.Text = getNodeInfo(1);
             PopulateExerciseDataGrid();
 
             this.secondsPassedLabel.Text = "00:00";
@@ -189,9 +213,15 @@ namespace FitQuest
         }
 
 
-        private string getNodeInfo(int node)
+        private string getLevelInfo(Level currentLevel)
         {
-            return "Dreary Desert (lvl. 41)";
+            if (currentLevel != null)
+            {
+
+                return "Dreary Desert " + "(lvl. " + currentLevel.LevelNum +")";
+            }
+
+            return "Dreary Desert " + "(lvl. " + 41 + ")";
         }
 
         private bool isEnemyDead(ProgressBar enemyHealthBar)

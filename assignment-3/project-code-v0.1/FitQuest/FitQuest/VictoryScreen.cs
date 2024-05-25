@@ -27,6 +27,10 @@ namespace FitQuest
             // Show the menu form
             MainMenu MenuForm = new MainMenu();
             MenuForm.Show();
+
+            // close parent form
+            this.Hide();
+            this.FindForm().Close();
         }
     }
 }

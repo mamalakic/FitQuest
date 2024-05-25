@@ -16,8 +16,9 @@ namespace FitQuest
         public int EnemyHP { get; private set; }
         public int RewardGold { get; private set; }
         public int RewardPoints { get; private set; }
+        public int LevelNum { get; private set; }
 
-        public static Level GetLevel(int count)
+        public Level (int count)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             string query = "SELECT * FROM level WHERE count = @count";
@@ -32,15 +33,12 @@ namespace FitQuest
                 {
                     if (reader.Read())
                     {
-                        Level level = new Level
-                        {
-                            Count = Convert.ToInt32(reader["count"]),
-                            EnemyName = reader["enemy_name"].ToString(),
-                            EnemyHP = Convert.ToInt32(reader["enemy_hp"]),
-                            RewardGold = Convert.ToInt32(reader["reward_gold"]),
-                            RewardPoints = Convert.ToInt32(reader["reward_points"])
-                        };
-                        return level;
+                        this.Count = Convert.ToInt32(reader["count"]);
+                        this.EnemyName = reader["enemy_name"].ToString();
+                        this.EnemyHP = Convert.ToInt32(reader["enemy_hp"]);
+                        this.RewardGold = Convert.ToInt32(reader["reward_gold"]);
+                        this.RewardPoints = Convert.ToInt32(reader["reward_points"]);
+                        this.LevelNum = count;
                     }
                     else
                     {
