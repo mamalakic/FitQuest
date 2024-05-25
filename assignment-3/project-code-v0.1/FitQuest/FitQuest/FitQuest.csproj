@@ -197,11 +197,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="map_backgroung.png" />
     <Content Include="Resources\aspida.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\map_backgroung.png" />
     <Content Include="Resources\spathi.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

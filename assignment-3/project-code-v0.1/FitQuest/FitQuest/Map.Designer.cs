@@ -36,6 +36,8 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackgroundImage = global::FitQuest.Properties.Resources.map_backgroung;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(228, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(810, 583);

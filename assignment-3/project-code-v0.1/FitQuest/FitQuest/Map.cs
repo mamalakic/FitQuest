@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FitQuest
@@ -13,25 +8,20 @@ namespace FitQuest
     public partial class Map : Form
     {
         private Profile userProfile;
+
         public Map(Profile userProfile)
         {
             this.userProfile = userProfile;
             InitializeComponent();
-            LoadMap();
             CreateNodes();
         }
 
-        private void LoadMap()
-        {
-            pictureBox1.Image = Image.FromFile("C:\\Users\\admin\\Desktop\\CEID\\8oΕΞΑΜΗΝΟ\\Τεχνολογία λογισμικού\\Project\\mockups\\map_backgroung.jpg");
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-        }
 
         private void CreateNodes()
         {
             // Define node positions and level numbers
             Dictionary<Point, int> nodePositions = new Dictionary<Point, int>
-             {
+            {
                 { new Point(700, 500), 1 },
                 { new Point(462, 519), 2 },
                 { new Point(192, 532), 3 },
@@ -44,9 +34,8 @@ namespace FitQuest
                 { new Point(115, 95), 10 },
                 { new Point(315, 79), 11 },
                 { new Point(498, 46), 12 }
+            };
 
-             // Add more positions and level numbers as needed
-             };
             foreach (var entry in nodePositions)
             {
                 Point pos = entry.Key;
@@ -74,9 +63,17 @@ namespace FitQuest
             Button node = sender as Button;
             if (node != null)
             {
-                int level = Convert.ToInt32(node.Tag); // Convert Tag to int
-                MessageBox.Show($"Level {level} clicked!");
-                // Implement level selection logic here
+                int levelNumber = Convert.ToInt32(node.Tag); // Convert Tag to int
+
+                try
+                {
+                    Level level = Level.GetLevel(levelNumber);
+                    MessageBox.Show($"Level {level.Count} clicked!\nEnemy: {level.EnemyName}\nHP: {level.EnemyHP}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
             }
         }
 
