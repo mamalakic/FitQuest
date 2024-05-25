@@ -91,7 +91,7 @@ namespace FitQuest
         {
             this.enemyHealthBar.Maximum = this.combatEnemy.maxHP;
             this.enemyHealthBar.Value = this.combatEnemy.currentHP;
-            this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
+            this.healthBarLabel.Text = this.enemyHealthBar.Value.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
             this.enemyNameLabel.Text = this.combatEnemy.EnemyName;
         }
 
@@ -100,6 +100,15 @@ namespace FitQuest
             StartInactivityTimer(0);
             if (exerciseDataGrid.SelectedRows.Count > 0)
             {
+                // Call function to calculate damage
+                int damageDeal = calculateDamage(1, 1, 1);
+                this.combatEnemy.takeDamage(damageDeal);
+                updateEnemyInfo();
+                if (this.combatEnemy.isDead())
+                {
+                    victorySequence();
+                }
+
                 //get the selected row
                 DataGridViewRow selectedRow = exerciseDataGrid.SelectedRows[0];
                 int repetitions = Convert.ToInt32(selectedRow.Cells["Repetitions"].Value);
@@ -130,15 +139,6 @@ namespace FitQuest
                     //update reps if reps there are more than 0
                     selectedRow.Cells["Repetitions"].Value = repetitions;
                 }
-            }
-
-            // Call function to calculate damage
-            int damageDeal = calculateDamage(1, 1, 1);
-            this.combatEnemy.takeDamage(damageDeal);
-            updateEnemyInfo();
-            if (this.combatEnemy.isDead())
-            {
-                victorySequence();
             }
         }
 
