@@ -10,7 +10,7 @@ namespace FitQuest
     public class Level
     {
         private Hashtable stats = new Hashtable();
-        private int count, enemy_hp, reward_gold, reward_xp;
+        private int count, enemy_hp, reward_gold, reward_points;
         private string enemy_name;
 
     }

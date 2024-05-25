@@ -107,6 +107,7 @@ namespace FitQuest
             // 
             this.textBox6.Location = new System.Drawing.Point(382, 152);
             this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(227, 20);
             this.textBox6.TabIndex = 3;
             // 
@@ -150,6 +151,7 @@ namespace FitQuest
             // 
             this.textBox7.Location = new System.Drawing.Point(382, 205);
             this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
             this.textBox7.Size = new System.Drawing.Size(227, 20);
             this.textBox7.TabIndex = 7;
             // 
@@ -158,6 +160,7 @@ namespace FitQuest
             this.textBox8.Location = new System.Drawing.Point(382, 258);
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
             this.textBox8.Size = new System.Drawing.Size(227, 76);
             this.textBox8.TabIndex = 8;
             // 
@@ -165,6 +168,7 @@ namespace FitQuest
             // 
             this.textBox9.Location = new System.Drawing.Point(382, 357);
             this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
             this.textBox9.Size = new System.Drawing.Size(227, 20);
             this.textBox9.TabIndex = 9;
             // 
@@ -172,6 +176,7 @@ namespace FitQuest
             // 
             this.textBox10.Location = new System.Drawing.Point(382, 400);
             this.textBox10.Name = "textBox10";
+            this.textBox10.ReadOnly = true;
             this.textBox10.Size = new System.Drawing.Size(227, 20);
             this.textBox10.TabIndex = 10;
             // 
