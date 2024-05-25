@@ -45,8 +45,8 @@
             this.exerciseDataGrid = new System.Windows.Forms.DataGridView();
             this.inactivityTimer = new System.Windows.Forms.Timer(this.components);
             this.afkCheckGroupBox = new System.Windows.Forms.GroupBox();
-            this.afkCheckLabel = new System.Windows.Forms.Label();
             this.afkCheckButton = new System.Windows.Forms.Button();
+            this.afkCheckLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).BeginInit();
             this.timeCounterGroupBox.SuspendLayout();
@@ -187,15 +187,6 @@
             this.afkCheckGroupBox.TabStop = false;
             this.afkCheckGroupBox.Visible = false;
             // 
-            // afkCheckLabel
-            // 
-            this.afkCheckLabel.AutoSize = true;
-            this.afkCheckLabel.Location = new System.Drawing.Point(7, 9);
-            this.afkCheckLabel.Name = "afkCheckLabel";
-            this.afkCheckLabel.Size = new System.Drawing.Size(115, 13);
-            this.afkCheckLabel.TabIndex = 0;
-            this.afkCheckLabel.Text = "Hey! Are you still here?";
-            // 
             // afkCheckButton
             // 
             this.afkCheckButton.Location = new System.Drawing.Point(10, 25);
@@ -205,6 +196,15 @@
             this.afkCheckButton.Text = "I\'m here!";
             this.afkCheckButton.UseVisualStyleBackColor = true;
             this.afkCheckButton.Click += new System.EventHandler(this.afkCheckButton_Click);
+            // 
+            // afkCheckLabel
+            // 
+            this.afkCheckLabel.AutoSize = true;
+            this.afkCheckLabel.Location = new System.Drawing.Point(7, 9);
+            this.afkCheckLabel.Name = "afkCheckLabel";
+            this.afkCheckLabel.Size = new System.Drawing.Size(115, 13);
+            this.afkCheckLabel.TabIndex = 0;
+            this.afkCheckLabel.Text = "Hey! Are you still here?";
             // 
             // CombatSystem
             // 

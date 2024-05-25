@@ -97,6 +97,7 @@ namespace FitQuest
 
         private void attackButton_Click(object sender, EventArgs e)
         {
+            StartInactivityTimer(0);
             if (exerciseDataGrid.SelectedRows.Count > 0)
             {
                 //get the selected row
@@ -141,10 +142,15 @@ namespace FitQuest
             }
         }
 
-        private void victorySequence()
+        private void stopCombat()
         {
             combatTimer.Stop();
             inactivityTimer.Stop();
+        }
+
+        private void victorySequence()
+        {
+            stopCombat();
 
             saveBattleRecord();
             Rewards rewardsObj = calculateRewards();
@@ -154,6 +160,8 @@ namespace FitQuest
 
         private void defeatSequence()
         {
+            stopCombat();
+
             saveBattleRecord();
             showDefeatScreen();
         }
@@ -235,6 +243,7 @@ namespace FitQuest
 
         private void StartInactivityTimer(int type)
         {
+            afkCheckGroupBox.Visible = false;
             inactivityTimer.Stop();
             inactiveTimerType = type;
             inactivitySeconds = 0;
@@ -243,7 +252,7 @@ namespace FitQuest
             // show activity confirmation
             if (inactiveTimerType == 1)
             {
-                //ShowAfkCheckDialog()
+                afkCheckGroupBox.Visible = true;
             }
         }
 
@@ -277,7 +286,6 @@ namespace FitQuest
                     // original 300
                     if (inactivitySeconds == afkMaxSeconds)
                     {
-                        afkCheckGroupBox.Visible = true;
                         StartInactivityTimer(1);
                     }
                     break;
