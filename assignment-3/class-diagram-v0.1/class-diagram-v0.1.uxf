@@ -37,7 +37,7 @@
       <x>516</x>
       <y>714</y>
       <w>126</w>
-      <h>60</h>
+      <h>84</h>
     </coordinates>
     <panel_attributes>Training_Program
 --
@@ -53,8 +53,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>516</x>
-      <y>822</y>
+      <x>408</x>
+      <y>864</y>
       <w>126</w>
       <h>42</h>
     </coordinates>
@@ -66,17 +66,39 @@
     <id>UMLClass</id>
     <coordinates>
       <x>888</x>
-      <y>600</y>
+      <y>1026</y>
       <w>156</w>
-      <h>66</h>
+      <h>276</h>
     </coordinates>
-    <panel_attributes>Battle
+    <panel_attributes>CombatSystem
 --
--int id
+-currentLevel: int
+-afkMaxSeconds: int
+-inactivityMaxSeconds: int
+-inactivitySeconds: int
+-combatTimeSeconds: int
+-inactiveTimerType: int
+-userProfile: Profile
+
 --
-+generateBattleSession(nodeID, battleObj) 
-+checkCamFail()
-+checkParamFail()</panel_attributes>
++CombatSystem(Profile)
++PopulateExerciseDataGrid()
++AttackButton()
++calculateRewards()
++isEnemyDead()
++StartInactivityTimer()
++reduceEnemyHealth()
++calculateDamage()
++FormatSecondsToMMSS()
++combatTimer()
++inactivityTimer()
++FleeButton()
++AfkCheckButton()
++saveRewardsToAccount(Rewards)
++updateEnemyInfo()
+-isCamWorking(): bool
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -104,7 +126,7 @@
       <x>246</x>
       <y>828</y>
       <w>126</w>
-      <h>90</h>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Item
 --
@@ -200,13 +222,13 @@
     <id>Relation</id>
     <coordinates>
       <x>804</x>
-      <y>612</y>
+      <y>618</y>
       <w>96</w>
-      <h>24</h>
+      <h>420</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;
 </panel_attributes>
-    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+    <additional_attributes>10.0;10.0;140.0;680.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -223,33 +245,34 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>888</x>
-      <y>762</y>
-      <w>126</w>
-      <h>72</h>
+      <x>666</x>
+      <y>1248</y>
+      <w>156</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>Enemy
 --
--int id
--int hp
++currentHP: int;
++maxHP: int;
++EnemyName: string;
++level: int
 --
-+generateEnemy()
-calculateDamage(repObj)
-updateHealth()
-
++Enemy(name, maxHP, currentHP)
++takeDamage(damage)
++isDead(): bool
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>570</x>
-      <y>768</y>
-      <w>18</w>
-      <h>66</h>
+      <x>456</x>
+      <y>792</y>
+      <w>72</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;20.0;50.0;100.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -262,18 +285,6 @@ updateHealth()
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;
 </panel_attributes>
     <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>942</x>
-      <y>732</y>
-      <w>60</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>lt=-
-Συμμετέχει</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -298,11 +309,11 @@ isUnlocked()
       <x>942</x>
       <y>546</y>
       <w>18</w>
-      <h>66</h>
+      <h>492</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 </panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;800.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -347,13 +358,13 @@ isUnlocked()
     <id>Relation</id>
     <coordinates>
       <x>564</x>
-      <y>552</y>
-      <w>354</w>
-      <h>60</h>
+      <y>558</y>
+      <w>396</w>
+      <h>480</h>
     </coordinates>
     <panel_attributes>lt=-
 Συμμετέχει</panel_attributes>
-    <additional_attributes>570.0;80.0;570.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>570.0;780.0;570.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -514,10 +525,10 @@ isUnlocked()
       <x>1032</x>
       <y>330</y>
       <w>24</w>
-      <h>294</h>
+      <h>720</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;470.0;20.0;470.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;470.0;20.0;1180.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -979,5 +990,67 @@ Enemy enemies
     <panel_attributes>lt=-
 </panel_attributes>
     <additional_attributes>10.0;20.0;260.0;20.0;260.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>792</y>
+      <w>348</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;400.0;560.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>282</x>
+      <y>1104</y>
+      <w>126</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>Rewards
+--
+-currency: int 
+-itemsList: items
+--
++public Rewards(rewardPoints)
++public getCurrency(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>276</x>
+      <y>918</y>
+      <w>78</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>402</x>
+      <y>1056</y>
+      <w>498</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;170.0;810.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>786</x>
+      <y>1146</y>
+      <w>114</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
+</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;170.0</additional_attributes>
   </element>
 </diagram>

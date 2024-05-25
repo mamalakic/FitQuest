@@ -79,6 +79,7 @@
     <Compile Include="DefeatScreen.Designer.cs">
       <DependentUpon>DefeatScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Enemy.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Map.cs">
       <SubType>Form</SubType>

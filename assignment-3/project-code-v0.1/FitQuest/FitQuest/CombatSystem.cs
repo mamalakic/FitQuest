@@ -14,8 +14,9 @@ namespace FitQuest
         private int inactivitySeconds = 0;
         // 0 is for afk timer, 1 is for waiting for activity
         private int inactiveTimerType = 0;
-
         private int combatTimeSeconds = 0;
+
+        private Enemy combatEnemy;
 
         private Profile userProfile;
         public CombatSystem(Profile userProfile, Level currentLevel)
@@ -25,32 +26,28 @@ namespace FitQuest
             this.currentLevel = currentLevel;
 
             // TODO: Get this from outside (based on room node)
-            this.enemyHealthBar.Maximum = currentLevel.EnemyHP;
-            this.enemyHealthBar.Value = this.enemyHealthBar.Maximum;
-            this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
-            this.enemyNameLabel.Text = currentLevel.EnemyName;
+            this.combatEnemy = new Enemy(currentLevel.EnemyName, currentLevel.EnemyHP, currentLevel.EnemyHP, currentLevel.LevelNum);
+
+            //this.enemyHealthBar.Maximum = currentLevel.currentHP;
+            updateEnemyInfo();
             this.nodeInfo.Text = getLevelInfo(currentLevel);
         }
 
+        // TODO: For debugging only
         public CombatSystem(Profile userProfile)
         {
             InitializeComponent();
             this.userProfile = userProfile;
+            this.combatEnemy = new Enemy("aaa", 100, 100, 5);
 
             // TODO: Get this from outside (based on room node)
             if (currentLevel != null)
             {
-                this.enemyHealthBar.Maximum = currentLevel.EnemyHP;
-                this.enemyHealthBar.Value = this.enemyHealthBar.Maximum;
-                this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
-                this.enemyNameLabel.Text = currentLevel.EnemyName;
-                this.nodeInfo.Text = getLevelInfo(currentLevel);
+                this.nodeInfo.Text = getLevelInfo(null);
 
             }
-            this.enemyHealthBar.Maximum = 100;
-            this.enemyHealthBar.Value = 100;
-            this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
-            this.enemyNameLabel.Text = "aaa";
+
+            updateEnemyInfo();
             this.nodeInfo.Text = getLevelInfo(null);
         }
 
@@ -65,8 +62,6 @@ namespace FitQuest
 
             inactivityTimer.Interval = 1000; // 1 second
             StartInactivityTimer(0);
-
-
         }
 
         private void PopulateExerciseDataGrid()
@@ -92,7 +87,13 @@ namespace FitQuest
             exerciseDataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-
+        private void updateEnemyInfo()
+        {
+            this.enemyHealthBar.Maximum = this.combatEnemy.maxHP;
+            this.enemyHealthBar.Value = this.combatEnemy.currentHP;
+            this.healthBarLabel.Text = this.enemyHealthBar.Maximum.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
+            this.enemyNameLabel.Text = this.combatEnemy.EnemyName;
+        }
 
         private void attackButton_Click(object sender, EventArgs e)
         {
@@ -132,9 +133,9 @@ namespace FitQuest
 
             // Call function to calculate damage
             int damageDeal = calculateDamage(1, 1, 1);
-            reduceEnemyHealth(this.enemyHealthBar, 10);
-
-            if (isEnemyDead(this.enemyHealthBar))
+            this.combatEnemy.takeDamage(damageDeal);
+            updateEnemyInfo();
+            if (this.combatEnemy.isDead())
             {
                 victorySequence();
             }
@@ -161,6 +162,13 @@ namespace FitQuest
         {
             // Save in database
         }
+
+        private bool isCamWorking()
+        {
+            return true;
+        }
+
+
 
         // pass player or smth
         private Rewards calculateRewards()
@@ -224,15 +232,7 @@ namespace FitQuest
             return "Dreary Desert " + "(lvl. " + 41 + ")";
         }
 
-        private bool isEnemyDead(ProgressBar enemyHealthBar)
-        {
-            if (enemyHealthBar.Value == 0)
-            {
-                return true;
-            }
 
-            return false;
-        }
         private void StartInactivityTimer(int type)
         {
             inactivityTimer.Stop();
@@ -245,25 +245,6 @@ namespace FitQuest
             {
                 //ShowAfkCheckDialog()
             }
-        }
-
-        private bool reduceEnemyHealth(ProgressBar enemyHealthBar, int damage)
-        {
-            if (enemyHealthBar.Value == 0)
-            {
-                return false;
-            }
-
-            if (enemyHealthBar.Value < damage)
-            {
-                enemyHealthBar.Value = 0;
-                this.healthBarLabel.Text = this.enemyHealthBar.Value.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
-                return true;
-            }
-
-            enemyHealthBar.Value -= damage;
-            this.healthBarLabel.Text = this.enemyHealthBar.Value.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
-            return true;
         }
 
         // not int but obj
