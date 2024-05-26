@@ -54,7 +54,7 @@ namespace FitQuest
 
         private void shopButton_Click(object sender, EventArgs e)
         {
-            ItemShop ItemShopForm = new ItemShop();
+            ItemShop ItemShopForm = new ItemShop(userProfile, userProfile.Gold);
             ItemShopForm.Show();
         }
 

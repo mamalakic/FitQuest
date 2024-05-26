@@ -3,6 +3,21 @@ using System.Configuration;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+using System;
+using System.Configuration;
+using System.Data.SQLite;
+using System.Drawing;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+using System;
+using System.Configuration;
+using System.Data.SQLite;
+using System.Drawing;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FitQuest
 {
@@ -11,10 +26,14 @@ namespace FitQuest
         private ListViewItem selectedItem;
         private ImageList imageList; // Declare imageList here
         private Profile userProfile;
+        private int userGold; // Store user's gold
 
-        public ItemShop(Profile userProfile)
+        public ItemShop(Profile userProfile, int userGold)
         {
             InitializeComponent();
+
+            this.userProfile = userProfile; // Store the user's profile
+            this.userGold = userGold; // Store the user's gold
 
             imageList = new ImageList // Initialize imageList here
             {
@@ -105,6 +124,9 @@ namespace FitQuest
                 {
                     pictureBox1.Image = null; // No image found, clear PictureBox
                 }
+
+                // Display gold of the selected item in TextBox1
+                textBox1.Text = selectedItem.SubItems[2].Text; // Assuming gold is the third sub-item
             }
         }
 
@@ -116,14 +138,79 @@ namespace FitQuest
                 // Retrieve the gold value of the selected item
                 int goldValue = Convert.ToInt32(selectedItem.SubItems[2].Text);
 
-                // Deduct the gold value from the user's gold (assuming user's gold is stored in a variable named 'userGold')
-                userGold -= goldValue;
+                // Ensure the user has enough gold to purchase the item
+                if (userGold >= goldValue)
+                {
+                    // Deduct the gold value from the user's gold
+                    userGold -= goldValue;
 
-                // Update user's gold in the database or wherever it's stored
+                    // Update user's gold in the database
+                    string updateGoldQuery = "UPDATE Profiles SET gold = @gold WHERE id = @id";
+                    UpdateUserGold(updateGoldQuery, this.userProfile.id, this.userGold);
 
-                MessageBox.Show($"Purchased: {selectedItem.Text}");
+                    // Add the selected item to the user's inventory
+                    AddItemToInventory(selectedItem);
+
+                    MessageBox.Show($"Purchased: {selectedItem.Text}");
+                }
+                else
+                {
+                    MessageBox.Show("Insufficient gold to purchase this item.");
+                }
             }
         }
+
+        private void AddItemToInventory(ListViewItem item)
+        {
+            string name = item.Text;
+            string category = item.SubItems[1].Text;
+            string description = item.ToolTipText;
+            int quantity = 1; // Assuming the default quantity is 1 for a newly purchased item
+
+            // Insert the item into the user's inventory in the database
+            string insertQuery = "INSERT INTO Inventory (Name, Category, Description, Quantity) VALUES (@name, @category, @description, @quantity)";
+            ExecuteNonQuery(insertQuery, name, category, description, quantity);
+        }
+
+        private void UpdateUserGold(string query, string userId, int newGoldAmount)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@gold", newGoldAmount);
+                        command.Parameters.AddWithValue("@id", userId);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating gold: " + ex.Message);
+                }
+            }
+        }
+
+        private void ExecuteNonQuery(string query, string name, string category, string description, int quantity)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@name", name);
+                    command.Parameters.AddWithValue("@category", category);
+                    command.Parameters.AddWithValue("@description", description);
+                    command.Parameters.AddWithValue("@quantity", quantity);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         private void itemAttributes_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
