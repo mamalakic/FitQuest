@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Data.SQLite;
+using System.Configuration;
 
 namespace FitQuest
 {
@@ -9,19 +11,21 @@ namespace FitQuest
     {
         private Profile userProfile;
         private Level currentLevel;
+        private Dictionary<Point, int> nodePositions;
+        private int userProgressionLevel;
 
         public Map(Profile userProfile)
         {
             this.userProfile = userProfile;
             InitializeComponent();
+            InitializeNodePositions();
+            FetchUserProgressionLevel();
             CreateNodes();
         }
 
-
-        private void CreateNodes()
+        private void InitializeNodePositions()
         {
-            // Define node positions and level numbers
-            Dictionary<Point, int> nodePositions = new Dictionary<Point, int>
+            nodePositions = new Dictionary<Point, int>
             {
                 { new Point(700, 500), 1 },
                 { new Point(462, 519), 2 },
@@ -36,24 +40,58 @@ namespace FitQuest
                 { new Point(315, 79), 11 },
                 { new Point(498, 46), 12 }
             };
+        }
 
+        private void FetchUserProgressionLevel()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            string query = "SELECT level FROM Profiles WHERE id = @profileId";
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                SQLiteCommand command = new SQLiteCommand(query, connection);
+                command.Parameters.AddWithValue("@profileId", userProfile.id);
+                connection.Open();
+
+                userProgressionLevel = Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+
+        private void CreateNodes()
+        {
             foreach (var entry in nodePositions)
             {
                 Point pos = entry.Key;
-                int level = entry.Value;
+                int levelNum = entry.Value;
 
                 Button nodeButton = new Button
                 {
                     Size = new Size(30, 30),
                     Location = pos,
-                    BackColor = Color.Red,
-                    Tag = level, // Set the Tag property to the level number
+                    Tag = levelNum, // Ensure Tag is set to an integer
+                    
                     FlatStyle = FlatStyle.Flat
                 };
 
                 nodeButton.Click += NodeButton_Click;
                 nodeButton.MouseEnter += NodeButton_MouseEnter;
                 nodeButton.MouseLeave += NodeButton_MouseLeave;
+
+                if (levelNum <= userProgressionLevel)
+                {
+                    nodeButton.BackColor = Color.Green;
+                    nodeButton.Enabled = true;
+                }
+                else if (levelNum == userProgressionLevel + 1)
+                {
+                    nodeButton.BackColor = Color.Red;
+                    nodeButton.Enabled = true;
+                }
+                else
+                {
+                    nodeButton.BackColor = Color.Gray;
+                    nodeButton.Enabled = false;
+                }
 
                 pictureBox1.Controls.Add(nodeButton);
             }
@@ -62,37 +100,53 @@ namespace FitQuest
         private void NodeButton_Click(object sender, EventArgs e)
         {
             Button node = sender as Button;
-            if (node != null)
-            {
-                int levelNumber = Convert.ToInt32(node.Tag); // Convert Tag to int
 
-                try
+                if (int.TryParse(node.Tag.ToString(), out int levelNumber))
                 {
-                    currentLevel = new Level(levelNumber);
-                    MessageBox.Show($"Level {currentLevel.Count}selected!\nEnemy: {currentLevel.EnemyName}\nHP: {currentLevel.EnemyHP}\n\nClick on Commence Battle to start Combat!");
+                    try
+                    {
+                        currentLevel = new Level(levelNumber);
+                        MessageBox.Show($"Level {currentLevel.Count} selected!\nEnemy: {currentLevel.EnemyName}\nHP: {currentLevel.EnemyHP}\n\nClick on Commence Battle to start Combat!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show($"Error: {ex.Message}");
+                    MessageBox.Show("Invalid level number.");
                 }
-            }
         }
+
+        private Dictionary<Button, Color> originalColors = new Dictionary<Button, Color>();
 
         private void NodeButton_MouseEnter(object sender, EventArgs e)
         {
             Button node = sender as Button;
-            if (node != null)
+            if (node != null && node.Enabled)
             {
-                node.BackColor = Color.Blue; // Highlight on hover
+                // Store the original color of the button
+                originalColors[node] = node.BackColor;
+                node.BackColor = Color.Blue;
             }
         }
 
         private void NodeButton_MouseLeave(object sender, EventArgs e)
         {
             Button node = sender as Button;
-            if (node != null)
+            if (node != null && node.Enabled)
             {
-                node.BackColor = Color.Red; // Reset color when not hovering
+                // Restore the original color of the button
+                if (originalColors.ContainsKey(node))
+                {
+                    node.BackColor = originalColors[node];
+                }
+                else
+                {
+                    // Fallback to default color if the original color is not stored
+                    node.BackColor = Color.Green;
+                }
             }
         }
 
@@ -109,24 +163,23 @@ namespace FitQuest
                 {
                     Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
                 }
-                // Show the friends list form
-                CombatSystem CombatForm = new CombatSystem(userProfile, currentLevel);
-                CombatForm.Show();
+                // Show the combat form
+                CombatSystem combatForm = new CombatSystem(userProfile, currentLevel);
+                combatForm.Show();
             }
             else
             {
                 Console.WriteLine("Training program not chosen");
                 this.Hide();
-                TrainingProgram TrainingProgramForm = new TrainingProgram(userProfile);
-                TrainingProgramForm.Show();
-
+                TrainingProgram trainingProgramForm = new TrainingProgram(userProfile);
+                trainingProgramForm.Show();
             }
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            MainMenu MainMenuForm = new MainMenu();
-            MainMenuForm.Show();
+            MainMenu mainMenuForm = new MainMenu();
+            mainMenuForm.Show();
             this.Hide();
         }
     }
