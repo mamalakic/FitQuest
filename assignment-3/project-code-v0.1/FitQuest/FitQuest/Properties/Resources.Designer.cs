@@ -63,9 +63,29 @@ namespace FitQuest.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap aspida {
+        internal static System.Drawing.Bitmap Flaming_Sword {
             get {
-                object obj = ResourceManager.GetObject("aspida", resourceCulture);
+                object obj = ResourceManager.GetObject("Flaming Sword", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Grenade {
+            get {
+                object obj = ResourceManager.GetObject("Grenade", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap King_of_the_castle {
+            get {
+                object obj = ResourceManager.GetObject("King of the castle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -86,26 +106,6 @@ namespace FitQuest.Properties {
         internal static System.Drawing.Bitmap placeholder {
             get {
                 object obj = ResourceManager.GetObject("placeholder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap spathi {
-            get {
-                object obj = ResourceManager.GetObject("spathi", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap stemma {
-            get {
-                object obj = ResourceManager.GetObject("stemma", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

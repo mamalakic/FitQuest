@@ -1,74 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FitQuest
 {
     public partial class ItemShop : Form
     {
         private ListViewItem selectedItem;
+        private ImageList imageList; // Declare imageList here
+        private Profile userProfile;
 
-        public ItemShop()
+        public ItemShop(Profile userProfile)
         {
             InitializeComponent();
-            var imageList = new ImageList();
-            imageList.Images.Add("Flaming Sword", Image.FromFile(@"C:\Users\Achilleas\Documents\GitHub\FitQuest\assignment-3\project-code-v0.1\FitQuest\spathi.png"));
-            imageList.Images.Add("\"King of the castle\" pin hahaha", Image.FromFile(@"C:\Users\Achilleas\Documents\GitHub\FitQuest\assignment-3\project-code-v0.1\FitQuest\stemma.png"));
-            imageList.Images.Add("Grenade \"Grenade\"", Image.FromFile(@"C:\Users\Achilleas\Documents\GitHub\FitQuest\assignment-3\project-code-v0.1\FitQuest\aspida.png"));
-            itemsList.LargeImageList = imageList;
-            imageList.ImageSize = new Size(64, 64);
 
+            imageList = new ImageList // Initialize imageList here
+            {
+                ImageSize = new Size(64, 64)
+            };
+
+            // Add images from resources
+            imageList.Images.Add("Flaming sword", Properties.Resources.Flaming_Sword);
+            imageList.Images.Add("King of the castle", Properties.Resources.King_of_the_castle);
+            imageList.Images.Add("Grenade", Properties.Resources.Grenade);
+
+            itemsList.LargeImageList = imageList;
+            itemsList.View = View.LargeIcon;
             itemsList.DrawItem += ItemsList_DrawItem;
-            /*
-            var imageList = new ImageList();
-            imageList.Images.Add("spathi", Image.FromFile(@"C:\Users\Achilleas\Documents\GitHub\FitQuest\assignment-3\project-code-v0.1\FitQuest\spathi.png"));
-            imageList.Images.Add("stemma", Image.FromFile(@"C:\Users\Achilleas\Documents\GitHub\FitQuest\assignment-3\project-code-v0.1\FitQuest\stemma.png"));
-            imageList.Images.Add("aspida", Image.FromFile(@"C:\Users\Achilleas\Documents\GitHub\FitQuest\assignment-3\project-code-v0.1\FitQuest\aspida.png"));
-            itemsList.LargeImageList = imageList;
-            imageList.ImageSize = new Size(64, 64);
 
-            var listViewItem1 = itemsList.Items.Add("Spathi");
-            listViewItem1.ImageKey = "spathi";
-            listViewItem1.ToolTipText = "Einai ena spathi";
-            var listViewItem2 = itemsList.Items.Add("Stemma");
-            listViewItem2.ImageKey = "stemma";
-            var listViewItem3 = itemsList.Items.Add("Aspida");
-            listViewItem3.ImageKey = "aspida";
-
-            //itemAttributes.Items.Add("Attribute").SubItems.Add("Damage");
-            //itemAttributes.Items.Add("Value").SubItems.Add("+5");
-            
-            ListViewItem item1 = new ListViewItem("Something");
-            item1.SubItems.Add("SubItem1a");
-            item1.SubItems.Add("SubItem1b");
-            item1.SubItems.Add("SubItem1c");
-
-            ListViewItem item2 = new ListViewItem("Something2");
-            item2.SubItems.Add("SubItem2a");
-            item2.SubItems.Add("SubItem2b");
-            item2.SubItems.Add("SubItem2c");
-            
-            itemAttributes.Items.AddRange(new ListViewItem[] { item1, item2 });
-            */
             ListViewItem item = new ListViewItem("Strength");
             item.SubItems.Add("+5");
             itemAttributes.Items.Add(item);
-
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            //leaves the clan camp
             MainMenu MainMenuForm = new MainMenu();
             MainMenuForm.Show();
             this.Hide();
@@ -76,9 +44,6 @@ namespace FitQuest
 
         private void ItemShop_Load(object sender, EventArgs e)
         {
-
-            
-
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -97,14 +62,15 @@ namespace FitQuest
                                 string name = reader["Name"].ToString();
                                 string category = reader["Category"].ToString();
                                 string description = reader["Description"].ToString();
+                                int gold = Convert.ToInt32(reader["Gold"]); // Retrieve gold value
 
                                 ListViewItem item = new ListViewItem(name);
-                                item.SubItems.Add(category); // HOW TO???
-                                item.ImageKey = name;
+                                item.SubItems.Add(category); // Adding the category as a sub-item
+                                item.SubItems.Add(gold.ToString()); // Adding gold value as a sub-item
+                                item.ImageKey = name.ToLower(); // Ensure the key matches the added images
                                 item.ToolTipText = description;
 
                                 itemsList.Items.Add(item);
-                                //TODO category?
                             }
                         }
                     }
@@ -120,24 +86,50 @@ namespace FitQuest
         {
             if (itemsList.SelectedItems.Count > 0)
             {
-                selectedItem = itemsList.SelectedItems[0];
-            }
+                // Reset back color for previously selected item
+                if (selectedItem != null)
+                {
+                    selectedItem.BackColor = Color.Transparent; // Reset back color
+                }
 
+                selectedItem = itemsList.SelectedItems[0];
+                selectedItem.BackColor = Color.LightBlue; // Change back color for selected item
+
+                // Display selected item's image in PictureBox
+                string imageName = selectedItem.ImageKey;
+                if (!string.IsNullOrEmpty(imageName) && imageList.Images.ContainsKey(imageName))
+                {
+                    pictureBox1.Image = imageList.Images[imageName];
+                }
+                else
+                {
+                    pictureBox1.Image = null; // No image found, clear PictureBox
+                }
+            }
         }
+
 
         private void purchaseButton_Click(object sender, EventArgs e)
         {
-            //selectedItem.Text
-        }
+            if (selectedItem != null)
+            {
+                // Retrieve the gold value of the selected item
+                int goldValue = Convert.ToInt32(selectedItem.SubItems[2].Text);
 
+                // Deduct the gold value from the user's gold (assuming user's gold is stored in a variable named 'userGold')
+                userGold -= goldValue;
+
+                // Update user's gold in the database or wherever it's stored
+
+                MessageBox.Show($"Purchased: {selectedItem.Text}");
+            }
+        }
         private void itemAttributes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void ItemsList_DrawItem(object sender, DrawListViewItemEventArgs e)
@@ -148,8 +140,15 @@ namespace FitQuest
             int imageX = e.Bounds.Left + (e.Bounds.Width - e.Item.ImageList.ImageSize.Width) / 2;
             int imageY = e.Bounds.Top;
 
-            // Draw item image
-            e.Graphics.DrawImage(e.Item.ImageList.Images[e.Item.ImageKey], imageX, imageY);
+            // Debugging: Check if image key exists
+            if (e.Item.ImageList.Images.ContainsKey(e.Item.ImageKey))
+            {
+                e.Graphics.DrawImage(e.Item.ImageList.Images[e.Item.ImageKey], imageX, imageY);
+            }
+            else
+            {
+                MessageBox.Show($"ImageKey '{e.Item.ImageKey}' not found in ImageList.");
+            }
 
             // Calculate text drawing position
             int textX = e.Bounds.Left + (e.Bounds.Width - (int)e.Graphics.MeasureString(e.Item.Text, e.Item.Font).Width) / 2;
@@ -189,12 +188,14 @@ namespace FitQuest
             }
 
             // Draw category below item name with some spacing
-            SizeF categoryNameSize = e.Graphics.MeasureString(e.Item.SubItems[1].Text, e.Item.Font);
-            textY += (int)categoryNameSize.Height + 2; // Add some spacing
-            textX = e.Bounds.Left + (e.Bounds.Width - (int)categoryNameSize.Width) / 2;
-            e.Graphics.DrawString(e.Item.SubItems[1].Text, e.Item.Font, Brushes.Red, textX, textY);
+            if (e.Item.SubItems.Count > 1)
+            {
+                SizeF categoryNameSize = e.Graphics.MeasureString(e.Item.SubItems[1].Text, e.Item.Font);
+                textY += (int)categoryNameSize.Height + 2; // Add some spacing
+                textX = e.Bounds.Left + (e.Bounds.Width - (int)categoryNameSize.Width) / 2;
+                e.Graphics.DrawString(e.Item.SubItems[1].Text, e.Item.Font, Brushes.Red, textX, textY);
+            }
         }
-
 
     }
 }
