@@ -15,20 +15,30 @@ namespace FitQuest
         private int value, quantity;
         public enum categories
         {
-           Weapon = 0,
-           Armour = 1,
-           Accessory = 2,
-           Consumable = 3
+            Weapon = 0,
+            Armour = 1,
+            Accessory = 2,
+            Consumable = 3
         };
         private categories category;
 
-        public Item() {//TODO
-            stats.Add("Damage", 5);
+        public Item(string name, int value, int quantity, categories category)
+        {
+            this.name = name;
+            this.value = value;
+            this.quantity = quantity;
+            this.category = category;
+            stats.Add("Damage", 5); // Example stat, can be changed
         }
 
         public categories getCategory()
         {
             return this.category;
+        }
+
+        public Hashtable GetStats()
+        {
+            return this.stats;
         }
     }
 }

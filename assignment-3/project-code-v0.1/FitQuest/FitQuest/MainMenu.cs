@@ -48,7 +48,7 @@ namespace FitQuest
             this.Hide();
 
             // Show the friends list form
-            Inventory invBackpack = new Inventory(userProfile);
+            Inventory invBackpack = new Inventory(userProfile,false);
             invBackpack.Show();
         }
 

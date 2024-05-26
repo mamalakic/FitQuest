@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Collections;
 using System.Data;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -316,5 +317,13 @@ namespace FitQuest
         {
             defeatSequence();
         }
+
+        private void inventoryButton_Click(object sender, EventArgs e)
+        {
+            Inventory inventoryForm = new Inventory(userProfile, true); // Indicate it's accessed from CombatSystem
+            inventoryForm.LoadInventoryData();
+            inventoryForm.Show();
+        }
+
     }
 }

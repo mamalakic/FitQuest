@@ -19,23 +19,30 @@ namespace FitQuest
         private Profile userProfile;
         private string id;
         private int Gold;
+        private bool accessedFromCombatSystem = false;
 
-        public Inventory(Profile userProfile)
+        public Inventory(Profile userProfile, bool accessedFromCombatSystem)
         {
             this.userProfile = userProfile;
             this.id = userProfile.id;
             this.Gold = userProfile.Gold;
             InitializeComponent();
             this.Load += new System.EventHandler(this.Inventory_Load);
+            this.accessedFromCombatSystem = accessedFromCombatSystem;
 
         }
 
         private void Inventory_Load(object sender, EventArgs e)
         {
             LoadInventoryData();
+            if (accessedFromCombatSystem)
+            {
+                button2.Visible = false;
+                button6.Visible = false;
+            }
         }
 
-        private void LoadInventoryData()
+        public void LoadInventoryData()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
 
@@ -93,16 +100,25 @@ namespace FitQuest
             if (listView1.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listView1.SelectedItems[0];
-                int quantity = int.Parse(selectedItem.SubItems[3].Text);
-                string name = selectedItem.SubItems[0].Text; // Get the name of the item
+                string category = selectedItem.SubItems[1].Text;
 
-                MessageBox.Show($"You equiped: {name}");
+                if (category == Item.categories.Consumable.ToString())
+                {
+                    MessageBox.Show("Please select a non-consumable item to equip.");
+                }
+                else
+                {
+                    int quantity = int.Parse(selectedItem.SubItems[3].Text);
+                    string name = selectedItem.SubItems[0].Text; // Get the name of the item
+
+                    MessageBox.Show($"You equipped: {name}");
+                }
             }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0)
+            if (listView1.SelectedItems.Count > 0 && listView1.SelectedItems[0].SubItems[1].Text == Item.categories.Consumable.ToString())
             {
                 ListViewItem selectedItem = listView1.SelectedItems[0];
                 int quantity = int.Parse(selectedItem.SubItems[3].Text);
@@ -126,9 +142,13 @@ namespace FitQuest
                         selectedItem.SubItems[3].Text = quantity.ToString();
                     }
 
-
                     MessageBox.Show($"You used: {name}");
+        
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select a consumable item to use.");
             }
         }
 
