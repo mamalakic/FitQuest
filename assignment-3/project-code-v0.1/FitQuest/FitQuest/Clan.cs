@@ -313,6 +313,32 @@ namespace FitQuest
         {
 
         }
+
+        private void teambattleButton_Click(object sender, EventArgs e)
+        {
+            // Hide the current form (main menu)
+            this.Hide();
+
+            // Check if exercises are populated
+            if (userProfile.AreExercisesPopulated())
+            {
+                Console.WriteLine("Training program is chosen:");
+                foreach (var category in userProfile.Exercises.Keys)
+                {
+                    Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
+                }
+                // Show the combat form
+                CombatSystem combatForm = new CombatSystem(userProfile);
+                combatForm.Show();
+            }
+            else
+            {
+                Console.WriteLine("Training program not chosen");
+                this.Hide();
+                TrainingProgram trainingProgramForm = new TrainingProgram(userProfile);
+                trainingProgramForm.Show();
+            }
+        }
     }
 }
 

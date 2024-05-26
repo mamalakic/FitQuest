@@ -267,6 +267,7 @@
             this.teambattleButton.TabIndex = 4;
             this.teambattleButton.Text = "Team Battle";
             this.teambattleButton.UseVisualStyleBackColor = true;
+            this.teambattleButton.Click += new System.EventHandler(this.teambattleButton_Click);
             // 
             // clanmembersGrid
             // 
