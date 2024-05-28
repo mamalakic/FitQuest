@@ -10,8 +10,8 @@ namespace FitQuest
     public partial class CombatSystem : Form
     {
         private readonly Level currentLevel;
-        private readonly int afkMaxSeconds = 10;
-        private readonly int inactivityMaxSeconds = 5;
+        private readonly int afkMaxSeconds = 10; // original 300
+        private readonly int inactivityMaxSeconds = 5; // original 60
         private int inactivitySeconds = 0;
         // 0 is for afk timer, 1 is for waiting for activity
         private int inactiveTimerType = 0;
@@ -284,7 +284,6 @@ namespace FitQuest
             {
                 // afk countdown
                 case 0:
-                    // original 300
                     if (inactivitySeconds == afkMaxSeconds)
                     {
                         StartInactivityTimer(1);
@@ -292,7 +291,6 @@ namespace FitQuest
                     break;
 
                 case 1:
-                    // original 60
                     afkCheckButton.Text = "I'm here!\n(" + (inactivityMaxSeconds-inactivitySeconds) + "s left)";
                     if (inactivitySeconds == inactivityMaxSeconds)
                     {
