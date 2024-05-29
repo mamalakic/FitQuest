@@ -15,8 +15,9 @@ namespace FitQuest
         private int userLevel;
         string connectionString;
         private Profile userProfile;
+        private Level currentLevel;
 
-        public TrainingProgram(Profile userProfile)
+        public TrainingProgram(Profile userProfile, Level currentLevel)
         {
             //initialize connection
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
@@ -32,6 +33,7 @@ namespace FitQuest
 
             //populate the buttons with exercise programs
             getPrograms();
+            this.currentLevel = currentLevel;
         }
 
         public void createDangerWarning()
@@ -43,7 +45,7 @@ namespace FitQuest
         private void button1_Click(object sender, EventArgs e) 
         {
             chooseProgram("Push");
-            CombatSystem CombatForm = new CombatSystem(userProfile);
+            CombatSystem CombatForm = new CombatSystem(userProfile, this.currentLevel);
             CombatForm.Show();
             this.Hide();
         }
@@ -51,7 +53,7 @@ namespace FitQuest
         private void button2_Click_1(object sender, EventArgs e)
         {
             chooseProgram("Pull");
-            CombatSystem CombatForm = new CombatSystem(userProfile);
+            CombatSystem CombatForm = new CombatSystem(userProfile, this.currentLevel);
             CombatForm.Show();
             this.Hide();
         }
@@ -59,7 +61,7 @@ namespace FitQuest
         private void button3_Click_1(object sender, EventArgs e)
         {
             chooseProgram("Legs");
-            CombatSystem CombatForm = new CombatSystem(userProfile);
+            CombatSystem CombatForm = new CombatSystem(userProfile, this.currentLevel);
             CombatForm.Show();
             this.Hide();
         }

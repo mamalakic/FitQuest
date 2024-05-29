@@ -11,6 +11,8 @@ namespace FitQuest
 {
     public class Level
     {
+        //private List<string> levelNames = new List<string>
+        //{ "Dreary Desert", "Salty Sanctum", "Misty Mountain", "Frozen Forest", "Golden Gravelroad" };
         public int Count { get; private set; }
         public string EnemyName { get; private set; }
         public int EnemyHP { get; private set; }

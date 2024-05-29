@@ -1,7 +1,9 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections;
+using System.Configuration;
 using System.Data;
+using System.Data.SQLite;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,38 +20,21 @@ namespace FitQuest
         private int combatTimeSeconds = 0;
 
         private Enemy combatEnemy;
+        private string connectionString;
 
         private Profile userProfile;
         public CombatSystem(Profile userProfile, Level currentLevel)
         {
+            this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             InitializeComponent();
             this.userProfile = userProfile;
             this.currentLevel = currentLevel;
 
-            // TODO: Get this from outside (based on room node)
             this.combatEnemy = new Enemy(currentLevel.EnemyName, currentLevel.EnemyHP, currentLevel.EnemyHP, currentLevel.LevelNum);
 
             //this.enemyHealthBar.Maximum = currentLevel.currentHP;
             updateEnemyInfo();
             this.nodeInfo.Text = getLevelInfo(currentLevel);
-        }
-
-        // TODO: For debugging only
-        public CombatSystem(Profile userProfile)
-        {
-            InitializeComponent();
-            this.userProfile = userProfile;
-            this.combatEnemy = new Enemy("aaa", 100, 100, 5);
-
-            // TODO: Get this from outside (based on room node)
-            if (currentLevel != null)
-            {
-                this.nodeInfo.Text = getLevelInfo(null);
-
-            }
-
-            updateEnemyInfo();
-            this.nodeInfo.Text = getLevelInfo(null);
         }
 
         private void CombatSystem_Load(object sender, EventArgs e)
@@ -153,7 +138,6 @@ namespace FitQuest
         {
             stopCombat();
 
-            saveBattleRecord();
             Rewards rewardsObj = calculateRewards();
             saveRewardsToAccount(rewardsObj);
             showVictoryScreen(rewardsObj);
@@ -224,9 +208,45 @@ namespace FitQuest
         private bool saveRewardsToAccount(Rewards rewardsObj)
         {
             // Save in database
+            // connection
 
-            // if successful return true
-            return true;
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                con.Open();
+                // add new gold
+                string query = "UPDATE Profiles SET gold = gold + @goldGained WHERE ID = @playerID";
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    // Add the parameter and its value
+                    command.Parameters.AddWithValue("@goldGained", rewardsObj.getCurrency());
+                    command.Parameters.AddWithValue("@playerID", userProfile.id);
+
+                    // Execute the command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0) return false;
+                }
+
+                // update level of player
+                query = "UPDATE Profiles SET level = level + 1 WHERE ID = @playerID";
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    // Add the parameter and its value
+                    command.Parameters.AddWithValue("@playerID", userProfile.id);
+
+                    // Execute the command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0) return false;
+                }
+
+
+                // TODO: add new items
+
+
+                // if successful return true
+                return true;
+            }
         }
 
 

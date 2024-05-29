@@ -164,14 +164,23 @@ namespace FitQuest
                     Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
                 }
                 // Show the combat form
-                CombatSystem combatForm = new CombatSystem(userProfile, currentLevel);
-                combatForm.Show();
+                Console.WriteLine($"Level: {currentLevel.LevelNum}");
+                if (currentLevel != null)
+                {
+                    CombatSystem combatForm = new CombatSystem(userProfile, currentLevel);
+                    combatForm.Show();
+                }
+                else
+                {
+                    pickLevelLabel.Visible = true;
+                }
+
             }
             else
             {
                 Console.WriteLine("Training program not chosen");
                 this.Hide();
-                TrainingProgram trainingProgramForm = new TrainingProgram(userProfile);
+                TrainingProgram trainingProgramForm = new TrainingProgram(userProfile, currentLevel);
                 trainingProgramForm.Show();
             }
         }
