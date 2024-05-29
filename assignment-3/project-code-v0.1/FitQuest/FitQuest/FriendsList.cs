@@ -554,10 +554,10 @@ namespace FitQuest
             int columnIndex = 0; // friendid
 
             // Check if the row index is valid
-            if (rowIndex >= 0 && rowIndex < dataGridView2.Rows.Count)
+            if (rowIndex >= 0 && rowIndex < sentRequestsGridView.Rows.Count)
             {
                 // Access the row at the specified index
-                DataGridViewRow row = dataGridView2.Rows[rowIndex];
+                DataGridViewRow row = sentRequestsGridView.Rows[rowIndex];
 
                 // Check if the column index is valid
                 if (columnIndex >= 0 && columnIndex < row.Cells.Count)
@@ -568,7 +568,6 @@ namespace FitQuest
                     // Retrieve the value of the cell
                     object cellValue = cell.Value;
                     string friendName = (string)cellValue;
-
                     switch (e.ClickedItem.Text)
                     {
                         case "Remove request":
