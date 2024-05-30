@@ -45,6 +45,5 @@ namespace FitQuest
 
             return false;
         }
-
     }
 }

@@ -328,15 +328,15 @@ namespace FitQuest
                     Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
                 }
                 // Show the combat form
-                //CombatSystem combatForm = new CombatSystem(userProfile);
-                //combatForm.Show();
+                CombatSystem combatForm = new CombatSystem(userProfile);
+                combatForm.Show();
             }
             else
             {
                 Console.WriteLine("Training program not chosen");
                 this.Hide();
-                //TrainingProgram trainingProgramForm = new TrainingProgram(userProfile);
-                //trainingProgramForm.Show();
+                TrainingProgram trainingProgramForm = new TrainingProgram(userProfile);
+                trainingProgramForm.Show();
             }
         }
     }

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace FitQuest
 {
@@ -18,30 +17,6 @@ namespace FitQuest
             InitializeComponent();
 
             this.GoldValueLabel.Text = rewardsObj.getCurrency().ToString();
-            this.itemsListLabel.Text = "";
-            if (rewardsObj.getItemsList() == null)
-            {
-                this.itemsListLabel.Text = "No items won!";
-            }
-            else
-            {
-                List<Item> itemsList = rewardsObj.getItemsList();
-                if (itemsList.Count == 0) 
-                {
-
-                    this.itemsListLabel.Text = "No items won!";
-                }
-                else
-                {
-                    foreach (Item item in itemsList)
-                    {
-                        string itemString = "";
-                        itemString += $"(Value: {item.getValue()}) {item.getName()}\n";
-                        this.itemsListLabel.Text += itemString;
-                    }
-                }
-
-            }
         }
 
         private void btnGoBack_Click(object sender, EventArgs e)
@@ -57,8 +32,5 @@ namespace FitQuest
             this.Hide();
             this.FindForm().Close();
         }
-
-
-
     }
 }
