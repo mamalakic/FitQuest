@@ -33,6 +33,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.GoldValueLabel = new System.Windows.Forms.Label();
             this.btnGoBack = new System.Windows.Forms.Button();
+            this.itemsTitleLabel = new System.Windows.Forms.Label();
+            this.itemsListLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -79,10 +81,30 @@
             this.btnGoBack.UseVisualStyleBackColor = false;
             this.btnGoBack.Click += new System.EventHandler(this.btnGoBack_Click);
             // 
+            // itemsTitleLabel
+            // 
+            this.itemsTitleLabel.AutoSize = true;
+            this.itemsTitleLabel.Location = new System.Drawing.Point(236, 82);
+            this.itemsTitleLabel.Name = "itemsTitleLabel";
+            this.itemsTitleLabel.Size = new System.Drawing.Size(32, 13);
+            this.itemsTitleLabel.TabIndex = 17;
+            this.itemsTitleLabel.Text = "Items";
+            // 
+            // itemsListLabel
+            // 
+            this.itemsListLabel.AutoSize = true;
+            this.itemsListLabel.Location = new System.Drawing.Point(236, 99);
+            this.itemsListLabel.Name = "itemsListLabel";
+            this.itemsListLabel.Size = new System.Drawing.Size(35, 13);
+            this.itemsListLabel.TabIndex = 18;
+            this.itemsListLabel.Text = "label3";
+            // 
             // VictoryScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.itemsListLabel);
+            this.Controls.Add(this.itemsTitleLabel);
             this.Controls.Add(this.btnGoBack);
             this.Controls.Add(this.GoldValueLabel);
             this.Controls.Add(this.label2);
@@ -100,5 +122,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label GoldValueLabel;
         private System.Windows.Forms.Button btnGoBack;
+        private System.Windows.Forms.Label itemsTitleLabel;
+        private System.Windows.Forms.Label itemsListLabel;
     }
 }

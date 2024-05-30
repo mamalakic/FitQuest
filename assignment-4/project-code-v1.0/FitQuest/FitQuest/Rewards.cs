@@ -12,7 +12,7 @@ namespace FitQuest
     public class Rewards
     {
         private int currency;
-        //private items itemsList;
+        private List<Item> itemsList;
 
         public Rewards(int rewardPoints) 
         {
@@ -24,5 +24,10 @@ namespace FitQuest
         {
             return this.currency;
         }
+        public List<Item> getItemsList()
+        {
+            return this.itemsList;
+        }
+
     }
 }

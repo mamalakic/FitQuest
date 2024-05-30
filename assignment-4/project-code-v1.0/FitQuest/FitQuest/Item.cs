@@ -40,5 +40,17 @@ namespace FitQuest
         {
             return this.stats;
         }
+
+        public string getName()
+        {
+            return this.name;
+        }
+
+        public int getValue()
+        {
+            return this.value;
+        }
+
+
     }
 }
