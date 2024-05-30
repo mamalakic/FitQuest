@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Configuration;
 
+
 namespace FitQuest
 {
     public partial class Map : Form
@@ -13,13 +14,19 @@ namespace FitQuest
         private Level currentLevel;
         private Dictionary<Point, int> nodePositions;
         private int userProgressionLevel;
+        private ToolTip toolTip;
 
+        private void InitializeToolTip()
+        {
+            toolTip = new ToolTip();
+        }
         public Map(Profile userProfile)
         {
             this.userProfile = userProfile;
             InitializeComponent();
             InitializeNodePositions();
             FetchUserProgressionLevel();
+            InitializeToolTip();
             CreateNodes();
         }
 
@@ -68,7 +75,7 @@ namespace FitQuest
                 {
                     Size = new Size(30, 30),
                     Location = pos,
-                    Tag = levelNum, // Ensure Tag is set to an integer
+                    Tag = levelNum, 
                     
                     FlatStyle = FlatStyle.Flat
                 };
@@ -129,6 +136,16 @@ namespace FitQuest
                 // Store the original color of the button
                 originalColors[node] = node.BackColor;
                 node.BackColor = Color.Blue;
+
+                // Show tooltip if the node is green
+                if (originalColors[node] == Color.Green)
+                {
+                    toolTip.SetToolTip(node, "Level already completed");
+                }
+                else
+                {
+                    toolTip.SetToolTip(node, ""); // Clear tooltip for other colors
+                }
             }
         }
 
@@ -147,11 +164,23 @@ namespace FitQuest
                     // Fallback to default color if the original color is not stored
                     node.BackColor = Color.Green;
                 }
+
+                // Clear the tooltip
+                toolTip.SetToolTip(node, "");
             }
         }
 
+
         private void button1_Click(object sender, EventArgs e)
         {
+            // Check if a node (level) has been selected
+            if (currentLevel == null)
+            {
+                // Display a message prompting the user to select a node
+                MessageBox.Show($"Love the enthusiasm! \nbut you need to select a level first. Your current level is {userProgressionLevel}.", "Select Node", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Exit the method to prevent further execution
+            }
+
             // Hide the current form (main menu)
             this.Hide();
 
@@ -165,16 +194,8 @@ namespace FitQuest
                 }
                 // Show the combat form
                 Console.WriteLine($"Level: {currentLevel.LevelNum}");
-                if (currentLevel != null)
-                {
-                    CombatSystem combatForm = new CombatSystem(userProfile, currentLevel);
-                    combatForm.Show();
-                }
-                else
-                {
-                    pickLevelLabel.Visible = true;
-                }
-
+                CombatSystem combatForm = new CombatSystem(userProfile, currentLevel);
+                combatForm.Show();
             }
             else
             {
