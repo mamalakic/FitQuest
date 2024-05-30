@@ -134,39 +134,13 @@ namespace FitQuest
 
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void button4_Click(object sender, EventArgs e)
         {
             chooseProgram("makeOwnProgram");
         }
 
-        private void chooseProgram(string text)  //This can be modified to it chooses programs based on age, level, weight etc.
+        private void chooseProgram(string text)  //this can be modified to it chooses programs based on age, level, weight etc.
             //update the userProfile's exercises with the selected program's exercises
         {
             if (text == "Push")
@@ -193,11 +167,68 @@ namespace FitQuest
 
         private void createProgramMaker()
         {
+            groupBox1.Visible = false;
+            groupBox2.Visible = true;
 
+            PopulateProgramMakerExercises();
         }
 
+        private void PopulateProgramMakerExercises()     //populates the datagridview with the database's exercises
+        {
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                con.Open();
+                string query = "SELECT * FROM TrainingProgram";      //get all the exercises from the database
+                SQLiteCommand cmd = new SQLiteCommand(query, con);
+                DataTable dt = new DataTable();
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+                adapter.Fill(dt);
 
+                List<Exercise> exercises = dt.AsEnumerable()       //make the list from the retrieved dataset
+                                             .Select(row => new Exercise { Name = row["exercise_name"].ToString() })
+                                             .ToList();
+                dataGridView4.DataSource = exercises;
+            }
+        }
 
+        private void buttonSaveProgram_Click_1(object sender, EventArgs e)   //button "Save Program", saves the selected exercises
+        {
+            var selectedExercises = dataGridView4.SelectedRows
+                                        .OfType<DataGridViewRow>()
+                                        .Select(row => row.DataBoundItem as Exercise)
+                                        .ToList();
+
+            if (selectedExercises.Any())
+            {
+                userProfile.Exercises["Custom"] = selectedExercises.Select(ex => ex.Name).ToList();    //sets the userprofile's exercises
+                MessageBox.Show("Custom program saved successfully!");
+                CombatSystem CombatForm = new CombatSystem(userProfile, this.currentLevel);
+                CombatForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Please select at least one exercise.");
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (userProfile.Exercises.ContainsKey("Custom") && userProfile.Exercises["Custom"].Any())
+            {
+                groupBox1.Visible = false;
+                groupBox3.Visible = true;
+                var customExercises = userProfile.Exercises["Custom"]
+                                                  .Select(ex => new Exercise { Name = ex })
+                                                  .ToList();
+
+                dataGridView5.DataSource = customExercises;
+            }
+            else
+            {
+                MessageBox.Show("No custom program found.");
+            }
+        }
     }
 
     
