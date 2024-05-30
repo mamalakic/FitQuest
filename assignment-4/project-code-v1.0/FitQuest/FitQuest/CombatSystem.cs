@@ -4,6 +4,7 @@ using System.Collections;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -30,7 +31,7 @@ namespace FitQuest
             this.userProfile = userProfile;
             this.currentLevel = currentLevel;
 
-            this.combatEnemy = new Enemy(currentLevel.EnemyName, currentLevel.EnemyHP, currentLevel.EnemyHP, currentLevel.LevelNum);
+            this.combatEnemy = new Enemy(currentLevel.EnemyName, currentLevel.EnemyHP, currentLevel.CurrentEnemyHP, currentLevel.LevelNum);
 
             //this.enemyHealthBar.Maximum = currentLevel.currentHP;
             updateEnemyInfo();
@@ -139,6 +140,7 @@ namespace FitQuest
             stopCombat();
 
             Rewards rewardsObj = calculateRewards();
+            saveBattleRecord();
             saveRewardsToAccount(rewardsObj);
             showVictoryScreen(rewardsObj);
         }
@@ -151,9 +153,41 @@ namespace FitQuest
             showDefeatScreen();
         }
 
-        private void saveBattleRecord() 
+        private bool saveBattleRecord() 
         {
-            // Save in database
+            using (SQLiteConnection con = new SQLiteConnection(connectionString)) { 
+                con.Open();
+                // update current hp of enemy
+                string query = "UPDATE Level SET enemy_current_hp = @enemyHP WHERE count = @levelCount";
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    // Add the parameter and its value
+                    command.Parameters.AddWithValue("@enemyHP", combatEnemy.currentHP);
+                    command.Parameters.AddWithValue("@levelCount", currentLevel.Count);
+
+                    // Execute the command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0) return false;
+                }
+
+                if (combatEnemy.currentHP == 0)
+                {
+                    // mark level as complete
+                    query = "UPDATE Level SET is_completed = 1 WHERE count = @levelCount";
+                    using (SQLiteCommand command = new SQLiteCommand(query, con))
+                    {
+                        // Add the parameter and its value
+                        command.Parameters.AddWithValue("@levelCount", currentLevel.Count);
+
+                        // Execute the command
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected == 0) return false;
+                    }
+                }
+                return true;
+            }
         }
 
         private bool isCamWorking()
@@ -233,6 +267,18 @@ namespace FitQuest
                 {
                     // Add the parameter and its value
                     command.Parameters.AddWithValue("@playerID", userProfile.id);
+
+                    // Execute the command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0) return false;
+                }
+
+                query = "UPDATE Level SET is_completed = 1 WHERE count = @levelCount";
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    // Add the parameter and its value
+                    command.Parameters.AddWithValue("@levelCount", currentLevel.Count);
 
                     // Execute the command
                     int rowsAffected = command.ExecuteNonQuery();

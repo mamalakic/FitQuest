@@ -106,7 +106,7 @@ namespace FitQuest
                     try
                     {
                         currentLevel = new Level(levelNumber);
-                        MessageBox.Show($"Level {currentLevel.Count} selected!\nEnemy: {currentLevel.EnemyName}\nHP: {currentLevel.EnemyHP}\n\nClick on Commence Battle to start Combat!");
+                        MessageBox.Show($"Level {currentLevel.Count} selected!\nEnemy: {currentLevel.EnemyName}\nHP: {currentLevel.CurrentEnemyHP}/{currentLevel.EnemyHP}\n\nClick on Commence Battle to start Combat!");
                     }
                     catch (Exception ex)
                     {
