@@ -40,11 +40,6 @@ namespace FitQuest
                 button2.Visible = false;
                 button6.Visible = false;
             }
-
-            else
-            {
-                button5.Visible = false;
-            }
         }
 
         public void LoadInventoryData()
@@ -236,15 +231,9 @@ namespace FitQuest
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            if (accessedFromCombatSystem)
-            {
 
-            }
-            else
-            {
-                MainMenu MainMenuForm = new MainMenu();
-                MainMenuForm.Show();
-            }
+            MainMenu MainMenuForm = new MainMenu();
+            MainMenuForm.Show();
             this.Hide();
         }
     }
