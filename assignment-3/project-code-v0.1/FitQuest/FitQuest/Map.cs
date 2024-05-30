@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Configuration;
 
-
 namespace FitQuest
 {
     public partial class Map : Form
@@ -14,19 +13,13 @@ namespace FitQuest
         private Level currentLevel;
         private Dictionary<Point, int> nodePositions;
         private int userProgressionLevel;
-        private ToolTip toolTip;
 
-        private void InitializeToolTip()
-        {
-            toolTip = new ToolTip();
-        }
         public Map(Profile userProfile)
         {
             this.userProfile = userProfile;
             InitializeComponent();
             InitializeNodePositions();
             FetchUserProgressionLevel();
-            InitializeToolTip();
             CreateNodes();
         }
 
@@ -75,7 +68,7 @@ namespace FitQuest
                 {
                     Size = new Size(30, 30),
                     Location = pos,
-                    Tag = levelNum, 
+                    Tag = levelNum, // Ensure Tag is set to an integer
                     
                     FlatStyle = FlatStyle.Flat
                 };
@@ -113,7 +106,7 @@ namespace FitQuest
                     try
                     {
                         currentLevel = new Level(levelNumber);
-                        MessageBox.Show($"Level {currentLevel.Count} selected!\nEnemy: {currentLevel.EnemyName}\nHP: {currentLevel.CurrentEnemyHP}/{currentLevel.EnemyHP}\n\nClick on Commence Battle to start Combat!");
+                        MessageBox.Show($"Level {currentLevel.Count} selected!\nEnemy: {currentLevel.EnemyName}\nHP: {currentLevel.EnemyHP}\n\nClick on Commence Battle to start Combat!");
                     }
                     catch (Exception ex)
                     {
@@ -136,16 +129,6 @@ namespace FitQuest
                 // Store the original color of the button
                 originalColors[node] = node.BackColor;
                 node.BackColor = Color.Blue;
-
-                // Show tooltip if the node is green
-                if (originalColors[node] == Color.Green)
-                {
-                    toolTip.SetToolTip(node, "Level already completed");
-                }
-                else
-                {
-                    toolTip.SetToolTip(node, ""); // Clear tooltip for other colors
-                }
             }
         }
 
@@ -164,23 +147,11 @@ namespace FitQuest
                     // Fallback to default color if the original color is not stored
                     node.BackColor = Color.Green;
                 }
-
-                // Clear the tooltip
-                toolTip.SetToolTip(node, "");
             }
         }
 
-
         private void button1_Click(object sender, EventArgs e)
         {
-            // Check if a node (level) has been selected
-            if (currentLevel == null)
-            {
-                // Display a message prompting the user to select a node
-                MessageBox.Show($"Love the enthusiasm! \nbut you need to select a level first. Your current level is {userProgressionLevel}.", "Select Node", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Exit the method to prevent further execution
-            }
-
             // Hide the current form (main menu)
             this.Hide();
 
@@ -193,7 +164,6 @@ namespace FitQuest
                     Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
                 }
                 // Show the combat form
-                Console.WriteLine($"Level: {currentLevel.LevelNum}");
                 CombatSystem combatForm = new CombatSystem(userProfile, currentLevel);
                 combatForm.Show();
             }
@@ -201,7 +171,7 @@ namespace FitQuest
             {
                 Console.WriteLine("Training program not chosen");
                 this.Hide();
-                TrainingProgram trainingProgramForm = new TrainingProgram(userProfile, currentLevel);
+                TrainingProgram trainingProgramForm = new TrainingProgram(userProfile);
                 trainingProgramForm.Show();
             }
         }

@@ -11,12 +11,9 @@ namespace FitQuest
 {
     public class Level
     {
-        //private List<string> levelNames = new List<string>
-        //{ "Dreary Desert", "Salty Sanctum", "Misty Mountain", "Frozen Forest", "Golden Gravelroad" };
         public int Count { get; private set; }
         public string EnemyName { get; private set; }
         public int EnemyHP { get; private set; }
-        public int CurrentEnemyHP { get; private set; }
         public int RewardGold { get; private set; }
         public int RewardPoints { get; private set; }
         public int LevelNum { get; private set; }
@@ -40,7 +37,6 @@ namespace FitQuest
                         this.Count = Convert.ToInt32(reader["count"]);
                         this.EnemyName = reader["enemy_name"].ToString();
                         this.EnemyHP = Convert.ToInt32(reader["enemy_hp"]);
-                        this.CurrentEnemyHP = Convert.ToInt32(reader["enemy_current_hp"]);
                         this.RewardGold = Convert.ToInt32(reader["reward_gold"]);
                         this.RewardPoints = Convert.ToInt32(reader["reward_points"]);
                         this.LevelNum = count;

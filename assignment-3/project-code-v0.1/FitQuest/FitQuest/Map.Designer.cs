@@ -31,7 +31,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.pickLevelLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,22 +72,11 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pickLevelLabel
-            // 
-            this.pickLevelLabel.AutoSize = true;
-            this.pickLevelLabel.Location = new System.Drawing.Point(12, 437);
-            this.pickLevelLabel.Name = "pickLevelLabel";
-            this.pickLevelLabel.Size = new System.Drawing.Size(84, 13);
-            this.pickLevelLabel.TabIndex = 19;
-            this.pickLevelLabel.Text = "Pick a level first!";
-            this.pickLevelLabel.Visible = false;
-            // 
             // Map
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1041, 590);
-            this.Controls.Add(this.pickLevelLabel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.pictureBox1);
@@ -96,7 +84,6 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -105,6 +92,5 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label pickLevelLabel;
     }
 }
