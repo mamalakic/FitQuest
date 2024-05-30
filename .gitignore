@@ -10,8 +10,8 @@ bin/
 obj/
 
 # Do not ignore the bin/debug/ directory
-!bin/debug/Database
-
+!assignment-3/**/bin/Debug/Database
+!assignment-4/**/bin/Debug/Database
 
 # User-specific files
 *.rsuser
