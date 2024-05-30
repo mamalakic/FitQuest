@@ -30,7 +30,7 @@ namespace FitQuest
             this.Hide();
 
             // Show the friends list form
-            FriendsList FriendsListForm = new FriendsList();
+            FriendsList FriendsListForm = new FriendsList(userProfile.Team_id);
             FriendsListForm.Show();
         }
 

@@ -16,9 +16,10 @@ namespace FitQuest
 {
     public partial class FriendsList : Form
     {
+        private int rowIndex;
         string connectionString;
         bool hasInternetConnectionBool;
-        public FriendsList()
+        public FriendsList(string Team_id)
         {
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
 
@@ -29,6 +30,11 @@ namespace FitQuest
 
             // Attach the event handler to the Load event of the form
             this.Load += FriendsList_Load;
+
+            if (Team_id == null)
+            {
+                friendsTabMenuStrip.Items[0].Enabled = false;
+            }
         }
 
         private void FriendsList_Load(object sender, EventArgs e)
@@ -71,6 +77,7 @@ namespace FitQuest
                     adapter.Fill(dt);
 
                     dataGridView1.DataSource = dt;
+                    dataGridView1.ColumnHeadersHeight = 23;
 
                     // query
                     string query2 = "SELECT * FROM PendingFriendRequests";
@@ -82,6 +89,17 @@ namespace FitQuest
 
                     dataGridView2.DataSource = dt2;
                     dataGridView2.ColumnHeadersHeight = 23;
+
+                    // query
+                    string query3 = "SELECT * FROM SentFriendRequests";
+                    SQLiteCommand cmd3 = new SQLiteCommand(query3, con);
+                    // data
+                    DataTable dt3 = new DataTable();
+                    SQLiteDataAdapter adapter3 = new SQLiteDataAdapter(cmd3);
+                    adapter3.Fill(dt3);
+
+                    sentRequestsGridView.DataSource = dt3;
+                    sentRequestsGridView.ColumnHeadersHeight = 23;
 
                 }
 
@@ -149,7 +167,8 @@ namespace FitQuest
                 buttonGenerateFriendLink.Visible = false;
 
             }
-            else {
+            else
+            {
 
                 // reset previous entries
                 lblResult.Text = "";
@@ -221,7 +240,6 @@ namespace FitQuest
         private void friendsTabMenuStrip_Opening(object sender, CancelEventArgs e)
         {
 
-
         }
 
         private void btnGoBack_Click(object sender, EventArgs e)
@@ -230,7 +248,7 @@ namespace FitQuest
             this.Hide();
 
             // Show the menu form
-            MainMenu MenuForm= new MainMenu();
+            MainMenu MenuForm = new MainMenu();
             MenuForm.Show();
         }
 
@@ -249,13 +267,73 @@ namespace FitQuest
             */
         }
 
-        private bool inviteFriendToClan(string friendName)
+        private bool inviteFriendToTeam(string friendName)
         {
+            return true;
+        }
+
+        private bool RespondIncomingFriendRequest(string friendName, bool accept)
+        {
+            // connection
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                con.Open();
+                // remove friend req
+                // query
+                string query = "DELETE FROM PendingFriendRequests WHERE playerID = @playerID";
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    // Add the parameter and its value
+                    command.Parameters.AddWithValue("@playerID", friendName);
+
+                    // Execute the command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0) return false;
+                }
+
+                if (accept)
+                {
+                    // add to friend
+                    // query
+                    query = "INSERT INTO Friends VALUES (@playerID)";
+                    using (SQLiteCommand command = new SQLiteCommand(query, con))
+                    {
+                        // Add the parameter and its value
+                        command.Parameters.AddWithValue("@playerID", friendName);
+
+                        // Execute the command
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected == 0) return false;
+                    }
+                }
+            }
+
             return true;
         }
 
         private bool deleteFriend(string friendName)
         {
+            // connection
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                con.Open();
+                // remove friend
+                // query
+                string query = "DELETE FROM Friends WHERE friendID = @playerID";
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    // Add the parameter and its value
+                    command.Parameters.AddWithValue("@playerID", friendName);
+
+                    // Execute the command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0) return false;
+                }
+            }
+
             return true;
         }
 
@@ -273,6 +351,21 @@ namespace FitQuest
                     SuccessFriendActionLabel.Text = "You removed " + friendName + " from your friends list!";
                     break;
 
+                case "decline":
+                    SuccessFriendActionLabel.Visible = true;
+                    SuccessFriendActionLabel.Text = "You declined " + friendName + "'s friend request."; 
+
+                    break;
+
+                case "accept":
+                    SuccessFriendActionLabel.Visible = true;
+                    SuccessFriendActionLabel.Text = "You accepted " + friendName + "'s friend request.";
+                    break;
+
+                case "error":
+                    SuccessFriendActionLabel.Visible = true;
+                    SuccessFriendActionLabel.Text = "Error occured.";
+                    break;
 
                 default:
                     break;
@@ -281,28 +374,50 @@ namespace FitQuest
 
         private void friendsTabMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            Console.WriteLine(e.ClickedItem);
+            int columnIndex = 0; // friendid
 
-            switch(e.ClickedItem.Text)
+            // Check if the row index is valid
+            if (rowIndex >= 0 && rowIndex < dataGridView1.Rows.Count)
             {
-                case "Invite to clan":
-                    // pass friendName from datagridview when clicked
-                    inviteFriendToClan("friendName");
-                    displayFriendActionSuccess("clan", "friendName");
-                    break;
+                // Access the row at the specified index
+                DataGridViewRow row = dataGridView1.Rows[rowIndex];
 
-                case "Remove friend":
-                    // pass friendName from datagridview when clicked
-                    if (deleteFriend("friendName"))
+                // Check if the column index is valid
+                if (columnIndex >= 0 && columnIndex < row.Cells.Count)
+                {
+                    // Access the cell at the specified column index
+                    DataGridViewCell cell = row.Cells[columnIndex];
+
+                    // Retrieve the value of the cell
+                    object cellValue = cell.Value;
+                    string friendName = (string)cellValue;
+                    switch (e.ClickedItem.Text)
                     {
-                        fetchFriendsList(false);
-                        displayFriendActionSuccess("delete", "friendName");
-                    }
-                    break;
+                        case "Invite to clan":
+                            // pass friendName from datagridview when clicked
+                            inviteFriendToTeam(friendName);
+                            displayFriendActionSuccess("clan", friendName);
+                            break;
 
-                default:
-                    break;
+                        case "Remove friend":
+                            // pass friendName from datagridview when clicked
+                            if (deleteFriend(friendName))
+                            {
+                                fetchFriendsList(false);
+                                displayFriendActionSuccess("delete", friendName);
+                            }
+                            else
+                            {
+                                displayFriendActionSuccess("error", friendName);
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
             }
+
 
         }
 
@@ -311,6 +426,165 @@ namespace FitQuest
             // reset info label
             SuccessFriendActionLabel.Visible = false;
             SuccessFriendActionLabel.Text = "";
+        }
+
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hit = dataGridView1.HitTest(e.X, e.Y);
+                if (hit.Type == DataGridViewHitTestType.Cell)
+                {
+                    rowIndex = hit.RowIndex;
+                }
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void friendRequestsMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            int columnIndex = 0; // friendid
+
+            // Check if the row index is valid
+            if (rowIndex >= 0 && rowIndex < dataGridView2.Rows.Count)
+            {
+                // Access the row at the specified index
+                DataGridViewRow row = dataGridView2.Rows[rowIndex];
+
+                // Check if the column index is valid
+                if (columnIndex >= 0 && columnIndex < row.Cells.Count)
+                {
+                    // Access the cell at the specified column index
+                    DataGridViewCell cell = row.Cells[columnIndex];
+
+                    // Retrieve the value of the cell
+                    object cellValue = cell.Value;
+                    string friendName = (string)cellValue;
+
+                    switch (e.ClickedItem.Text)
+                    {
+                        case "Accept friend request":
+                            // pass friendName from datagridview when clicked
+                            if (RespondIncomingFriendRequest(friendName, true))
+                            {
+                                fetchFriendsList(false);
+                                displayFriendActionSuccess("accept", friendName);
+                            }
+                            else
+                            {
+                                displayFriendActionSuccess("error", friendName);
+                            }
+                            break;
+
+                        case "Decline friend request":
+                            // pass friendName from datagridview when clicked
+                            if (RespondIncomingFriendRequest(friendName, false))
+                            {
+                            fetchFriendsList(false);
+                            displayFriendActionSuccess("decline", friendName);
+                            }
+                            else
+                            {
+                                displayFriendActionSuccess("error", friendName);
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
+
+                }
+            }
+        }
+
+        private void dataGridView2_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hit = dataGridView1.HitTest(e.X, e.Y);
+                if (hit.Type == DataGridViewHitTestType.Cell)
+                {
+                    rowIndex = hit.RowIndex;
+                }
+            }
+        }
+
+        private void sentRequestsGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hit = dataGridView1.HitTest(e.X, e.Y);
+                if (hit.Type == DataGridViewHitTestType.Cell)
+                {
+                    rowIndex = hit.RowIndex;
+                }
+            }
+        }
+
+        private bool removeSentFriendRequest(string playerName)
+        {
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                con.Open();
+                // remove request
+                // query
+                string query = "DELETE FROM SentFriendRequests WHERE playerID = @playerID";
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    // Add the parameter and its value
+                    command.Parameters.AddWithValue("@playerID", playerName);
+
+                    // Execute the command
+                    int rowsAffected = command.ExecuteNonQuery();
+                    fetchFriendsList(false);
+
+                    return true;
+                }
+            }
+        }
+
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            int columnIndex = 0; // friendid
+
+            // Check if the row index is valid
+            if (rowIndex >= 0 && rowIndex < dataGridView2.Rows.Count)
+            {
+                // Access the row at the specified index
+                DataGridViewRow row = dataGridView2.Rows[rowIndex];
+
+                // Check if the column index is valid
+                if (columnIndex >= 0 && columnIndex < row.Cells.Count)
+                {
+                    // Access the cell at the specified column index
+                    DataGridViewCell cell = row.Cells[columnIndex];
+
+                    // Retrieve the value of the cell
+                    object cellValue = cell.Value;
+                    string friendName = (string)cellValue;
+
+                    switch (e.ClickedItem.Text)
+                    {
+                        case "Remove request":
+                            removeSentFriendRequest(friendName);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
+
+                }
+            }
+
+
         }
     }
 }
