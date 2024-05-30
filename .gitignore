@@ -3,15 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-
-
-# Compiled files
-bin/
-obj/
-
-# Do not ignore the bin/debug/ directory
-!assignment-3/**/bin/Debug/Database
-!assignment-4/**/bin/Debug/Database
+# Do not ignore the Database Directory
+**/[Bb]in/*
+!**/[Bb]in/[Dd]ebug/
+**/[Bb]in/[Dd]ebug/*
+!**/[Bb]in/[Dd]ebug/Database/
 
 # User-specific files
 *.rsuser
@@ -27,7 +23,6 @@ obj/
 mono_crash.*
 
 # Build results
-[Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -37,7 +32,6 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
