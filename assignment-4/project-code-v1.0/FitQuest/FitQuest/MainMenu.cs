@@ -8,8 +8,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FitQuest
 {
+    
     public partial class MainMenu : Form
     {
+        private string connectionString;
         private Profile userProfile;
 
         public MainMenu()
@@ -21,6 +23,7 @@ namespace FitQuest
 
             // Load the rest of the profile details from the database
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            this.connectionString = connectionString;
             userProfile.LoadProfileFromDatabase(connectionString, textBox1);
         }
 
@@ -36,7 +39,7 @@ namespace FitQuest
 
         private void ClanButton_Click(object sender, EventArgs e)
         {
-            Clan ClanForm = new Clan(userProfile);
+            Clan ClanForm = new Clan(this, userProfile);
             ClanForm.Show();
             this.Hide();
         }
@@ -75,6 +78,10 @@ namespace FitQuest
 
         }
 
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class Profile
@@ -96,7 +103,8 @@ namespace FitQuest
             {
                 { "Push", new List<string>() },
                 { "Pull", new List<string>() },
-                { "Legs", new List<string>() }
+                { "Legs", new List<string>() },
+                { "Custom", new List<string>() }
             };
         }
 
@@ -159,8 +167,23 @@ namespace FitQuest
         }
         public void UpdateTeamId(string newTeamId)
         {
+            // Update the team_id in the current object
             this.team_id = newTeamId;
+
+            // SQL query to update the team_id in the Profiles table
+            string query = "UPDATE Profiles SET team_id = '" + newTeamId + "' WHERE id = '" + id+ "'";
+            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                    cmd.ExecuteNonQuery();
+                    }
+                }
         }
+
         public Dictionary<string, List<string>> Exercises
         {
             get { return exercises; }

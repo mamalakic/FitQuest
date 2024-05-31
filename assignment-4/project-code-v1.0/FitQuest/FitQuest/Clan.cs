@@ -20,23 +20,38 @@ namespace FitQuest
         private string team_id;
         private SQLiteConnection connection;
         bool hasInternetConnectionBool;
+        private MainMenu mainMenu;
 
 
-        public Clan(Profile userProfile)
+        public Clan(MainMenu mainMenu, Profile userProfile)
         {
             //initialize connection and components
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             this.connection = new SQLiteConnection(connectionString); // Initialize the connection
             this.hasInternetConnectionBool = hasInternetConnection();
+            connection.Open();
+
 
             InitializeComponent();
             this.userProfile = userProfile;
-            this.team_id = userProfile.Team_id;
-            
+            //this.team_id = userProfile.Team_id;
+            this.mainMenu = mainMenu;
+
+         
+            string query = "SELECT  CAST(team_id AS TEXT) FROM Profiles WHERE id = '" + userProfile.id + "' LIMIT 1";
+            SQLiteCommand cmd = new SQLiteCommand(query, connection);
+            object result = cmd.ExecuteScalar();
+           
+            if (result != null && result != DBNull.Value)
+            {
+                this.team_id = result.ToString();
+            }
+          
+
 
             //check if team_id is null
             //if (true)
-            if (string.IsNullOrEmpty(this.team_id))       
+            if (string.IsNullOrEmpty(this.team_id) || team_id == "0")       
             {
                 notinaclanPanel.Visible = true;
                 createaclanPanel.Visible = false;
@@ -77,9 +92,9 @@ namespace FitQuest
         private void backButton_Click(object sender, EventArgs e)
         {
             //leaves the clan camp
-            MainMenu MainMenuForm = new MainMenu();
-            MainMenuForm.Show();
+            this.mainMenu.Show();
             this.Hide();
+            connection.Close();
         }
 
 
@@ -92,11 +107,11 @@ namespace FitQuest
         {
             string teamName = clannameTextBox.Text.Trim(); // Get the team name from the textbox
             bool formGood = false;
-            connection.Open();
+         
             formGood = checkForm(teamName);
             if (formGood)
             {
-
+                this.team_id = teamName;
                 string updateQuery = $"UPDATE Profiles SET team_id = @TeamID WHERE id = '" + userProfile.id + "';";
 
                 using (SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, connection))
@@ -135,7 +150,7 @@ namespace FitQuest
                 // Set DataGridView properties for the checkbox
                 dataGridView1.Columns["Select"].DisplayIndex = 0;
                 dataGridView1.Columns["Select"].HeaderText = "Select";
-                connection.Close();
+             
 
             }
         }
@@ -221,19 +236,27 @@ namespace FitQuest
             joinaclanPanel.Visible = true;
             notinaclanPanel.Visible = false;
 
-            //sql
-            string query = "SELECT * FROM Friends WHERE clanID != 'null'";
-            SQLiteCommand cmd = new SQLiteCommand(query, connection);
+            //SQL query with explicit casting because of data mismatch bug
+            string query = "SELECT f.*, CAST(p.team_id AS TEXT) AS team_id FROM Friends f JOIN Profiles p ON f.friendID = p.id WHERE p.team_id IS NOT NULL;";
 
-            //dataTable to hold the data
-            DataTable dt = new DataTable();
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-            adapter.Fill(dt);
+            try
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                {
+                    //datatable holds the friendlist and teamid data
+                    DataTable dt = new DataTable();
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+                    adapter.Fill(dt);
 
-
-            //set the DataSource of the DataGridView
-            dataGridView3.DataSource = dt;
-            dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    //datagridview to view the frriendlist and teamid data
+                    dataGridView3.DataSource = dt;
+                    dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
         }
 
 
@@ -258,8 +281,9 @@ namespace FitQuest
             string clanName = dataGridView3.SelectedRows[0].Cells[1].Value.ToString();
             MessageBox.Show($"You have joined: {clanName}");
             joinaclanPanel.Visible = false;
+            userProfile.UpdateTeamId(clanName);
             this.team_id = clanName;
-            LoadClanCamp();
+           LoadClanCamp();
         }
         private bool hasInternetConnection()
         {
@@ -276,16 +300,6 @@ namespace FitQuest
                 {
                     try
                     {
-                        //update the database
-                        connection.Open();
-                        string updateQuery = "UPDATE Profiles SET team_id = NULL WHERE id = @UserID;";
-
-                        using (var cmd = new SQLiteCommand(updateQuery, connection))
-                        {
-                            cmd.Parameters.AddWithValue("@UserID", userProfile.id);
-                            cmd.ExecuteNonQuery();
-                        }
-
                         //update the user profile and UI
                         this.team_id = null;
                         userProfile.UpdateTeamId(null);
@@ -301,10 +315,7 @@ namespace FitQuest
                     {
                         MessageBox.Show("Error leaving the clan: " + ex.Message);
                     }
-                    finally
-                    {
-                        connection.Close();
-                    }
+                   
                 }
             }
         }

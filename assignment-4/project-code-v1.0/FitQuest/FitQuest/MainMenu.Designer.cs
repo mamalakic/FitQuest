@@ -66,7 +66,7 @@
             // shopButton
             // 
             this.shopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.shopButton.Location = new System.Drawing.Point(229, 380);
+            this.shopButton.Location = new System.Drawing.Point(229, 330);
             this.shopButton.Name = "shopButton";
             this.shopButton.Size = new System.Drawing.Size(230, 60);
             this.shopButton.TabIndex = 4;
@@ -77,7 +77,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.button4.Location = new System.Drawing.Point(229, 305);
+            this.button4.Location = new System.Drawing.Point(229, 248);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(230, 60);
             this.button4.TabIndex = 3;
@@ -88,7 +88,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.button3.Location = new System.Drawing.Point(229, 227);
+            this.button3.Location = new System.Drawing.Point(229, 167);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(230, 60);
             this.button3.TabIndex = 2;
@@ -99,7 +99,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.button2.Location = new System.Drawing.Point(229, 151);
+            this.button2.Location = new System.Drawing.Point(229, 87);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(230, 60);
             this.button2.TabIndex = 1;
@@ -128,6 +128,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "MainMenu";
             this.Text = "FitQuest";
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

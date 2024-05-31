@@ -294,7 +294,7 @@
             this.joinaclanPanel.Controls.Add(this.jointheclanButton);
             this.joinaclanPanel.Controls.Add(this.chooseafriendLabel);
             this.joinaclanPanel.Controls.Add(this.dataGridView3);
-            this.joinaclanPanel.Location = new System.Drawing.Point(144, 63);
+            this.joinaclanPanel.Location = new System.Drawing.Point(144, 55);
             this.joinaclanPanel.Name = "joinaclanPanel";
             this.joinaclanPanel.Size = new System.Drawing.Size(788, 531);
             this.joinaclanPanel.TabIndex = 12;
