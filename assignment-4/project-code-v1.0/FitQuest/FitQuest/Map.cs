@@ -75,41 +75,54 @@ namespace FitQuest
                 {
                     Size = new Size(30, 30),
                     Location = pos,
-                    Tag = levelNum, 
-                    
-                    FlatStyle = FlatStyle.Flat
+                    Tag = levelNum,
+                    FlatStyle = FlatStyle.Flat,
+                    Enabled = true  //Keep all buttons enabled for mouse events
                 };
 
                 nodeButton.Click += NodeButton_Click;
                 nodeButton.MouseEnter += NodeButton_MouseEnter;
                 nodeButton.MouseLeave += NodeButton_MouseLeave;
 
-                if (levelNum <= userProgressionLevel)
+                if (levelNum < userProgressionLevel)
                 {
                     nodeButton.BackColor = Color.Green;
-                    nodeButton.Enabled = true;
                 }
-                else if (levelNum == userProgressionLevel + 1)
+                else if (levelNum == userProgressionLevel)
                 {
                     nodeButton.BackColor = Color.Red;
-                    nodeButton.Enabled = true;
                 }
                 else
                 {
                     nodeButton.BackColor = Color.Gray;
-                    nodeButton.Enabled = false;
                 }
 
                 pictureBox1.Controls.Add(nodeButton);
             }
         }
 
+
+
         private void NodeButton_Click(object sender, EventArgs e)
         {
             Button node = sender as Button;
 
+            if (node != null)
+            {
+                if (node.BackColor == Color.Gray)
+                {
+                    MessageBox.Show("This level is locked. Complete the previous level to unlock it.", "Locked Level", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 if (int.TryParse(node.Tag.ToString(), out int levelNumber))
                 {
+                    if (levelNumber < userProgressionLevel)
+                    {
+                        MessageBox.Show($"Level {levelNumber} has already been completed.", "Completed Level", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
                     try
                     {
                         currentLevel = new Level(levelNumber);
@@ -124,27 +137,41 @@ namespace FitQuest
                 {
                     MessageBox.Show("Invalid level number.");
                 }
+            }
         }
+
+
 
         private Dictionary<Button, Color> originalColors = new Dictionary<Button, Color>();
 
         private void NodeButton_MouseEnter(object sender, EventArgs e)
         {
             Button node = sender as Button;
-            if (node != null && node.Enabled)
+            if (node != null)
             {
-                // Store the original color of the button
-                originalColors[node] = node.BackColor;
+                //Store the original color of the button
+                if (!originalColors.ContainsKey(node))
+                {
+                    originalColors[node] = node.BackColor;
+                }
                 node.BackColor = Color.Blue;
 
-                // Show tooltip if the node is green
+                //Show tooltip based on the button's color
                 if (originalColors[node] == Color.Green)
                 {
                     toolTip.SetToolTip(node, "Level already completed");
                 }
+                else if (originalColors[node] == Color.Gray)
+                {
+                    toolTip.SetToolTip(node, "Level is Locked, complete the previous level to unlock");
+                }
+                else if (originalColors[node] == Color.Red)
+                {
+                    toolTip.SetToolTip(node, "Current level, ready to start");
+                }
                 else
                 {
-                    toolTip.SetToolTip(node, ""); // Clear tooltip for other colors
+                    toolTip.SetToolTip(node, ""); //Clear tooltip for other colors
                 }
             }
         }
@@ -152,59 +179,61 @@ namespace FitQuest
         private void NodeButton_MouseLeave(object sender, EventArgs e)
         {
             Button node = sender as Button;
-            if (node != null && node.Enabled)
+            if (node != null)
             {
-                // Restore the original color of the button
+                //Restore the original color of the button
                 if (originalColors.ContainsKey(node))
                 {
                     node.BackColor = originalColors[node];
                 }
-                else
-                {
-                    // Fallback to default color if the original color is not stored
-                    node.BackColor = Color.Green;
-                }
-
-                // Clear the tooltip
                 toolTip.SetToolTip(node, "");
             }
         }
 
 
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            // Check if a node (level) has been selected
+            
             if (currentLevel == null)
-            {
-                // Display a message prompting the user to select a node
+            { 
                 MessageBox.Show($"Love the enthusiasm! \nbut you need to select a level first. Your current level is {userProgressionLevel}.", "Select Node", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Exit the method to prevent further execution
+                return; 
             }
 
-            // Hide the current form (main menu)
+            MessageBox.Show("Initiating camera check...");
+
+            //Simulate camera check (replace with actual webcam functionality)
+            System.Threading.Thread.Sleep(1000); 
+            MessageBox.Show("Analyzing image...");
+
+            System.Threading.Thread.Sleep(1000);
+            MessageBox.Show("User detected.");
+
+            System.Threading.Thread.Sleep(1000);
+            MessageBox.Show("Ready to commence battle.");
+
+            //Hide the current form (main menu)
             this.Hide();
 
-            // Check if exercises are populated
+            //Check if exercises are populated
             if (userProfile.AreExercisesPopulated())
             {
-                Console.WriteLine("Training program is chosen:");
-                foreach (var category in userProfile.Exercises.Keys)
-                {
-                    Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
-                }
-                // Show the combat form
-                Console.WriteLine($"Level: {currentLevel.LevelNum}");
+                //Show the combat form
                 CombatSystem combatForm = new CombatSystem(userProfile, currentLevel);
                 combatForm.Show();
             }
             else
             {
-                Console.WriteLine("Training program not chosen");
-                this.Hide();
+                //Show the training program form
                 TrainingProgram trainingProgramForm = new TrainingProgram(userProfile, currentLevel);
                 trainingProgramForm.Show();
             }
         }
+
+
+
 
         private void backButton_Click(object sender, EventArgs e)
         {
