@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.shopButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -48,6 +48,7 @@
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(125, 55);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(720, 489);
@@ -55,20 +56,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Papyrus", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(341, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(275, 76);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Main Menu";
-            // 
             // button5
             // 
+            this.button5.BackgroundImage = global::FitQuest.Properties.Resources.button;
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Papyrus", 18.25F);
+            this.button5.ForeColor = System.Drawing.Color.Black;
             this.button5.Location = new System.Drawing.Point(229, 33);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(230, 60);
@@ -79,6 +76,12 @@
             // 
             // shopButton
             // 
+            this.shopButton.BackgroundImage = global::FitQuest.Properties.Resources.button;
+            this.shopButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.shopButton.FlatAppearance.BorderSize = 0;
+            this.shopButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.shopButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.shopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.shopButton.Font = new System.Drawing.Font("Papyrus", 18.25F);
             this.shopButton.Location = new System.Drawing.Point(229, 352);
             this.shopButton.Name = "shopButton";
@@ -90,6 +93,12 @@
             // 
             // button4
             // 
+            this.button4.BackgroundImage = global::FitQuest.Properties.Resources.button;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Papyrus", 18.25F);
             this.button4.Location = new System.Drawing.Point(229, 270);
             this.button4.Name = "button4";
@@ -101,6 +110,12 @@
             // 
             // button3
             // 
+            this.button3.BackgroundImage = global::FitQuest.Properties.Resources.button;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Papyrus", 18.25F);
             this.button3.Location = new System.Drawing.Point(229, 189);
             this.button3.Name = "button3";
@@ -112,6 +127,12 @@
             // 
             // button2
             // 
+            this.button2.BackgroundImage = global::FitQuest.Properties.Resources.button;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Papyrus", 18.25F);
             this.button2.Location = new System.Drawing.Point(229, 112);
             this.button2.Name = "button2";
@@ -120,6 +141,18 @@
             this.button2.Text = "Friend List";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.FriendsListButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Papyrus", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(341, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(275, 76);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Main Menu";
             // 
             // textBox1
             // 

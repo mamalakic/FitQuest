@@ -38,7 +38,7 @@ namespace FitQuest
             this.Hide();
 
             // Show the friends list form
-            FriendsList FriendsListForm = new FriendsList(this, userProfile.Team_id);
+            FriendsList FriendsListForm = new FriendsList(this, userProfile);
             FriendsListForm.Show();
         }
 
@@ -134,7 +134,8 @@ namespace FitQuest
                         gold = reader.GetInt32(reader.GetOrdinal("gold"));
 
                         // Populate textBox1 with the profile info
-                        textBox1.Text = $"ID: {id}, Age: {age}, Level: {level}, Team ID: {(team_id ?? "null")}, Gold: {gold}";
+                        textBox1.Text = $"ID: {id}\r\nAge: {age}\r\n Level: {level}\r\n Team ID: {(team_id ?? "null")}\r\n Gold: {gold}";
+
                     }
                     else
                     {

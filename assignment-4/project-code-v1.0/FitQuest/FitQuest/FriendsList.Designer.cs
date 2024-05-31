@@ -371,7 +371,6 @@
             this.btnGoBack.Name = "btnGoBack";
             this.btnGoBack.Size = new System.Drawing.Size(178, 50);
             this.btnGoBack.TabIndex = 15;
-            this.btnGoBack.Text = "Exit friends list";
             this.btnGoBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnGoBack.UseVisualStyleBackColor = false;
             this.btnGoBack.Click += new System.EventHandler(this.btnGoBack_Click);

@@ -43,7 +43,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -95,13 +97,6 @@
     <Compile Include="CombatSystem.Designer.cs">
       <DependentUpon>CombatSystem.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainPanel.Designer.cs">
-      <DependentUpon>MainPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FriendEntry.cs" />
     <Compile Include="FriendsList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,9 +153,6 @@
     <EmbeddedResource Include="ItemShop.resx">
       <DependentUpon>ItemShop.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainPanel.resx">
-      <DependentUpon>MainPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
     </EmbeddedResource>
@@ -207,6 +199,10 @@
     <None Include="Resources\clancamp.jpg" />
     <None Include="Resources\mainmenu.jpeg" />
     <None Include="Resources\itemshop.jpeg" />
+    <None Include="Resources\combatbackground.bmp" />
+    <None Include="Resources\autumn-forest-acrylic-painting-spooky-mystery-dusk-generated-by-ai.jpg" />
+    <None Include="Resources\button.png" />
+    <None Include="Resources\forest-3877365_1280.jpg" />
     <Content Include="spathi.png" />
     <Content Include="stemma.png" />
   </ItemGroup>

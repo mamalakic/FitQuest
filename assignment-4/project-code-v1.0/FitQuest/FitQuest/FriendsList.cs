@@ -19,8 +19,9 @@ namespace FitQuest
         private int rowIndex;
         string connectionString;
         bool hasInternetConnectionBool;
+        private Profile userProfile;
         private MainMenu mainmenu;
-        public FriendsList(MainMenu mainmenu, string Team_id)
+        public FriendsList(MainMenu mainmenu, Profile userProfile)
         {
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             this.mainmenu = mainmenu;
@@ -32,7 +33,9 @@ namespace FitQuest
             // Attach the event handler to the Load event of the form
             this.Load += FriendsList_Load;
 
-            if (Team_id == null)
+            this.userProfile = userProfile;
+
+            if (this.userProfile.Team_id == null)
             {
                 friendsTabMenuStrip.Items[0].Enabled = false;
             }
@@ -48,9 +51,6 @@ namespace FitQuest
             {
                 fetchFriendsList(true);
             }
-
-
-
 
         }
 
@@ -69,41 +69,61 @@ namespace FitQuest
                 using (SQLiteConnection con = new SQLiteConnection(connectionString))
                 {
                     con.Open();
-                    // query
-                    string query = "SELECT * FROM Friends";
-                    SQLiteCommand cmd = new SQLiteCommand(query, con);
-                    // data
-                    DataTable dt = new DataTable();
-                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-                    adapter.Fill(dt);
+                    // friends list
+                    string query = "SELECT playerID2 as 'Friend ID' FROM Friends WHERE playerID1=@playerID OR playerID2=@playerID";
+                    using (SQLiteCommand command = new SQLiteCommand(query, con))
+                    {
+                        // Add the parameter and its value
+                        command.Parameters.AddWithValue("@playerID", userProfile.id);
 
-                    dataGridView1.DataSource = dt;
-                    dataGridView1.ColumnHeadersHeight = 23;
+                        // data
+                        DataTable friendsListTable = new DataTable();
+                        SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+                        adapter.Fill(friendsListTable);
 
-                    // query
-                    string query2 = "SELECT * FROM PendingFriendRequests";
-                    SQLiteCommand cmd2 = new SQLiteCommand(query2, con);
-                    // data
-                    DataTable dt2 = new DataTable();
-                    SQLiteDataAdapter adapter2 = new SQLiteDataAdapter(cmd2);
-                    adapter2.Fill(dt2);
+                        dataGridView1.DataSource = friendsListTable;
+                        dataGridView1.ColumnHeadersHeight = 23;
+                    }
 
-                    dataGridView2.DataSource = dt2;
-                    dataGridView2.ColumnHeadersHeight = 23;
+                    // pending requests
+                    string query2 = "SELECT senderID as 'Player ID' FROM PendingFriendRequests WHERE receiverID=@receiverID";
+                    using (SQLiteCommand command2 = new SQLiteCommand(query2, con))
+                    {
+                        // Add the parameter and its value
+                        command2.Parameters.AddWithValue("@receiverID", userProfile.id);
 
-                    // query
-                    string query3 = "SELECT * FROM SentFriendRequests";
-                    SQLiteCommand cmd3 = new SQLiteCommand(query3, con);
-                    // data
-                    DataTable dt3 = new DataTable();
-                    SQLiteDataAdapter adapter3 = new SQLiteDataAdapter(cmd3);
-                    adapter3.Fill(dt3);
+                        // Execute the command
+                        int rowsAffected = command2.ExecuteNonQuery();
 
-                    sentRequestsGridView.DataSource = dt3;
-                    sentRequestsGridView.ColumnHeadersHeight = 23;
+                        //if (rowsAffected == 0) return false;
+                        // data
+                        DataTable pendingIncomingTable = new DataTable();
+                        SQLiteDataAdapter adapter2 = new SQLiteDataAdapter(command2);
+                        adapter2.Fill(pendingIncomingTable);
+                        dataGridView2.DataSource = pendingIncomingTable;
+                        dataGridView2.ColumnHeadersHeight = 23;
+                    }
 
+
+                    // sent requests
+                    string query3 = "SELECT receiverID as 'Player ID' FROM PendingFriendRequests WHERE senderID=@senderID";
+                    using (SQLiteCommand command3 = new SQLiteCommand(query3, con))
+                    {
+                        // Add the parameter and its value
+                        command3.Parameters.AddWithValue("@senderID", userProfile.id);
+
+                        // Execute the command
+                        int rowsAffected = command3.ExecuteNonQuery();
+
+                        //if (rowsAffected == 0) return false;
+                        // data
+                        DataTable pendingSentTable = new DataTable();
+                        SQLiteDataAdapter adapter3 = new SQLiteDataAdapter(command3);
+                        adapter3.Fill(pendingSentTable);
+                        sentRequestsGridView.DataSource = pendingSentTable;
+                        sentRequestsGridView.ColumnHeadersHeight = 23;
+                    }
                 }
-
             }
         }
 
@@ -278,13 +298,14 @@ namespace FitQuest
             using (SQLiteConnection con = new SQLiteConnection(connectionString))
             {
                 con.Open();
-                // remove friend req
+                // remove incoming friend req
                 // query
-                string query = "DELETE FROM PendingFriendRequests WHERE playerID = @playerID";
+                string query = "DELETE FROM PendingFriendRequests WHERE receiverID = @receiverID AND senderID = @senderID";
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
                     // Add the parameter and its value
-                    command.Parameters.AddWithValue("@playerID", friendName);
+                    command.Parameters.AddWithValue("@receiverID", userProfile.id);
+                    command.Parameters.AddWithValue("@senderID", friendName);
 
                     // Execute the command
                     int rowsAffected = command.ExecuteNonQuery();
@@ -296,11 +317,12 @@ namespace FitQuest
                 {
                     // add to friend
                     // query
-                    query = "INSERT INTO Friends VALUES (@playerID)";
+                    query = "INSERT INTO Friends VALUES (@playerID, @friendID)";
                     using (SQLiteCommand command = new SQLiteCommand(query, con))
                     {
                         // Add the parameter and its value
-                        command.Parameters.AddWithValue("@playerID", friendName);
+                        command.Parameters.AddWithValue("@playerID", userProfile.id);
+                        command.Parameters.AddWithValue("@friendID", friendName);
 
                         // Execute the command
                         int rowsAffected = command.ExecuteNonQuery();
@@ -321,11 +343,12 @@ namespace FitQuest
                 con.Open();
                 // remove friend
                 // query
-                string query = "DELETE FROM Friends WHERE friendID = @playerID";
+                string query = "DELETE FROM Friends WHERE (playerID1 = @friendID AND playerID2 = @playerID) or (playerID1 = @playerID AND playerID2 = @friendID)";
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
                     // Add the parameter and its value
-                    command.Parameters.AddWithValue("@playerID", friendName);
+                    command.Parameters.AddWithValue("@friendID", friendName);
+                    command.Parameters.AddWithValue("@playerID", userProfile.id);
 
                     // Execute the command
                     int rowsAffected = command.ExecuteNonQuery();
@@ -534,11 +557,12 @@ namespace FitQuest
                 con.Open();
                 // remove request
                 // query
-                string query = "DELETE FROM SentFriendRequests WHERE playerID = @playerID";
+                string query = "DELETE FROM PendingFriendRequests WHERE receiverID = @receiverID AND senderID=@playerID";
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
                     // Add the parameter and its value
-                    command.Parameters.AddWithValue("@playerID", playerName);
+                    command.Parameters.AddWithValue("@receiverID", playerName);
+                    command.Parameters.AddWithValue("@playerID", userProfile.id);
 
                     // Execute the command
                     int rowsAffected = command.ExecuteNonQuery();

@@ -67,6 +67,7 @@
             // 
             this.backButton.BackColor = System.Drawing.Color.Transparent;
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            this.backButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.backButton.Image = global::FitQuest.Properties.Resources.btnGoBack_Image;
             this.backButton.Location = new System.Drawing.Point(12, 13);
             this.backButton.Name = "backButton";
@@ -240,7 +241,13 @@
             // 
             // leaveclanButton
             // 
-            this.leaveclanButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.leaveclanButton.BackgroundImage = global::FitQuest.Properties.Resources.button;
+            this.leaveclanButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.leaveclanButton.FlatAppearance.BorderSize = 0;
+            this.leaveclanButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.leaveclanButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.leaveclanButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.leaveclanButton.Font = new System.Drawing.Font("Papyrus", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.leaveclanButton.Location = new System.Drawing.Point(517, 301);
             this.leaveclanButton.Name = "leaveclanButton";
             this.leaveclanButton.Size = new System.Drawing.Size(235, 81);
@@ -252,17 +259,23 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Font = new System.Drawing.Font("Papyrus", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.label2.Location = new System.Drawing.Point(57, 46);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(208, 31);
+            this.label2.Size = new System.Drawing.Size(226, 46);
             this.label2.TabIndex = 5;
             this.label2.Text = "Clan\'s Members";
             // 
             // teambattleButton
             // 
-            this.teambattleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.teambattleButton.BackgroundImage = global::FitQuest.Properties.Resources.button;
+            this.teambattleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.teambattleButton.FlatAppearance.BorderSize = 0;
+            this.teambattleButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.teambattleButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.teambattleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.teambattleButton.Font = new System.Drawing.Font("Papyrus", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.teambattleButton.Location = new System.Drawing.Point(517, 90);
             this.teambattleButton.Name = "teambattleButton";
             this.teambattleButton.Size = new System.Drawing.Size(235, 81);
@@ -283,11 +296,11 @@
             // clannamecampLabel
             // 
             this.clannamecampLabel.AutoSize = true;
-            this.clannamecampLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.clannamecampLabel.Font = new System.Drawing.Font("Papyrus", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clannamecampLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.clannamecampLabel.Location = new System.Drawing.Point(365, 16);
             this.clannamecampLabel.Name = "clannamecampLabel";
-            this.clannamecampLabel.Size = new System.Drawing.Size(86, 31);
+            this.clannamecampLabel.Size = new System.Drawing.Size(94, 46);
             this.clannamecampLabel.TabIndex = 0;
             this.clannamecampLabel.Text = "label2";
             // 

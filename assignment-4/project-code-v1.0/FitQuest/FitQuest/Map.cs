@@ -200,7 +200,7 @@ namespace FitQuest
             
             if (currentLevel == null)
             { 
-                MessageBox.Show($"Love the enthusiasm! \nbut you need to select a level first. Your current level is {userProgressionLevel}.", "Select Node", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Love the enthusiasm! \r\nBut you need to select a level first. Your current level is {userProgressionLevel}.", "Select Node", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return; 
             }
 

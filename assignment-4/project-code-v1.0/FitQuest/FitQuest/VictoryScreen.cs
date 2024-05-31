@@ -58,7 +58,9 @@ namespace FitQuest
             this.FindForm().Close();
         }
 
+        private void VictoryScreen_Load(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

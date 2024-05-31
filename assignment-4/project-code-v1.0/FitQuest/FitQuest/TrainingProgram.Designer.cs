@@ -46,9 +46,9 @@
             this.selectpastprogramButton = new System.Windows.Forms.Button();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.dangerWarningBox = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.acceptWarning = new System.Windows.Forms.Button();
             this.declineDanger = new System.Windows.Forms.Button();
+            this.acceptWarning = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -83,7 +83,7 @@
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Font = new System.Drawing.Font("Papyrus", 14.25F);
-            this.groupBox1.Location = new System.Drawing.Point(199, 54);
+            this.groupBox1.Location = new System.Drawing.Point(205, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(533, 342);
             this.groupBox1.TabIndex = 1;
@@ -125,6 +125,7 @@
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Location = new System.Drawing.Point(369, 19);
             this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.ShowEditingIcon = false;
             this.dataGridView3.Size = new System.Drawing.Size(147, 146);
             this.dataGridView3.TabIndex = 5;
             // 
@@ -133,6 +134,8 @@
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(188, 19);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.ShowEditingIcon = false;
             this.dataGridView2.Size = new System.Drawing.Size(162, 146);
             this.dataGridView2.TabIndex = 4;
             // 
@@ -141,6 +144,8 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(20, 19);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(150, 146);
             this.dataGridView1.TabIndex = 3;
             // 
@@ -261,17 +266,15 @@
             this.dangerWarningBox.Text = "Danger!!";
             this.dangerWarningBox.Visible = false;
             // 
-            // textBox1
+            // declineDanger
             // 
-            this.textBox1.BackColor = System.Drawing.Color.Gray;
-            this.textBox1.Location = new System.Drawing.Point(155, 36);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(335, 123);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "Woah there traveler,\r\nyou have trained a lot in a very short time,\r\nare you sure " +
-    "about this?";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.declineDanger.Location = new System.Drawing.Point(409, 220);
+            this.declineDanger.Name = "declineDanger";
+            this.declineDanger.Size = new System.Drawing.Size(148, 71);
+            this.declineDanger.TabIndex = 3;
+            this.declineDanger.Text = "You\'re right, i\'ll go back";
+            this.declineDanger.UseVisualStyleBackColor = true;
+            this.declineDanger.Click += new System.EventHandler(this.declineDanger_Click);
             // 
             // acceptWarning
             // 
@@ -283,15 +286,17 @@
             this.acceptWarning.UseVisualStyleBackColor = true;
             this.acceptWarning.Click += new System.EventHandler(this.acceptWarning_Click);
             // 
-            // declineDanger
+            // textBox1
             // 
-            this.declineDanger.Location = new System.Drawing.Point(409, 220);
-            this.declineDanger.Name = "declineDanger";
-            this.declineDanger.Size = new System.Drawing.Size(148, 71);
-            this.declineDanger.TabIndex = 3;
-            this.declineDanger.Text = "You\'re right, i\'ll go back";
-            this.declineDanger.UseVisualStyleBackColor = true;
-            this.declineDanger.Click += new System.EventHandler(this.declineDanger_Click);
+            this.textBox1.BackColor = System.Drawing.Color.Gray;
+            this.textBox1.Location = new System.Drawing.Point(155, 36);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(335, 123);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "Woah there traveler,\r\nyou have trained a lot in a very short time,\r\nare you sure " +
+    "about this?";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TrainingProgram
             // 

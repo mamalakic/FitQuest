@@ -18,8 +18,8 @@ namespace FitQuest
         private int inactivitySeconds = 0;
         // 0 is for afk timer, 1 is for waiting for activity
         private int inactiveTimerType = 0;
-        private int combatTimeSeconds = 0;
         
+        private int combatTimeSeconds = 0;
 
         private Enemy combatEnemy;
         private string connectionString;
@@ -49,6 +49,8 @@ namespace FitQuest
             this.secondsPassedLabel.Text = "00:00";
             combatTimer.Interval = 1000;
             combatTimer.Start();
+
+            characterInfoLabel.Text = userProfile.id + "(lvl. " + userProfile.Level + ")";
 
             inactivityTimer.Interval = 1000; // 1 second
             StartInactivityTimer(0);
@@ -241,7 +243,10 @@ namespace FitQuest
                 }
             }
 
-            this.Controls.Add(new DefeatScreen(mainmenu));
+            DefeatScreen defeatScreen = new DefeatScreen(mainmenu);
+            defeatScreen.Dock = DockStyle.Fill; // Set the Dock property to fill the form
+
+            this.Controls.Add(defeatScreen);
         }
 
         private bool saveRewardsToAccount(Rewards rewardsObj)

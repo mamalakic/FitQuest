@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DefeatScreen));
             this.DefeatLabel = new System.Windows.Forms.Label();
             this.btnGoBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -36,25 +35,24 @@
             // DefeatLabel
             // 
             this.DefeatLabel.AutoSize = true;
-            this.DefeatLabel.Location = new System.Drawing.Point(316, 43);
+            this.DefeatLabel.Font = new System.Drawing.Font("Papyrus", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DefeatLabel.Location = new System.Drawing.Point(257, 20);
             this.DefeatLabel.Name = "DefeatLabel";
-            this.DefeatLabel.Size = new System.Drawing.Size(129, 13);
+            this.DefeatLabel.Size = new System.Drawing.Size(337, 42);
             this.DefeatLabel.TabIndex = 0;
             this.DefeatLabel.Text = "You lost! But do not falter!";
             // 
             // btnGoBack
             // 
             this.btnGoBack.BackColor = System.Drawing.Color.Transparent;
-            this.btnGoBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnGoBack.BackgroundImage = global::FitQuest.Properties.Resources.btnGoBack_Image;
+            this.btnGoBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnGoBack.FlatAppearance.BorderSize = 0;
-            this.btnGoBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGoBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnGoBack.Image = ((System.Drawing.Image)(resources.GetObject("btnGoBack.Image")));
             this.btnGoBack.Location = new System.Drawing.Point(3, 485);
             this.btnGoBack.Name = "btnGoBack";
             this.btnGoBack.Size = new System.Drawing.Size(178, 50);
             this.btnGoBack.TabIndex = 16;
-            this.btnGoBack.Text = "Exit";
             this.btnGoBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnGoBack.UseVisualStyleBackColor = false;
             this.btnGoBack.Click += new System.EventHandler(this.btnGoBack_Click);
@@ -63,6 +61,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::FitQuest.Properties.Resources.forest_3877365_1280;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.btnGoBack);
             this.Controls.Add(this.DefeatLabel);
             this.Name = "DefeatScreen";

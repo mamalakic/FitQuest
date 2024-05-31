@@ -63,9 +63,29 @@ namespace FitQuest.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap autumn_forest_acrylic_painting_spooky_mystery_dusk_generated_by_ai {
+            get {
+                object obj = ResourceManager.GetObject("autumn_forest_acrylic_painting_spooky_mystery_dusk_generated_by_ai", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnGoBack_Image {
             get {
                 object obj = ResourceManager.GetObject("btnGoBack.Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap button {
+            get {
+                object obj = ResourceManager.GetObject("button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -86,6 +106,16 @@ namespace FitQuest.Properties {
         internal static System.Drawing.Bitmap Flaming_Sword {
             get {
                 object obj = ResourceManager.GetObject("Flaming Sword", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap forest_3877365_1280 {
+            get {
+                object obj = ResourceManager.GetObject("forest_3877365_1280", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -156,4 +156,13 @@
   <data name="trainingprogram" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\46c3e60b-ca3f-4496-8253-27bcbdee0d41.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="autumn_forest_acrylic_painting_spooky_mystery_dusk_generated_by_ai" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\autumn-forest-acrylic-painting-spooky-mystery-dusk-generated-by-ai.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="forest_3877365_1280" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\forest-3877365_1280.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

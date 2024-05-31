@@ -76,7 +76,7 @@ namespace FitQuest
             clancampPanel.Visible = true;
             clannamecampLabel.Text = "Clan's " + team_id + " Camp";
            
-            string query = "SELECT * FROM Profiles WHERE team_id == '" + team_id + "';";
+            string query = "SELECT id, level, gold FROM Profiles WHERE team_id == '" + team_id + "';";
             SQLiteCommand cmd = new SQLiteCommand(query, connection);
 
             //dataTable to hold the data of the clan members
@@ -112,6 +112,12 @@ namespace FitQuest
             if (formGood)
             {
                 this.team_id = teamName;
+                string insertQuery = "INSERT INTO teams (team_id) VALUES ('" + teamName + "');";
+
+                using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
+                {
+                    insertCommand.ExecuteNonQuery();
+                }
                 string updateQuery = $"UPDATE Profiles SET team_id = @TeamID WHERE id = '" + userProfile.id + "';";
 
                 using (SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, connection))
@@ -120,20 +126,13 @@ namespace FitQuest
                     updateCommand.ExecuteNonQuery();
                 }
 
-                string insertQuery = "INSERT INTO teams (team_id) VALUES ('" + teamName + "');";
-
-                using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
-                {
-                    insertCommand.ExecuteNonQuery();
-                }
-
-
                 invitefriendspanel.Visible = true;
                 createaclanPanel.Visible = false;
 
                 // SQL query to get friends
-                string query = "SELECT * FROM Friends";
+                string query = "SELECT playerID2 as 'Friend ID' FROM Friends WHERE playerID1=@playerID OR playerID2=@playerID";
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                cmd.Parameters.AddWithValue("@playerID", userProfile.id);
 
                 // DataTable to hold the data
                 DataTable dt = new DataTable();
