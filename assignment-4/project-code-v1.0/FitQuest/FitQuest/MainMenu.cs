@@ -27,13 +27,18 @@ namespace FitQuest
             userProfile.LoadProfileFromDatabase(connectionString, textBox1);
         }
 
+        public void refreshMainMenu()
+        {
+            userProfile.LoadProfileFromDatabase(connectionString, textBox1);
+        }
+
         private void FriendsListButton_Click(object sender, EventArgs e)
         {
             // Hide the current form (main menu)
             this.Hide();
 
             // Show the friends list form
-            FriendsList FriendsListForm = new FriendsList(userProfile.Team_id);
+            FriendsList FriendsListForm = new FriendsList(this, userProfile.Team_id);
             FriendsListForm.Show();
         }
 
@@ -51,19 +56,20 @@ namespace FitQuest
             this.Hide();
 
             // Show the friends list form
-            Inventory invBackpack = new Inventory(userProfile,false);
+            Inventory invBackpack = new Inventory(this, userProfile,false);
             invBackpack.Show();
         }
 
         private void shopButton_Click(object sender, EventArgs e)
         {
-            ItemShop ItemShopForm = new ItemShop(userProfile, userProfile.Gold);
+            ItemShop ItemShopForm = new ItemShop(this, userProfile, userProfile.Gold);
             ItemShopForm.Show();
+            this.Hide();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Map  MapView = new Map(userProfile);
+            Map  MapView = new Map(this, userProfile);
             MapView.Show();
             this.Hide();
         }
@@ -92,6 +98,7 @@ namespace FitQuest
         private int level;
         private string team_id;
         private int gold;
+        private bool areExercisesPopulated = false;
         private Dictionary<string, List<string>> exercises;
         private int timesTrained=0;
 
@@ -190,9 +197,10 @@ namespace FitQuest
             set { exercises = value; }
         }
 
-        public bool AreExercisesPopulated()
+        public bool AreExercisesPopulated
         {
-            return exercises.Any(kv => kv.Value != null && kv.Value.Count > 0);
+            get { return areExercisesPopulated; }
+            set { areExercisesPopulated = value; }
         }
     }
 

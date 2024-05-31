@@ -15,14 +15,16 @@ namespace FitQuest
         private Dictionary<Point, int> nodePositions;
         private int userProgressionLevel;
         private ToolTip toolTip;
+        private MainMenu mainMenu;
 
         private void InitializeToolTip()
         {
             toolTip = new ToolTip();
         }
-        public Map(Profile userProfile)
+        public Map(MainMenu mainmenu, Profile userProfile)
         {
             this.userProfile = userProfile;
+            this.mainMenu = mainmenu;
             InitializeComponent();
             InitializeNodePositions();
             FetchUserProgressionLevel();
@@ -218,16 +220,16 @@ namespace FitQuest
             this.Hide();
 
             //Check if exercises are populated
-            if (userProfile.AreExercisesPopulated())
+            if (userProfile.AreExercisesPopulated)
             {
                 //Show the combat form
-                CombatSystem combatForm = new CombatSystem(userProfile, currentLevel);
+                CombatSystem combatForm = new CombatSystem(mainMenu, userProfile, currentLevel);
                 combatForm.Show();
             }
             else
             {
                 //Show the training program form
-                TrainingProgram trainingProgramForm = new TrainingProgram(userProfile, currentLevel);
+                TrainingProgram trainingProgramForm = new TrainingProgram(mainMenu, userProfile, currentLevel);
                 trainingProgramForm.Show();
             }
         }
@@ -237,9 +239,10 @@ namespace FitQuest
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            MainMenu mainMenuForm = new MainMenu();
-            mainMenuForm.Show();
+            this.mainMenu.Show();
             this.Hide();
         }
+
+       
     }
 }

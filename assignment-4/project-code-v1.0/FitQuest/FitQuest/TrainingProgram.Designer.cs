@@ -45,6 +45,10 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.selectpastprogramButton = new System.Windows.Forms.Button();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
+            this.dangerWarningBox = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.acceptWarning = new System.Windows.Forms.Button();
+            this.declineDanger = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -53,6 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
+            this.dangerWarningBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -67,6 +72,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button4);
@@ -76,6 +82,7 @@
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Font = new System.Drawing.Font("Papyrus", 14.25F);
             this.groupBox1.Location = new System.Drawing.Point(199, 54);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(533, 342);
@@ -159,9 +166,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.buttonSaveProgram);
             this.groupBox2.Controls.Add(this.dataGridView4);
+            this.groupBox2.Font = new System.Drawing.Font("Papyrus", 14.25F);
             this.groupBox2.Location = new System.Drawing.Point(193, 73);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(567, 348);
@@ -204,8 +213,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.selectpastprogramButton);
             this.groupBox3.Controls.Add(this.dataGridView5);
+            this.groupBox3.Font = new System.Drawing.Font("Papyrus", 14.25F);
             this.groupBox3.Location = new System.Drawing.Point(177, 92);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(567, 348);
@@ -223,6 +234,7 @@
             this.selectpastprogramButton.TabIndex = 1;
             this.selectpastprogramButton.Text = "Select this past program";
             this.selectpastprogramButton.UseVisualStyleBackColor = true;
+            this.selectpastprogramButton.Click += new System.EventHandler(this.selectpastprogramButton_Click);
             // 
             // dataGridView5
             // 
@@ -234,12 +246,61 @@
             this.dataGridView5.Size = new System.Drawing.Size(188, 230);
             this.dataGridView5.TabIndex = 1;
             // 
+            // dangerWarningBox
+            // 
+            this.dangerWarningBox.BackColor = System.Drawing.Color.Transparent;
+            this.dangerWarningBox.Controls.Add(this.declineDanger);
+            this.dangerWarningBox.Controls.Add(this.acceptWarning);
+            this.dangerWarningBox.Controls.Add(this.textBox1);
+            this.dangerWarningBox.Font = new System.Drawing.Font("Papyrus", 14.25F);
+            this.dangerWarningBox.Location = new System.Drawing.Point(159, 86);
+            this.dangerWarningBox.Name = "dangerWarningBox";
+            this.dangerWarningBox.Size = new System.Drawing.Size(621, 348);
+            this.dangerWarningBox.TabIndex = 7;
+            this.dangerWarningBox.TabStop = false;
+            this.dangerWarningBox.Text = "Danger!!";
+            this.dangerWarningBox.Visible = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.Gray;
+            this.textBox1.Location = new System.Drawing.Point(155, 36);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(335, 123);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "Woah there traveler,\r\nyou have trained a lot in a very short time,\r\nare you sure " +
+    "about this?";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // acceptWarning
+            // 
+            this.acceptWarning.Location = new System.Drawing.Point(83, 219);
+            this.acceptWarning.Name = "acceptWarning";
+            this.acceptWarning.Size = new System.Drawing.Size(148, 71);
+            this.acceptWarning.TabIndex = 2;
+            this.acceptWarning.Text = "Yes, i accept the danger";
+            this.acceptWarning.UseVisualStyleBackColor = true;
+            this.acceptWarning.Click += new System.EventHandler(this.acceptWarning_Click);
+            // 
+            // declineDanger
+            // 
+            this.declineDanger.Location = new System.Drawing.Point(409, 220);
+            this.declineDanger.Name = "declineDanger";
+            this.declineDanger.Size = new System.Drawing.Size(148, 71);
+            this.declineDanger.TabIndex = 3;
+            this.declineDanger.Text = "You\'re right, i\'ll go back";
+            this.declineDanger.UseVisualStyleBackColor = true;
+            this.declineDanger.Click += new System.EventHandler(this.declineDanger_Click);
+            // 
             // TrainingProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.BackgroundImage = global::FitQuest.Properties.Resources.trainingprogram;
             this.ClientSize = new System.Drawing.Size(963, 552);
+            this.Controls.Add(this.dangerWarningBox);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -256,6 +317,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
+            this.dangerWarningBox.ResumeLayout(false);
+            this.dangerWarningBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -279,6 +342,10 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button selectpastprogramButton;
         private System.Windows.Forms.DataGridView dataGridView5;
+        private System.Windows.Forms.GroupBox dangerWarningBox;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button declineDanger;
+        private System.Windows.Forms.Button acceptWarning;
     }
 }
 

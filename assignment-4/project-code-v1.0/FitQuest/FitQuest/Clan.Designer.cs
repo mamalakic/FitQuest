@@ -65,23 +65,25 @@
             // 
             // backButton
             // 
+            this.backButton.BackColor = System.Drawing.Color.Transparent;
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            this.backButton.Image = global::FitQuest.Properties.Resources.btnGoBack_Image;
             this.backButton.Location = new System.Drawing.Point(12, 13);
             this.backButton.Name = "backButton";
             this.backButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.backButton.Size = new System.Drawing.Size(126, 54);
             this.backButton.TabIndex = 0;
-            this.backButton.Text = "Back";
-            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.UseVisualStyleBackColor = false;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // clantablabel
             // 
             this.clantablabel.AutoSize = true;
-            this.clantablabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 35.25F);
-            this.clantablabel.Location = new System.Drawing.Point(343, 9);
+            this.clantablabel.BackColor = System.Drawing.Color.Transparent;
+            this.clantablabel.Font = new System.Drawing.Font("Papyrus", 35.22F);
+            this.clantablabel.Location = new System.Drawing.Point(338, 9);
             this.clantablabel.Name = "clantablabel";
-            this.clantablabel.Size = new System.Drawing.Size(256, 54);
+            this.clantablabel.Size = new System.Drawing.Size(275, 74);
             this.clantablabel.TabIndex = 1;
             this.clantablabel.Text = "Clan Camp";
             // 
@@ -291,6 +293,7 @@
             // 
             // joinaclanPanel
             // 
+            this.joinaclanPanel.BackColor = System.Drawing.Color.Transparent;
             this.joinaclanPanel.Controls.Add(this.jointheclanButton);
             this.joinaclanPanel.Controls.Add(this.chooseafriendLabel);
             this.joinaclanPanel.Controls.Add(this.dataGridView3);
@@ -333,6 +336,7 @@
             // Clan
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.BackgroundImage = global::FitQuest.Properties.Resources.clancamp;
             this.ClientSize = new System.Drawing.Size(963, 552);
             this.Controls.Add(this.clancampPanel);
             this.Controls.Add(this.joinaclanPanel);

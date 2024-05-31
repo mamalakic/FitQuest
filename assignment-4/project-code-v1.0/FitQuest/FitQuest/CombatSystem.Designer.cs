@@ -31,13 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CombatSystem));
             this.combatTimer = new System.Windows.Forms.Timer(this.components);
-            this.enemyPictureBox = new System.Windows.Forms.PictureBox();
             this.enemyHealthBar = new System.Windows.Forms.ProgressBar();
             this.inventoryButton = new System.Windows.Forms.Button();
             this.attackButton = new System.Windows.Forms.Button();
             this.fleeButton = new System.Windows.Forms.Button();
             this.healthBarLabel = new System.Windows.Forms.Label();
-            this.playerCharacterPictureBox = new System.Windows.Forms.PictureBox();
             this.enemyNameLabel = new System.Windows.Forms.Label();
             this.nodeInfo = new System.Windows.Forms.Label();
             this.secondsPassedLabel = new System.Windows.Forms.Label();
@@ -47,27 +45,18 @@
             this.afkCheckGroupBox = new System.Windows.Forms.GroupBox();
             this.afkCheckButton = new System.Windows.Forms.Button();
             this.afkCheckLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).BeginInit();
+            this.playerCharacterPictureBox = new System.Windows.Forms.PictureBox();
+            this.enemyPictureBox = new System.Windows.Forms.PictureBox();
             this.timeCounterGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.exerciseDataGrid)).BeginInit();
             this.afkCheckGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // combatTimer
             // 
             this.combatTimer.Tick += new System.EventHandler(this.combatTimer_Tick);
-            // 
-            // enemyPictureBox
-            // 
-            this.enemyPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.enemyPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("enemyPictureBox.BackgroundImage")));
-            this.enemyPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.enemyPictureBox.Location = new System.Drawing.Point(720, 123);
-            this.enemyPictureBox.Name = "enemyPictureBox";
-            this.enemyPictureBox.Size = new System.Drawing.Size(203, 355);
-            this.enemyPictureBox.TabIndex = 0;
-            this.enemyPictureBox.TabStop = false;
             // 
             // enemyHealthBar
             // 
@@ -116,17 +105,6 @@
             this.healthBarLabel.TabIndex = 5;
             this.healthBarLabel.Text = "label1";
             // 
-            // playerCharacterPictureBox
-            // 
-            this.playerCharacterPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.playerCharacterPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("playerCharacterPictureBox.BackgroundImage")));
-            this.playerCharacterPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.playerCharacterPictureBox.Location = new System.Drawing.Point(30, 153);
-            this.playerCharacterPictureBox.Name = "playerCharacterPictureBox";
-            this.playerCharacterPictureBox.Size = new System.Drawing.Size(182, 314);
-            this.playerCharacterPictureBox.TabIndex = 6;
-            this.playerCharacterPictureBox.TabStop = false;
-            // 
             // enemyNameLabel
             // 
             this.enemyNameLabel.AutoSize = true;
@@ -139,9 +117,10 @@
             // nodeInfo
             // 
             this.nodeInfo.AutoSize = true;
-            this.nodeInfo.Location = new System.Drawing.Point(451, 12);
+            this.nodeInfo.Font = new System.Drawing.Font("Papyrus", 13.25F);
+            this.nodeInfo.Location = new System.Drawing.Point(429, 12);
             this.nodeInfo.Name = "nodeInfo";
-            this.nodeInfo.Size = new System.Drawing.Size(35, 13);
+            this.nodeInfo.Size = new System.Drawing.Size(57, 28);
             this.nodeInfo.TabIndex = 8;
             this.nodeInfo.Text = "label1";
             // 
@@ -207,6 +186,28 @@
             this.afkCheckLabel.TabIndex = 0;
             this.afkCheckLabel.Text = "Hey! Are you still here?";
             // 
+            // playerCharacterPictureBox
+            // 
+            this.playerCharacterPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.playerCharacterPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("playerCharacterPictureBox.BackgroundImage")));
+            this.playerCharacterPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.playerCharacterPictureBox.Location = new System.Drawing.Point(30, 153);
+            this.playerCharacterPictureBox.Name = "playerCharacterPictureBox";
+            this.playerCharacterPictureBox.Size = new System.Drawing.Size(182, 314);
+            this.playerCharacterPictureBox.TabIndex = 6;
+            this.playerCharacterPictureBox.TabStop = false;
+            // 
+            // enemyPictureBox
+            // 
+            this.enemyPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.enemyPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("enemyPictureBox.BackgroundImage")));
+            this.enemyPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.enemyPictureBox.Location = new System.Drawing.Point(720, 123);
+            this.enemyPictureBox.Name = "enemyPictureBox";
+            this.enemyPictureBox.Size = new System.Drawing.Size(203, 355);
+            this.enemyPictureBox.TabIndex = 0;
+            this.enemyPictureBox.TabStop = false;
+            // 
             // CombatSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,13 +232,13 @@
             this.Name = "CombatSystem";
             this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.CombatSystem_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).EndInit();
             this.timeCounterGroupBox.ResumeLayout(false);
             this.timeCounterGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.exerciseDataGrid)).EndInit();
             this.afkCheckGroupBox.ResumeLayout(false);
             this.afkCheckGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.playerCharacterPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.enemyPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -16,9 +16,11 @@ namespace FitQuest
         string connectionString;
         private Profile userProfile;
         private Level currentLevel;
+        private MainMenu mainmenu;
 
-        public TrainingProgram(Profile userProfile, Level currentLevel)
+        public TrainingProgram(MainMenu mainmenu, Profile userProfile, Level currentLevel)
         {
+            this.mainmenu = mainmenu;
             //initialize connection
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             InitializeComponent();
@@ -38,14 +40,14 @@ namespace FitQuest
 
         public void createDangerWarning()
         {
-            //a warning that the user has to accept to continue
+            dangerWarningBox.Visible = true;
         }
 
         //buttons 1,2 and 3 choose push, pull and legs training programs respectively
         private void button1_Click(object sender, EventArgs e) 
         {
             chooseProgram("Push");
-            CombatSystem CombatForm = new CombatSystem(userProfile, this.currentLevel);
+            CombatSystem CombatForm = new CombatSystem(mainmenu, userProfile, this.currentLevel);
             CombatForm.Show();
             this.Hide();
         }
@@ -53,7 +55,7 @@ namespace FitQuest
         private void button2_Click_1(object sender, EventArgs e)
         {
             chooseProgram("Pull");
-            CombatSystem CombatForm = new CombatSystem(userProfile, this.currentLevel);
+            CombatSystem CombatForm = new CombatSystem(mainmenu, userProfile, this.currentLevel);
             CombatForm.Show();
             this.Hide();
         }
@@ -61,7 +63,7 @@ namespace FitQuest
         private void button3_Click_1(object sender, EventArgs e)
         {
             chooseProgram("Legs");
-            CombatSystem CombatForm = new CombatSystem(userProfile, this.currentLevel);
+            CombatSystem CombatForm = new CombatSystem(mainmenu, userProfile, this.currentLevel);
             CombatForm.Show();
             this.Hide();
         }
@@ -202,7 +204,7 @@ namespace FitQuest
             {
                 userProfile.Exercises["Custom"] = selectedExercises.Select(ex => ex.Name).ToList();    //sets the userprofile's exercises
                 MessageBox.Show("Custom program saved successfully!");
-                CombatSystem CombatForm = new CombatSystem(userProfile, this.currentLevel);
+                CombatSystem CombatForm = new CombatSystem(mainmenu, userProfile, this.currentLevel);
                 CombatForm.Show();
                 this.Hide();
             }
@@ -228,6 +230,25 @@ namespace FitQuest
             {
                 MessageBox.Show("No custom program found.");
             }
+        }
+
+        private void selectpastprogramButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Custom program saved successfully!");
+            CombatSystem CombatForm = new CombatSystem(mainmenu, userProfile, this.currentLevel);
+            CombatForm.Show();
+            this.Hide();
+        }
+
+        private void acceptWarning_Click(object sender, EventArgs e)
+        {
+            dangerWarningBox.Visible = false;
+        }
+
+        private void declineDanger_Click(object sender, EventArgs e)
+        {
+            mainmenu.Show();
+            this.Hide();
         }
     }
 

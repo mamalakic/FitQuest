@@ -19,16 +19,19 @@ namespace FitQuest
         // 0 is for afk timer, 1 is for waiting for activity
         private int inactiveTimerType = 0;
         private int combatTimeSeconds = 0;
+        
 
         private Enemy combatEnemy;
         private string connectionString;
 
         private Profile userProfile;
-        public CombatSystem(Profile userProfile, Level currentLevel)
+        private MainMenu mainmenu;
+        public CombatSystem(MainMenu mainmenu, Profile userProfile, Level currentLevel)
         {
+            this.userProfile = userProfile;
+            this.mainmenu = mainmenu;
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             InitializeComponent();
-            this.userProfile = userProfile;
             this.currentLevel = currentLevel;
 
             this.combatEnemy = new Enemy(currentLevel.EnemyName, currentLevel.EnemyHP, currentLevel.CurrentEnemyHP, currentLevel.LevelNum);
@@ -138,7 +141,8 @@ namespace FitQuest
         private void victorySequence()
         {
             stopCombat();
-
+            userProfile.AreExercisesPopulated=false;
+            userProfile.TimesTrained += 1;
             Rewards rewardsObj = calculateRewards();
             saveBattleRecord();
             saveRewardsToAccount(rewardsObj);
@@ -148,7 +152,8 @@ namespace FitQuest
         private void defeatSequence()
         {
             stopCombat();
-
+            userProfile.AreExercisesPopulated = false;
+            userProfile.TimesTrained += 1;
             saveBattleRecord();
             showDefeatScreen();
         }
@@ -236,7 +241,7 @@ namespace FitQuest
                 }
             }
 
-            this.Controls.Add(new DefeatScreen());
+            this.Controls.Add(new DefeatScreen(mainmenu));
         }
 
         private bool saveRewardsToAccount(Rewards rewardsObj)
@@ -384,7 +389,7 @@ namespace FitQuest
 
         private void inventoryButton_Click(object sender, EventArgs e)
         {
-            Inventory inventoryForm = new Inventory(userProfile, true); // Indicate it's accessed from CombatSystem
+            Inventory inventoryForm = new Inventory(mainmenu, userProfile, true); // Indicate it's accessed from CombatSystem
             inventoryForm.LoadInventoryData();
             inventoryForm.Show();
         }

@@ -27,13 +27,15 @@ namespace FitQuest
         private ImageList imageList; // Declare imageList here
         private Profile userProfile;
         private int userGold; // Store user's gold
+        private MainMenu mainmenu;
 
-        public ItemShop(Profile userProfile, int userGold)
+        public ItemShop(MainMenu mainmenu, Profile userProfile, int userGold)
         {
             InitializeComponent();
 
             this.userProfile = userProfile; // Store the user's profile
             this.userGold = userGold; // Store the user's gold
+            this.mainmenu = mainmenu;
 
             imageList = new ImageList // Initialize imageList here
             {
@@ -56,8 +58,8 @@ namespace FitQuest
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            MainMenu MainMenuForm = new MainMenu();
-            MainMenuForm.Show();
+            mainmenu.refreshMainMenu();
+            mainmenu.Show();
             this.Hide();
         }
 

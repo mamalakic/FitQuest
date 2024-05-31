@@ -91,7 +91,7 @@ namespace FitQuest
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            //leaves the clan camp
+            mainMenu.refreshMainMenu();
             this.mainMenu.Show();
             this.Hide();
             connection.Close();
@@ -331,7 +331,7 @@ namespace FitQuest
             this.Hide();
 
             // Check if exercises are populated
-            if (userProfile.AreExercisesPopulated())
+            if (userProfile.AreExercisesPopulated)
             {
                 Console.WriteLine("Training program is chosen:");
                 foreach (var category in userProfile.Exercises.Keys)

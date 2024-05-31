@@ -19,10 +19,11 @@ namespace FitQuest
         private int rowIndex;
         string connectionString;
         bool hasInternetConnectionBool;
-        public FriendsList(string Team_id)
+        private MainMenu mainmenu;
+        public FriendsList(MainMenu mainmenu, string Team_id)
         {
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
-
+            this.mainmenu = mainmenu;
             InitializeComponent();
 
             this.hasInternetConnectionBool = hasInternetConnection();
@@ -248,8 +249,7 @@ namespace FitQuest
             this.Hide();
 
             // Show the menu form
-            MainMenu MenuForm = new MainMenu();
-            MenuForm.Show();
+            mainmenu.Show();
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

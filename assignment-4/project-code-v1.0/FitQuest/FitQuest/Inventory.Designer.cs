@@ -63,6 +63,7 @@ namespace FitQuest
             // 
             // listView1
             // 
+            this.listView1.BackColor = System.Drawing.Color.SaddleBrown;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderCategory,
@@ -70,7 +71,7 @@ namespace FitQuest
             this.columnHeaderQuantity,
             this.columnHeaderValue});
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(1, 41);
+            this.listView1.Location = new System.Drawing.Point(1, 62);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(361, 485);
             this.listView1.TabIndex = 2;
@@ -115,7 +116,7 @@ namespace FitQuest
             // 
             this.button2.BackColor = System.Drawing.Color.LimeGreen;
             this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.button2.Location = new System.Drawing.Point(382, 41);
+            this.button2.Location = new System.Drawing.Point(382, 62);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 64);
             this.button2.TabIndex = 4;
@@ -127,7 +128,7 @@ namespace FitQuest
             // 
             this.button5.BackColor = System.Drawing.Color.LimeGreen;
             this.button5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.button5.Location = new System.Drawing.Point(508, 41);
+            this.button5.Location = new System.Drawing.Point(508, 62);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(101, 64);
             this.button5.TabIndex = 5;
@@ -183,6 +184,7 @@ namespace FitQuest
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label9.Location = new System.Drawing.Point(379, 132);
             this.label9.Name = "label9";
@@ -193,6 +195,7 @@ namespace FitQuest
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label10.Location = new System.Drawing.Point(379, 185);
             this.label10.Name = "label10";
@@ -203,6 +206,7 @@ namespace FitQuest
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label11.Location = new System.Drawing.Point(379, 238);
             this.label11.Name = "label11";
@@ -213,6 +217,7 @@ namespace FitQuest
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label12.Location = new System.Drawing.Point(379, 337);
             this.label12.Name = "label12";
@@ -223,6 +228,7 @@ namespace FitQuest
             // label13
             // 
             this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label13.Location = new System.Drawing.Point(379, 380);
             this.label13.Name = "label13";
@@ -233,27 +239,29 @@ namespace FitQuest
             // backButton
             // 
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            this.backButton.Location = new System.Drawing.Point(1, 1);
+            this.backButton.Image = global::FitQuest.Properties.Resources.btnGoBack_Image;
+            this.backButton.Location = new System.Drawing.Point(12, 16);
             this.backButton.Name = "backButton";
             this.backButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.backButton.Size = new System.Drawing.Size(100, 34);
             this.backButton.TabIndex = 16;
-            this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label7.Location = new System.Drawing.Point(283, 1);
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Papyrus", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(260, 1);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(143, 37);
+            this.label7.Size = new System.Drawing.Size(183, 58);
             this.label7.TabIndex = 18;
             this.label7.Text = "Inventory";
             // 
             // Inventory
             // 
+            this.BackgroundImage = global::FitQuest.Properties.Resources.itemshop;
             this.ClientSize = new System.Drawing.Size(716, 567);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.backButton);
@@ -271,6 +279,7 @@ namespace FitQuest
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.listView1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "Inventory";
             this.Load += new System.EventHandler(this.Inventory_Load);
             this.ResumeLayout(false);

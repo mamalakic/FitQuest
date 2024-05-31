@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FriendsList));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FriendsList));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.friendsTabMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.inviteToClanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +42,6 @@
             this.txtFriendName = new System.Windows.Forms.TextBox();
             this.btnSendRequest = new System.Windows.Forms.Button();
             this.lblResult = new System.Windows.Forms.Label();
-            this.AddFriend = new System.Windows.Forms.Button();
             this.FriendsTab = new System.Windows.Forms.TabControl();
             this.FriendsTabPage = new System.Windows.Forms.TabPage();
             this.PendingRequestsTabPage = new System.Windows.Forms.TabPage();
@@ -52,14 +51,15 @@
             this.declineFriendRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SentRequestsTabPage = new System.Windows.Forms.TabPage();
             this.sentRequestsGridView = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblfriendLink = new System.Windows.Forms.Label();
             this.txtfriendLink = new System.Windows.Forms.TextBox();
             this.sqLiteCommandBuilder1 = new System.Data.SQLite.SQLiteCommandBuilder();
             this.buttonGenerateFriendLink = new System.Windows.Forms.Button();
-            this.btnGoBack = new System.Windows.Forms.Button();
             this.SuccessFriendActionLabel = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnGoBack = new System.Windows.Forms.Button();
+            this.AddFriend = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.friendsTabMenuStrip.SuspendLayout();
             this.FriendsTab.SuspendLayout();
@@ -164,21 +164,6 @@
             this.lblResult.Size = new System.Drawing.Size(0, 13);
             this.lblResult.TabIndex = 7;
             this.lblResult.Visible = false;
-            // 
-            // AddFriend
-            // 
-            this.AddFriend.BackColor = System.Drawing.Color.Transparent;
-            this.AddFriend.FlatAppearance.BorderSize = 0;
-            this.AddFriend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddFriend.Image = ((System.Drawing.Image)(resources.GetObject("AddFriend.Image")));
-            this.AddFriend.Location = new System.Drawing.Point(424, 12);
-            this.AddFriend.Name = "AddFriend";
-            this.AddFriend.Size = new System.Drawing.Size(93, 24);
-            this.AddFriend.TabIndex = 8;
-            this.AddFriend.Text = " Add Friend";
-            this.AddFriend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.AddFriend.UseVisualStyleBackColor = false;
-            this.AddFriend.Click += new System.EventHandler(this.AddFriend_Click);
             // 
             // FriendsTab
             // 
@@ -312,6 +297,21 @@
             this.sentRequestsGridView.TabIndex = 3;
             this.sentRequestsGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.sentRequestsGridView_MouseDown);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeRequestToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(160, 26);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
+            // 
+            // removeRequestToolStripMenuItem
+            // 
+            this.removeRequestToolStripMenuItem.Name = "removeRequestToolStripMenuItem";
+            this.removeRequestToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.removeRequestToolStripMenuItem.Text = "Remove request";
+            // 
             // lblfriendLink
             // 
             this.lblfriendLink.AutoSize = true;
@@ -349,9 +349,19 @@
             this.buttonGenerateFriendLink.Visible = false;
             this.buttonGenerateFriendLink.Click += new System.EventHandler(this.buttonGenerateFriendLink_Click);
             // 
+            // SuccessFriendActionLabel
+            // 
+            this.SuccessFriendActionLabel.AutoSize = true;
+            this.SuccessFriendActionLabel.Location = new System.Drawing.Point(13, 310);
+            this.SuccessFriendActionLabel.Name = "SuccessFriendActionLabel";
+            this.SuccessFriendActionLabel.Size = new System.Drawing.Size(35, 13);
+            this.SuccessFriendActionLabel.TabIndex = 16;
+            this.SuccessFriendActionLabel.Text = "label1";
+            this.SuccessFriendActionLabel.Visible = false;
+            // 
             // btnGoBack
             // 
-            this.btnGoBack.BackColor = System.Drawing.Color.Transparent;
+            this.btnGoBack.BackColor = System.Drawing.Color.Gray;
             this.btnGoBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnGoBack.FlatAppearance.BorderSize = 0;
             this.btnGoBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -366,36 +376,27 @@
             this.btnGoBack.UseVisualStyleBackColor = false;
             this.btnGoBack.Click += new System.EventHandler(this.btnGoBack_Click);
             // 
-            // SuccessFriendActionLabel
+            // AddFriend
             // 
-            this.SuccessFriendActionLabel.AutoSize = true;
-            this.SuccessFriendActionLabel.Location = new System.Drawing.Point(13, 310);
-            this.SuccessFriendActionLabel.Name = "SuccessFriendActionLabel";
-            this.SuccessFriendActionLabel.Size = new System.Drawing.Size(35, 13);
-            this.SuccessFriendActionLabel.TabIndex = 16;
-            this.SuccessFriendActionLabel.Text = "label1";
-            this.SuccessFriendActionLabel.Visible = false;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeRequestToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(160, 26);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
-            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
-            // 
-            // removeRequestToolStripMenuItem
-            // 
-            this.removeRequestToolStripMenuItem.Name = "removeRequestToolStripMenuItem";
-            this.removeRequestToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.removeRequestToolStripMenuItem.Text = "Remove request";
+            this.AddFriend.BackColor = System.Drawing.Color.Transparent;
+            this.AddFriend.FlatAppearance.BorderSize = 0;
+            this.AddFriend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddFriend.Image = ((System.Drawing.Image)(resources.GetObject("AddFriend.Image")));
+            this.AddFriend.Location = new System.Drawing.Point(424, 12);
+            this.AddFriend.Name = "AddFriend";
+            this.AddFriend.Size = new System.Drawing.Size(93, 24);
+            this.AddFriend.TabIndex = 8;
+            this.AddFriend.Text = " Add Friend";
+            this.AddFriend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.AddFriend.UseVisualStyleBackColor = false;
+            this.AddFriend.Click += new System.EventHandler(this.AddFriend_Click);
             // 
             // FriendsList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.BackgroundImage = global::FitQuest.Properties.Resources.mainmenu;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(963, 552);
             this.Controls.Add(this.SuccessFriendActionLabel);

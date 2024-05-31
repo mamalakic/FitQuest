@@ -200,9 +200,13 @@
   <ItemGroup>
     <Content Include="aspida.png" />
     <Content Include="map_backgroung.png" />
+    <None Include="Resources\46c3e60b-ca3f-4496-8253-27bcbdee0d41.jpg" />
     <Content Include="Resources\aspida.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\clancamp.jpg" />
+    <None Include="Resources\mainmenu.jpeg" />
+    <None Include="Resources\itemshop.jpeg" />
     <Content Include="spathi.png" />
     <Content Include="stemma.png" />
   </ItemGroup>
@@ -243,10 +247,10 @@
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
   </PropertyGroup>
-  <PropertyGroup> 
+  <PropertyGroup>
     <ContentSQLiteInteropFiles>true</ContentSQLiteInteropFiles>
     <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
     <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
     <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
- </PropertyGroup>
+  </PropertyGroup>
 </Project>

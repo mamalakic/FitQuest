@@ -10,11 +10,14 @@ using System.Windows.Forms;
 
 namespace FitQuest
 {
+
     public partial class DefeatScreen : UserControl
     {
-        public DefeatScreen()
+        private MainMenu mainmenu;
+        public DefeatScreen(MainMenu mainMenu)
         {
             InitializeComponent();
+            this.mainmenu = mainMenu;
         }
 
         private void btnGoBack_Click(object sender, EventArgs e)
@@ -23,11 +26,13 @@ namespace FitQuest
             this.Hide();
 
             // Show the menu form
-            MainMenu MenuForm = new MainMenu();
-            MenuForm.Show();
+            
+            mainmenu.Show();
             // close parent form
             this.Hide(); 
             this.FindForm().Close();
         }
+
+
     }
 }

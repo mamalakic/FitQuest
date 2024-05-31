@@ -20,9 +20,11 @@ namespace FitQuest
         private string id;
         private int Gold;
         private bool accessedFromCombatSystem = false;
+        private MainMenu mainmenu;
 
-        public Inventory(Profile userProfile, bool accessedFromCombatSystem)
+        public Inventory(MainMenu mainmenu, Profile userProfile, bool accessedFromCombatSystem)
         {
+            this.mainmenu = mainmenu;
             this.userProfile = userProfile;
             this.id = userProfile.id;
             this.Gold = userProfile.Gold;
@@ -242,8 +244,8 @@ namespace FitQuest
             }
             else
             {
-                MainMenu MainMenuForm = new MainMenu();
-                MainMenuForm.Show();
+                mainmenu.Show();
+                mainmenu.refreshMainMenu();
             }
             this.Hide();
         }
