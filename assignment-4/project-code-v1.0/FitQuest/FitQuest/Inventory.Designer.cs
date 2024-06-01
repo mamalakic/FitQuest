@@ -291,7 +291,7 @@ namespace FitQuest
             // Inventory
             // 
             this.BackgroundImage = global::FitQuest.Properties.Resources.itemshop;
-            this.ClientSize = new System.Drawing.Size(716, 567);
+            this.ClientSize = new System.Drawing.Size(963, 552);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.label13);

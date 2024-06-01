@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ItemShop));
             this.clantablabel = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
             this.itemsList = new System.Windows.Forms.ListView();
@@ -174,6 +175,7 @@
             this.Controls.Add(this.itemsList);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.clantablabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ItemShop";
             this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.ItemShop_Load);

@@ -75,7 +75,7 @@ namespace FitQuest
         {
             //load the clan camp
             clancampPanel.Visible = true;
-            clannamecampLabel.Text = "Clan's " + team_id + " Camp";
+            clantablabel.Text = team_id + " clan's camp";
            
             string query = "SELECT id, level, gold FROM Profiles WHERE team_id == '" + team_id + "';";
             SQLiteCommand cmd = new SQLiteCommand(query, connection);

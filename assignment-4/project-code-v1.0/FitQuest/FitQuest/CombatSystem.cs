@@ -101,8 +101,11 @@ namespace FitQuest
             StartInactivityTimer(0);
             if (exerciseDataGrid.SelectedRows.Count > 0)
             {
+                // Simulate a detected repetition
+                Repetition rep = new Repetition(1, 10);
+
                 // Call function to calculate damage
-                int damageDeal = calculateDamage(1, 1, 1);
+                int damageDeal = calculateDamage(combatEnemy, userProfile, currentLevel, rep);
                 this.combatEnemy.takeDamage(damageDeal);
                 updateEnemyInfo();
                 if (this.combatEnemy.isDead())
@@ -382,10 +385,9 @@ namespace FitQuest
             }
         }
 
-        // not int but obj
-        private int calculateDamage(int enemyObj, int car, int currentRoom)
+        private int calculateDamage(Enemy enemyObj, Profile car, Level currentRoom, Repetition rep)
         {
-            return 10;
+            return rep.calculateDamage();
         }
 
 
@@ -444,7 +446,7 @@ namespace FitQuest
         private void inventoryButton_Click(object sender, EventArgs e)
         {
             Inventory inventoryForm = new Inventory(mainmenu, userProfile, true); // Indicate it's accessed from CombatSystem
-            inventoryForm.LoadInventoryData();
+            inventoryForm.LoadInventoryData(true);
             inventoryForm.Show();
         }
 

@@ -217,13 +217,13 @@ namespace FitQuest
             MessageBox.Show("Initiating camera check...");
 
             //Simulate camera check (replace with actual webcam functionality)
-            System.Threading.Thread.Sleep(1000); 
+            System.Threading.Thread.Sleep(300); 
             MessageBox.Show("Analyzing image...");
 
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(300);
             MessageBox.Show("User detected.");
 
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(300);
             MessageBox.Show("Ready to commence battle.");
 
             //Hide the current form (main menu)

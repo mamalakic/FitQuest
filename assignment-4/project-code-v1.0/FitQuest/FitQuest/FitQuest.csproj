@@ -95,6 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Repetition.cs" />
     <Compile Include="Rewards.cs" />
     <Compile Include="CombatSystem.cs">
       <SubType>Form</SubType>
