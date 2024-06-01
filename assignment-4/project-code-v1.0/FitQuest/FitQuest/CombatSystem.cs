@@ -26,7 +26,8 @@ namespace FitQuest
 
         private Profile userProfile;
         private MainMenu mainmenu;
-        public CombatSystem(MainMenu mainmenu, Profile userProfile, Level currentLevel)
+        private String teamName;
+        public CombatSystem(MainMenu mainmenu, Profile userProfile, Level currentLevel, String teamName)
         {
             InitializeComponent();
 
@@ -37,7 +38,7 @@ namespace FitQuest
             this.UpdateStyles();
 
 
-
+            this.teamName = teamName;
             this.userProfile = userProfile;
             this.mainmenu = mainmenu;
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
@@ -100,8 +101,11 @@ namespace FitQuest
             StartInactivityTimer(0);
             if (exerciseDataGrid.SelectedRows.Count > 0)
             {
+                // Simulate a detected repetition
+                Repetition rep = new Repetition(1, 10);
+
                 // Call function to calculate damage
-                int damageDeal = calculateDamage(1, 1, 1);
+                int damageDeal = calculateDamage(combatEnemy, userProfile, currentLevel, rep);
                 this.combatEnemy.takeDamage(damageDeal);
                 updateEnemyInfo();
                 if (this.combatEnemy.isDead())
@@ -173,7 +177,15 @@ namespace FitQuest
             using (SQLiteConnection con = new SQLiteConnection(connectionString)) { 
                 con.Open();
                 // update current hp of enemy
-                string query = "UPDATE Level SET enemy_current_hp = @enemyHP WHERE count = @levelCount";
+                string query;
+                if (this.teamName == "solo")
+                {
+                    query = "UPDATE Level SET enemy_current_hp = @enemyHP WHERE count = @levelCount";
+                }
+                else
+                {
+                    query = "UPDATE team_Level SET enemy_current_hp = @enemyHP WHERE count = @levelCount";
+                }
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
                     // Add the parameter and its value
@@ -189,7 +201,14 @@ namespace FitQuest
                 if (combatEnemy.currentHP == 0)
                 {
                     // mark level as complete
-                    query = "UPDATE Level SET is_completed = 1 WHERE count = @levelCount";
+                    if (this.teamName == "solo")
+                    {
+                        query = "UPDATE Level SET is_completed = 1 WHERE count = @levelCount";
+                    }
+                    else
+                    {
+                        query = "UPDATE team_Level SET is_completed = 1 WHERE count = @levelCount";
+                    }
                     using (SQLiteCommand command = new SQLiteCommand(query, con))
                     {
                         // Add the parameter and its value
@@ -288,7 +307,16 @@ namespace FitQuest
                 }
 
                 // update level of player
-                query = "UPDATE Profiles SET level = level + 1 WHERE ID = @playerID";
+                if (this.teamName == "solo")
+                {
+                    query = "UPDATE Profiles SET level = level + 1 WHERE ID = '" + userProfile.id + "'";
+                    Console.WriteLine(query);
+                }
+                else
+                {
+                    query = "UPDATE teams SET level = level + 1 WHERE team_id = '" + this.teamName + "'";
+                    Console.WriteLine(query);
+                }
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
                     // Add the parameter and its value
@@ -300,7 +328,15 @@ namespace FitQuest
                     if (rowsAffected == 0) return false;
                 }
 
-                query = "UPDATE Level SET is_completed = 1 WHERE count = @levelCount";
+                if (this.teamName == "solo")
+                    {
+                        query = "UPDATE Level SET is_completed = 1 WHERE count = @levelCount";
+                    }
+                    else
+                    {
+                        query = "UPDATE team_Level SET is_completed = 1 WHERE count = @levelCount";
+                    }
+
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
                     // Add the parameter and its value
@@ -349,10 +385,9 @@ namespace FitQuest
             }
         }
 
-        // not int but obj
-        private int calculateDamage(int enemyObj, int car, int currentRoom)
+        private int calculateDamage(Enemy enemyObj, Profile car, Level currentRoom, Repetition rep)
         {
-            return 10;
+            return rep.calculateDamage();
         }
 
 
@@ -411,7 +446,7 @@ namespace FitQuest
         private void inventoryButton_Click(object sender, EventArgs e)
         {
             Inventory inventoryForm = new Inventory(mainmenu, userProfile, true); // Indicate it's accessed from CombatSystem
-            inventoryForm.LoadInventoryData();
+            inventoryForm.LoadInventoryData(true);
             inventoryForm.Show();
         }
 

@@ -35,7 +35,7 @@ namespace FitQuest
 
         private void Inventory_Load(object sender, EventArgs e)
         {
-            LoadInventoryData();
+            LoadInventoryData(accessedFromCombatSystem);
             if (accessedFromCombatSystem)
             {
                 button2.Visible = false;
@@ -48,7 +48,7 @@ namespace FitQuest
             }
         }
 
-        public void LoadInventoryData()
+        public void LoadInventoryData(bool accessedFromCombatSystem)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
 
@@ -63,7 +63,12 @@ namespace FitQuest
                 FROM Inventory inv
                 JOIN ItemList il ON inv.itemID = il.ID
                 LEFT JOIN ItemAttributes ia ON il.ID = ia.ID
-                WHERE inv.playerID = @playerID";
+                WHERE inv.playerID = @playerID AND inv.quantity > 0";
+
+                    if (accessedFromCombatSystem)
+                    {
+                        query += " AND il.Category = 'Consumable'";
+                    }
 
                     using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {

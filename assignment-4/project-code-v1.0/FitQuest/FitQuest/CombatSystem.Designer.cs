@@ -126,7 +126,8 @@
             // healthBarLabel
             // 
             this.healthBarLabel.AutoSize = true;
-            this.healthBarLabel.BackColor = System.Drawing.Color.Transparent;
+            this.healthBarLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.healthBarLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.healthBarLabel.Font = new System.Drawing.Font("Papyrus", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.healthBarLabel.ForeColor = System.Drawing.Color.Black;
             this.healthBarLabel.Location = new System.Drawing.Point(800, 93);

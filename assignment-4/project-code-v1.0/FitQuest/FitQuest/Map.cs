@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Configuration;
-
+using System.Diagnostics;
 
 namespace FitQuest
 {
@@ -16,20 +16,23 @@ namespace FitQuest
         private int userProgressionLevel;
         private ToolTip toolTip;
         private MainMenu mainMenu;
+        private String teamName;
 
         private void InitializeToolTip()
         {
             toolTip = new ToolTip();
         }
-        public Map(MainMenu mainmenu, Profile userProfile)
+        public Map(String teamName, MainMenu mainmenu, Profile userProfile)
         {
             this.userProfile = userProfile;
             this.mainMenu = mainmenu;
+            this.teamName = teamName;
             InitializeComponent();
             InitializeNodePositions();
             FetchUserProgressionLevel();
             InitializeToolTip();
             CreateNodes();
+            
         }
 
         private void InitializeNodePositions()
@@ -54,12 +57,19 @@ namespace FitQuest
         private void FetchUserProgressionLevel()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
-            string query = "SELECT level FROM Profiles WHERE id = @profileId";
+            string query;
+            if (teamName == "solo")
+            {
+                query = "SELECT level FROM Profiles WHERE id = '" + userProfile.id + "'";
+            }
+            else
+            {
+                query = "SELECT level FROM Teams WHERE team_id = '" + teamName + "'";
+            }
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
-                command.Parameters.AddWithValue("@profileId", userProfile.id);
                 connection.Open();
 
                 userProgressionLevel = Convert.ToInt32(command.ExecuteScalar());
@@ -127,7 +137,7 @@ namespace FitQuest
 
                     try
                     {
-                        currentLevel = new Level(levelNumber);
+                        currentLevel = new Level(levelNumber, teamName);
                         MessageBox.Show($"Level {currentLevel.Count} selected!\nEnemy: {currentLevel.EnemyName}\nHP: {currentLevel.CurrentEnemyHP}/{currentLevel.EnemyHP}\n\nClick on Commence Battle to start Combat!");
                     }
                     catch (Exception ex)
@@ -207,13 +217,13 @@ namespace FitQuest
             MessageBox.Show("Initiating camera check...");
 
             //Simulate camera check (replace with actual webcam functionality)
-            System.Threading.Thread.Sleep(1000); 
+            System.Threading.Thread.Sleep(300); 
             MessageBox.Show("Analyzing image...");
 
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(300);
             MessageBox.Show("User detected.");
 
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(300);
             MessageBox.Show("Ready to commence battle.");
 
             //Hide the current form (main menu)
@@ -223,13 +233,13 @@ namespace FitQuest
             if (userProfile.AreExercisesPopulated)
             {
                 //Show the combat form
-                CombatSystem combatForm = new CombatSystem(mainMenu, userProfile, currentLevel);
+                CombatSystem combatForm = new CombatSystem(mainMenu, userProfile, currentLevel, teamName);
                 combatForm.Show();
             }
             else
             {
                 //Show the training program form
-                TrainingProgram trainingProgramForm = new TrainingProgram(mainMenu, userProfile, currentLevel);
+                TrainingProgram trainingProgramForm = new TrainingProgram(mainMenu, userProfile, currentLevel, teamName);
                 trainingProgramForm.Show();
             }
         }
@@ -243,6 +253,9 @@ namespace FitQuest
             this.Hide();
         }
 
-       
+        private void Map_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
             this.shopButton = new System.Windows.Forms.Button();
@@ -36,7 +37,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,7 +138,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(230, 60);
             this.button2.TabIndex = 1;
-            this.button2.Text = "Friend List";
+            this.button2.Text = "Friends List";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.FriendsListButton_Click);
             // 
@@ -165,15 +165,6 @@
             this.textBox1.TabIndex = 2;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "label1";
-            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -182,9 +173,9 @@
             this.BackgroundImage = global::FitQuest.Properties.Resources.mainmenu;
             this.ClientSize = new System.Drawing.Size(963, 552);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainMenu";
             this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.MainMenu_Load);
@@ -202,7 +193,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button shopButton;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
     }
 }

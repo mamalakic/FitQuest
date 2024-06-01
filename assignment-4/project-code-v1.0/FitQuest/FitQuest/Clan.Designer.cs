@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Clan));
             this.backButton = new System.Windows.Forms.Button();
             this.clantablabel = new System.Windows.Forms.Label();
             this.joinaclanButton = new System.Windows.Forms.Button();
@@ -48,7 +49,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.teambattleButton = new System.Windows.Forms.Button();
             this.clanmembersGrid = new System.Windows.Forms.DataGridView();
-            this.clannamecampLabel = new System.Windows.Forms.Label();
             this.joinaclanPanel = new System.Windows.Forms.Panel();
             this.jointheclanButton = new System.Windows.Forms.Button();
             this.chooseafriendLabel = new System.Windows.Forms.Label();
@@ -82,6 +82,7 @@
             this.clantablabel.AutoSize = true;
             this.clantablabel.BackColor = System.Drawing.Color.Transparent;
             this.clantablabel.Font = new System.Drawing.Font("Papyrus", 35.22F);
+            this.clantablabel.ForeColor = System.Drawing.Color.White;
             this.clantablabel.Location = new System.Drawing.Point(338, 9);
             this.clantablabel.Name = "clantablabel";
             this.clantablabel.Size = new System.Drawing.Size(275, 74);
@@ -232,7 +233,6 @@
             this.clancampPanel.Controls.Add(this.label2);
             this.clancampPanel.Controls.Add(this.teambattleButton);
             this.clancampPanel.Controls.Add(this.clanmembersGrid);
-            this.clancampPanel.Controls.Add(this.clannamecampLabel);
             this.clancampPanel.Location = new System.Drawing.Point(79, 73);
             this.clancampPanel.Name = "clancampPanel";
             this.clancampPanel.Size = new System.Drawing.Size(814, 576);
@@ -260,7 +260,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Papyrus", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(57, 46);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(226, 46);
@@ -286,23 +286,14 @@
             // 
             // clanmembersGrid
             // 
+            this.clanmembersGrid.BackgroundColor = System.Drawing.Color.White;
+            this.clanmembersGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.clanmembersGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.clanmembersGrid.Location = new System.Drawing.Point(3, 90);
             this.clanmembersGrid.Name = "clanmembersGrid";
             this.clanmembersGrid.ReadOnly = true;
             this.clanmembersGrid.Size = new System.Drawing.Size(345, 292);
             this.clanmembersGrid.TabIndex = 3;
-            // 
-            // clannamecampLabel
-            // 
-            this.clannamecampLabel.AutoSize = true;
-            this.clannamecampLabel.Font = new System.Drawing.Font("Papyrus", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clannamecampLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.clannamecampLabel.Location = new System.Drawing.Point(365, 16);
-            this.clannamecampLabel.Name = "clannamecampLabel";
-            this.clannamecampLabel.Size = new System.Drawing.Size(94, 46);
-            this.clannamecampLabel.TabIndex = 0;
-            this.clannamecampLabel.Text = "label2";
             // 
             // joinaclanPanel
             // 
@@ -358,7 +349,9 @@
             this.Controls.Add(this.notinaclanPanel);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.clantablabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Clan";
+            this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.Clan_Load);
             this.notinaclanPanel.ResumeLayout(false);
             this.notinaclanPanel.PerformLayout();
@@ -395,7 +388,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button invitedoneButton;
         private System.Windows.Forms.Panel clancampPanel;
-        private System.Windows.Forms.Label clannamecampLabel;
         private System.Windows.Forms.Panel joinaclanPanel;
         private System.Windows.Forms.Label chooseafriendLabel;
         private System.Windows.Forms.DataGridView dataGridView3;
