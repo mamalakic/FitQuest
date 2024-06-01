@@ -21,6 +21,7 @@ namespace FitQuest
         private SQLiteConnection connection;
         bool hasInternetConnectionBool;
         private MainMenu mainMenu;
+        private int currentLevel;
 
 
         public Clan(MainMenu mainMenu, Profile userProfile)
@@ -212,7 +213,7 @@ namespace FitQuest
                 if (row.Cells["Select"].Value != DBNull.Value && row.Cells["Select"].Value != null)
                 {
                     //get the friend's name and add to the list
-                    string name = row.Cells["friendID"].Value.ToString(); //adjust column name as necessary
+                    string name = row.Cells["Friend ID"].Value.ToString(); //adjust column name as necessary
                     selectedNames.Add(name);
                 }
             }
@@ -236,7 +237,7 @@ namespace FitQuest
             notinaclanPanel.Visible = false;
 
             //SQL query with explicit casting because of data mismatch bug
-            string query = "SELECT f.*, CAST(p.team_id AS TEXT) AS team_id FROM Friends f JOIN Profiles p ON f.friendID = p.id WHERE p.team_id IS NOT NULL;";
+            string query = "SELECT f.playerID1 AS friendID, CAST(p.team_id AS TEXT) AS team_id\r\nFROM Friends f\r\nJOIN Profiles p ON f.playerID1 = p.id\r\nWHERE p.team_id IS NOT NULL\r\n\r\nUNION\r\n\r\nSELECT f.playerID2 AS friendID, CAST(p.team_id AS TEXT) AS team_id\r\nFROM Friends f\r\nJOIN Profiles p ON f.playerID2 = p.id\r\nWHERE p.team_id IS NOT NULL;";
 
             try
             {
@@ -328,26 +329,8 @@ namespace FitQuest
         {
             // Hide the current form (main menu)
             this.Hide();
-
-            // Check if exercises are populated
-            if (userProfile.AreExercisesPopulated)
-            {
-                Console.WriteLine("Training program is chosen:");
-                foreach (var category in userProfile.Exercises.Keys)
-                {
-                    Console.WriteLine($"{category} exercises: {string.Join(", ", userProfile.Exercises[category])}");
-                }
-                // Show the combat form
-                //CombatSystem combatForm = new CombatSystem(userProfile);
-                //combatForm.Show();
-            }
-            else
-            {
-                Console.WriteLine("Training program not chosen");
-                this.Hide();
-                //TrainingProgram trainingProgramForm = new TrainingProgram(userProfile);
-                //trainingProgramForm.Show();
-            }
+            Map teamMap = new Map(team_id, mainMenu, userProfile);
+            teamMap.Show();
         }
     }
 }

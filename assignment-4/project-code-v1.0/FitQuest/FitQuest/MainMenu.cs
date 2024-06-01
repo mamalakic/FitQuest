@@ -69,7 +69,7 @@ namespace FitQuest
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Map  MapView = new Map(this, userProfile);
+            Map  MapView = new Map("solo", this, userProfile);
             MapView.Show();
             this.Hide();
         }

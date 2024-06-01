@@ -22,11 +22,21 @@ namespace FitQuest
         public int LevelNum { get; private set; }
         public int IsCompleted { get; private set; }
 
-        public Level(int count)
+        private String teamName;
+
+        public Level(int count, String teamName)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
-            string query = "SELECT * FROM level WHERE count = @count";
-
+            this.teamName = teamName;
+            string query;
+            if (teamName == "solo")
+            {
+                query = "SELECT * FROM level WHERE count = @count";
+            }
+            else
+            {
+                query = "SELECT * FROM team_Level WHERE count = @count";
+            }
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
@@ -64,13 +74,24 @@ namespace FitQuest
         private void UpdateLevelStatusInDatabase()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
-            string query = "UPDATE level SET is_completed = @is_completed WHERE count = @count";
+            string query;
+            if (this.teamName == "solo")
+            {
+                query = "UPDATE level SET is_completed = @is_completed WHERE count = @count";
+                Console.WriteLine(query);
+            }
+            else
+            {
+                query = "UPDATE team_Level SET is_completed = @is_completed WHERE count = @count";
+                Console.WriteLine(query);
+            }
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddWithValue("@is_completed", this.IsCompleted);
                 command.Parameters.AddWithValue("@count", this.Count);
+
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -79,13 +100,22 @@ namespace FitQuest
         private void UpdateProfileProgression(string profileId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
-            string query = "UPDATE Profiles SET level = @level WHERE profile_id = @profileId";
+            string query;
+            if (this.teamName == "solo")
+            {
+                query = "UPDATE Profiles SET level = @level WHERE profile_id = '" + profileId + "'";
+                Console.WriteLine(query);
+            }
+            else
+            {
+                query = "UPDATE teams SET level = @level WHERE team_id '" + this.teamName + "'";
+                Console.WriteLine(query);
+            }
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddWithValue("@level", this.Count);
-                command.Parameters.AddWithValue("@profileId", profileId);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
