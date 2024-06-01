@@ -106,13 +106,53 @@ namespace FitQuest
             if (listView1.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listView1.SelectedItems[0];
-                textBox6.Text = selectedItem.SubItems[0].Text;
-                textBox7.Text = selectedItem.SubItems[1].Text;
-                textBox8.Text = selectedItem.SubItems[2].Text;
-                textBox9.Text = selectedItem.SubItems[3].Text;
-                textBox10.Text = selectedItem.SubItems[4].Text;
+                string itemName = selectedItem.SubItems[0].Text;
+                string itemCategory = selectedItem.SubItems[1].Text;
+                string itemDescription = selectedItem.SubItems[2].Text;
+
+                string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    try
+                    {
+                        connection.Open();
+
+                        string query = @"
+                    SELECT il.Name, il.Category, il.Description, inv.quantity, il.Gold
+                    FROM Inventory inv
+                    JOIN ItemList il ON inv.itemID = il.ID
+                    WHERE il.Name = @name AND il.Category = @category AND il.Description = @description AND inv.playerID = @playerID";
+
+                        using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("@name", itemName);
+                            command.Parameters.AddWithValue("@category", itemCategory);
+                            command.Parameters.AddWithValue("@description", itemDescription);
+                            command.Parameters.AddWithValue("@playerID", userProfile.id);
+
+                            using (SQLiteDataReader reader = command.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    textBox6.Text = reader["Name"].ToString();
+                                    textBox7.Text = reader["Category"].ToString();
+                                    textBox8.Text = reader["Description"].ToString();
+                                    textBox9.Text = reader["quantity"].ToString();
+                                    textBox10.Text = reader["Gold"].ToString();
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+                }
             }
         }
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -144,56 +184,87 @@ namespace FitQuest
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count == 0)
+            if (listView1.SelectedItems.Count > 0 && listView1.SelectedItems[0].SubItems[1].Text == Item.categories.Consumable.ToString())
             {
-                MessageBox.Show("Please select an item to use.");
-                return;
-            }
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                int quantity = int.Parse(selectedItem.SubItems[3].Text);
+                string itemName = selectedItem.SubItems[0].Text; //Get the name of the item
 
-            ListViewItem selectedItem = listView1.SelectedItems[0];
-            string category = selectedItem.SubItems[1].Text;
-
-            if (category != Item.categories.Consumable.ToString())
-            {
-                MessageBox.Show("Please select a consumable item to use.");
-                return;
-            }
-
-            int quantity;
-            if (!int.TryParse(selectedItem.SubItems[3].Text, out quantity))
-            {
-                MessageBox.Show("Invalid quantity for the selected item.");
-                return;
-            }
-
-            string name = selectedItem.SubItems[0].Text;
-            MessageBox.Show($"You used: {name}");
-
-            //Update quantity in the database or remove item if quantity reaches zero
-            if (quantity > 0)
-            {
-                quantity--;
-
-                if (quantity == 0)
+                if (quantity > 0)
                 {
-                    //Delete the item from the database
-                    string deleteQuery = "DELETE FROM Inventory WHERE itemID = @itemID AND playerID = @playerID";
-                    ExecuteNonQuery(deleteQuery, selectedItem);
-                    listView1.Items.Remove(selectedItem);
-                }
-                else
-                {
-                    //Update the quantity in the database
-                    string updateQuery = "UPDATE Inventory SET quantity = @quantity WHERE itemID = @itemID AND playerID = @playerID";
-                    ExecuteNonQuery(updateQuery, selectedItem, quantity);
-                    selectedItem.SubItems[3].Text = quantity.ToString();
+                    quantity--;
+                    if (quantity == 0)
+                    {
+                        //Delete the item from the database
+                        string deleteQuery = "DELETE FROM Inventory WHERE itemID = @itemID AND playerID = @playerID";
+                        ExecuteNonQuery(deleteQuery, selectedItem);
+                        listView1.Items.Remove(selectedItem);
+                    }
+                    else
+                    {
+                        //Update the quantity in the database
+                        string updateQuery = "UPDATE Inventory SET quantity = @quantity WHERE itemID = @itemID AND playerID = @playerID";
+                        ExecuteNonQuery(updateQuery, selectedItem, quantity);
+                        selectedItem.SubItems[3].Text = quantity.ToString();
+                    }
+
+                    //Fetch the gold value from the ItemList table
+                    string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+                    using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        string goldQuery = "SELECT Gold FROM ItemList WHERE Name = @name AND Category = @category AND Description = @description";
+                        using (SQLiteCommand goldCommand = new SQLiteCommand(goldQuery, connection))
+                        {
+                            goldCommand.Parameters.AddWithValue("@name", itemName);
+                            goldCommand.Parameters.AddWithValue("@category", selectedItem.SubItems[1].Text);
+                            goldCommand.Parameters.AddWithValue("@description", selectedItem.SubItems[2].Text);
+
+                            var goldValue = goldCommand.ExecuteScalar();
+                            if (goldValue != null)
+                            {
+                                int gold = Convert.ToInt32(goldValue);
+                                this.Gold += gold;
+                                string updateGoldQuery = "UPDATE Profiles SET gold = @gold WHERE id = @id";
+                                UpdateUserGold(updateGoldQuery, this.id, this.Gold);
+                            }
+                        }
+
+                        //Fetch the item's attributes and values from the ItemAttributes table
+                        string attributesQuery = "SELECT Attribute, Value FROM ItemAttributes WHERE ID = (SELECT ID FROM ItemList WHERE Name = @name AND Category = @category AND Description = @description)";
+                        using (SQLiteCommand attributesCommand = new SQLiteCommand(attributesQuery, connection))
+                        {
+                            attributesCommand.Parameters.AddWithValue("@name", itemName);
+                            attributesCommand.Parameters.AddWithValue("@category", selectedItem.SubItems[1].Text);
+                            attributesCommand.Parameters.AddWithValue("@description", selectedItem.SubItems[2].Text);
+
+                            using (SQLiteDataReader reader = attributesCommand.ExecuteReader())
+                            {
+                                StringBuilder attributesText = new StringBuilder();
+                                while (reader.Read())
+                                {
+                                    string attribute = reader["Attribute"].ToString();
+                                    int value = int.Parse(reader["Value"].ToString());
+                                    attributesText.AppendLine($"Attribute: {attribute}, Value: {value}");
+                                }
+
+                                //Display the item's attributes and values
+                                MessageBox.Show(attributesText.ToString(), "Item Attributes");
+                            }
+                        }
+                    }
+
+                    MessageBox.Show($"You used: {itemName}");
                 }
             }
             else
             {
-                MessageBox.Show("This item has already been used up.");
+                MessageBox.Show("Please select a consumable item to use.");
             }
         }
+
+
 
 
 
@@ -260,16 +331,14 @@ namespace FitQuest
 
                         if (itemId != null)
                         {
-                            // Update quantity in Inventory table
-                            string updateInventoryQuery = "UPDATE Inventory SET quantity = quantity - @quantity WHERE itemID = @itemID AND playerID = @playerID";
+                            command.Parameters.AddWithValue("@itemID", itemId);
+                            command.Parameters.AddWithValue("@playerID", userProfile.id);
 
-                            using (SQLiteCommand updateInventoryCommand = new SQLiteCommand(updateInventoryQuery, connection))
+                            if (quantity.HasValue)
                             {
-                                updateInventoryCommand.Parameters.AddWithValue("@itemID", itemId);
-                                updateInventoryCommand.Parameters.AddWithValue("@playerID", userProfile.id);
-                                updateInventoryCommand.Parameters.AddWithValue("@quantity", quantity ?? 1); // If quantity is not provided, assume 1
-                                updateInventoryCommand.ExecuteNonQuery();
+                                command.Parameters.AddWithValue("@quantity", quantity.Value);
                             }
+                            command.ExecuteNonQuery();
                         }
                         else
                         {
@@ -279,6 +348,8 @@ namespace FitQuest
                 }
             }
         }
+
+
 
         private void UpdateUserGold(string query, string userId, int newGoldAmount)
         {
