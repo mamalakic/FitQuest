@@ -126,7 +126,7 @@
             // healthBarLabel
             // 
             this.healthBarLabel.AutoSize = true;
-            this.healthBarLabel.BackColor = System.Drawing.Color.White;
+            this.healthBarLabel.BackColor = System.Drawing.Color.Transparent;
             this.healthBarLabel.Font = new System.Drawing.Font("Papyrus", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.healthBarLabel.ForeColor = System.Drawing.Color.Black;
             this.healthBarLabel.Location = new System.Drawing.Point(800, 93);
@@ -138,9 +138,9 @@
             // enemyNameLabel
             // 
             this.enemyNameLabel.AutoSize = true;
-            this.enemyNameLabel.BackColor = System.Drawing.Color.White;
+            this.enemyNameLabel.BackColor = System.Drawing.Color.Transparent;
             this.enemyNameLabel.Font = new System.Drawing.Font("Papyrus", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enemyNameLabel.ForeColor = System.Drawing.Color.Black;
+            this.enemyNameLabel.ForeColor = System.Drawing.Color.White;
             this.enemyNameLabel.Location = new System.Drawing.Point(799, 66);
             this.enemyNameLabel.Name = "enemyNameLabel";
             this.enemyNameLabel.Size = new System.Drawing.Size(53, 25);
@@ -150,8 +150,10 @@
             // nodeInfo
             // 
             this.nodeInfo.AutoSize = true;
+            this.nodeInfo.BackColor = System.Drawing.Color.Transparent;
             this.nodeInfo.Font = new System.Drawing.Font("Papyrus", 13.25F);
-            this.nodeInfo.Location = new System.Drawing.Point(429, 12);
+            this.nodeInfo.ForeColor = System.Drawing.Color.White;
+            this.nodeInfo.Location = new System.Drawing.Point(447, 14);
             this.nodeInfo.Name = "nodeInfo";
             this.nodeInfo.Size = new System.Drawing.Size(57, 28);
             this.nodeInfo.TabIndex = 8;
@@ -259,7 +261,9 @@
             // characterInfoLabel
             // 
             this.characterInfoLabel.AutoSize = true;
+            this.characterInfoLabel.BackColor = System.Drawing.Color.Transparent;
             this.characterInfoLabel.Font = new System.Drawing.Font("Papyrus", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.characterInfoLabel.ForeColor = System.Drawing.Color.White;
             this.characterInfoLabel.Location = new System.Drawing.Point(81, 123);
             this.characterInfoLabel.Name = "characterInfoLabel";
             this.characterInfoLabel.Size = new System.Drawing.Size(53, 25);

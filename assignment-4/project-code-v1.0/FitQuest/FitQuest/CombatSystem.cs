@@ -28,12 +28,20 @@ namespace FitQuest
         private MainMenu mainmenu;
         public CombatSystem(MainMenu mainmenu, Profile userProfile, Level currentLevel)
         {
+            InitializeComponent();
+
+            // Enable double buffering
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | 
+                          ControlStyles.AllPaintingInWmPaint | 
+                          ControlStyles.UserPaint, true);
+            this.UpdateStyles();
+
+
+
             this.userProfile = userProfile;
             this.mainmenu = mainmenu;
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
-            InitializeComponent();
             this.currentLevel = currentLevel;
-
             this.combatEnemy = new Enemy(currentLevel.EnemyName, currentLevel.EnemyHP, currentLevel.CurrentEnemyHP, currentLevel.LevelNum);
 
             //this.enemyHealthBar.Maximum = currentLevel.currentHP;
@@ -220,20 +228,20 @@ namespace FitQuest
             // Create form or dim screen
             // from the reward obj passed show the rewards
 
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl.Visible)
-                {
-                    ctrl.Visible = false;
-                }
-            }
+            removeControls();
 
-            this.Controls.Add(new VictoryScreen(rewardsObj));
+            VictoryScreen victoryScreen = new VictoryScreen(rewardsObj, combatEnemy.EnemyName);
+            victoryScreen.Dock = DockStyle.Fill; // Set the Dock property to fill the form
+
+            this.Controls.Add(victoryScreen);
 
         }
 
-        private void showDefeatScreen()
+        private void removeControls()
         {
+            // Suspend layout logic
+            this.SuspendLayout();
+
             // Create form or dim screen
             foreach (Control ctrl in this.Controls)
             {
@@ -243,7 +251,15 @@ namespace FitQuest
                 }
             }
 
-            DefeatScreen defeatScreen = new DefeatScreen(mainmenu);
+            // Resume layout logic
+            this.ResumeLayout();
+        }
+
+        private void showDefeatScreen()
+        {
+            removeControls();
+
+            DefeatScreen defeatScreen = new DefeatScreen(mainmenu, combatEnemy.currentHP);
             defeatScreen.Dock = DockStyle.Fill; // Set the Dock property to fill the form
 
             this.Controls.Add(defeatScreen);

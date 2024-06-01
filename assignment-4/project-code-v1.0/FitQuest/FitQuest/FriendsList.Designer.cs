@@ -98,7 +98,7 @@
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(398, 265);
+            this.dataGridView1.Size = new System.Drawing.Size(398, 398);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
@@ -173,7 +173,7 @@
             this.FriendsTab.Location = new System.Drawing.Point(12, 12);
             this.FriendsTab.Name = "FriendsTab";
             this.FriendsTab.SelectedIndex = 0;
-            this.FriendsTab.Size = new System.Drawing.Size(406, 291);
+            this.FriendsTab.Size = new System.Drawing.Size(406, 424);
             this.FriendsTab.TabIndex = 9;
             this.FriendsTab.SelectedIndexChanged += new System.EventHandler(this.FriendsTab_SelectedIndexChanged);
             // 
@@ -183,7 +183,7 @@
             this.FriendsTabPage.Location = new System.Drawing.Point(4, 22);
             this.FriendsTabPage.Name = "FriendsTabPage";
             this.FriendsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.FriendsTabPage.Size = new System.Drawing.Size(398, 265);
+            this.FriendsTabPage.Size = new System.Drawing.Size(398, 398);
             this.FriendsTabPage.TabIndex = 0;
             this.FriendsTabPage.Text = "Friends list";
             this.FriendsTabPage.UseVisualStyleBackColor = true;
@@ -195,7 +195,7 @@
             this.PendingRequestsTabPage.Location = new System.Drawing.Point(4, 22);
             this.PendingRequestsTabPage.Name = "PendingRequestsTabPage";
             this.PendingRequestsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.PendingRequestsTabPage.Size = new System.Drawing.Size(398, 265);
+            this.PendingRequestsTabPage.Size = new System.Drawing.Size(398, 398);
             this.PendingRequestsTabPage.TabIndex = 1;
             this.PendingRequestsTabPage.Text = "Pending requests";
             this.PendingRequestsTabPage.UseVisualStyleBackColor = true;
@@ -230,7 +230,7 @@
             this.dataGridView2.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.ShowEditingIcon = false;
-            this.dataGridView2.Size = new System.Drawing.Size(398, 265);
+            this.dataGridView2.Size = new System.Drawing.Size(398, 398);
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseDown);
@@ -262,7 +262,7 @@
             this.SentRequestsTabPage.Location = new System.Drawing.Point(4, 22);
             this.SentRequestsTabPage.Name = "SentRequestsTabPage";
             this.SentRequestsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SentRequestsTabPage.Size = new System.Drawing.Size(398, 265);
+            this.SentRequestsTabPage.Size = new System.Drawing.Size(398, 398);
             this.SentRequestsTabPage.TabIndex = 2;
             this.SentRequestsTabPage.Text = "Sent requests";
             this.SentRequestsTabPage.UseVisualStyleBackColor = true;
@@ -293,7 +293,7 @@
             this.sentRequestsGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.sentRequestsGridView.RowHeadersVisible = false;
             this.sentRequestsGridView.ShowEditingIcon = false;
-            this.sentRequestsGridView.Size = new System.Drawing.Size(398, 265);
+            this.sentRequestsGridView.Size = new System.Drawing.Size(398, 398);
             this.sentRequestsGridView.TabIndex = 3;
             this.sentRequestsGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.sentRequestsGridView_MouseDown);
             // 
@@ -352,7 +352,7 @@
             // SuccessFriendActionLabel
             // 
             this.SuccessFriendActionLabel.AutoSize = true;
-            this.SuccessFriendActionLabel.Location = new System.Drawing.Point(13, 310);
+            this.SuccessFriendActionLabel.Location = new System.Drawing.Point(9, 454);
             this.SuccessFriendActionLabel.Name = "SuccessFriendActionLabel";
             this.SuccessFriendActionLabel.Size = new System.Drawing.Size(35, 13);
             this.SuccessFriendActionLabel.TabIndex = 16;
@@ -377,7 +377,7 @@
             // 
             // AddFriend
             // 
-            this.AddFriend.BackColor = System.Drawing.Color.Transparent;
+            this.AddFriend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.AddFriend.FlatAppearance.BorderSize = 0;
             this.AddFriend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddFriend.Image = ((System.Drawing.Image)(resources.GetObject("AddFriend.Image")));

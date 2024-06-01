@@ -90,6 +90,11 @@
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
     <Compile Include="Item.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Rewards.cs" />
     <Compile Include="CombatSystem.cs">
       <SubType>Form</SubType>
@@ -164,14 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="VictoryScreen.resx">
       <DependentUpon>VictoryScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -193,6 +193,7 @@
     <Content Include="aspida.png" />
     <Content Include="map_backgroung.png" />
     <None Include="Resources\46c3e60b-ca3f-4496-8253-27bcbdee0d41.jpg" />
+    <None Include="Resources\add_992651.png" />
     <Content Include="Resources\aspida.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -203,6 +204,17 @@
     <None Include="Resources\autumn-forest-acrylic-painting-spooky-mystery-dusk-generated-by-ai.jpg" />
     <None Include="Resources\button.png" />
     <None Include="Resources\forest-3877365_1280.jpg" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\logo-trans.png" />
+    <None Include="Resources\logo.ico" />
+    <None Include="Resources\logo-trans.ico" />
+    <None Include="Resources\coins.png" />
+    <None Include="Resources\sword.png" />
+    <None Include="Resources\Untitled-1.bmp" />
+    <None Include="Resources\Untitled-2.bmp" />
+    <None Include="Resources\enemy-goblin.bmp" />
+    <None Include="Resources\mc.bmp" />
     <Content Include="spathi.png" />
     <Content Include="stemma.png" />
   </ItemGroup>

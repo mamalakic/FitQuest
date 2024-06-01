@@ -83,6 +83,7 @@
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Font = new System.Drawing.Font("Papyrus", 14.25F);
+            this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(205, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(533, 342);
@@ -258,31 +259,34 @@
             this.dangerWarningBox.Controls.Add(this.acceptWarning);
             this.dangerWarningBox.Controls.Add(this.textBox1);
             this.dangerWarningBox.Font = new System.Drawing.Font("Papyrus", 14.25F);
+            this.dangerWarningBox.ForeColor = System.Drawing.Color.White;
             this.dangerWarningBox.Location = new System.Drawing.Point(159, 86);
             this.dangerWarningBox.Name = "dangerWarningBox";
             this.dangerWarningBox.Size = new System.Drawing.Size(621, 348);
             this.dangerWarningBox.TabIndex = 7;
             this.dangerWarningBox.TabStop = false;
-            this.dangerWarningBox.Text = "Danger!!";
+            this.dangerWarningBox.Text = "Danger!";
             this.dangerWarningBox.Visible = false;
             // 
             // declineDanger
             // 
+            this.declineDanger.ForeColor = System.Drawing.Color.Black;
             this.declineDanger.Location = new System.Drawing.Point(409, 220);
             this.declineDanger.Name = "declineDanger";
             this.declineDanger.Size = new System.Drawing.Size(148, 71);
             this.declineDanger.TabIndex = 3;
-            this.declineDanger.Text = "You\'re right, i\'ll go back";
+            this.declineDanger.Text = "You\'re right, I\'ll go back";
             this.declineDanger.UseVisualStyleBackColor = true;
             this.declineDanger.Click += new System.EventHandler(this.declineDanger_Click);
             // 
             // acceptWarning
             // 
+            this.acceptWarning.ForeColor = System.Drawing.Color.Black;
             this.acceptWarning.Location = new System.Drawing.Point(83, 219);
             this.acceptWarning.Name = "acceptWarning";
             this.acceptWarning.Size = new System.Drawing.Size(148, 71);
             this.acceptWarning.TabIndex = 2;
-            this.acceptWarning.Text = "Yes, i accept the danger";
+            this.acceptWarning.Text = "Yes, I accept the danger";
             this.acceptWarning.UseVisualStyleBackColor = true;
             this.acceptWarning.Click += new System.EventHandler(this.acceptWarning_Click);
             // 

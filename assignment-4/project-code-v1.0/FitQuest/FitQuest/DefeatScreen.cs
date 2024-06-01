@@ -14,10 +14,11 @@ namespace FitQuest
     public partial class DefeatScreen : UserControl
     {
         private MainMenu mainmenu;
-        public DefeatScreen(MainMenu mainMenu)
+        public DefeatScreen(MainMenu mainMenu, int enemyHP)
         {
             InitializeComponent();
             this.mainmenu = mainMenu;
+            this.enemyInfoDefeatLabel.Text += enemyHP + "HP left.";
         }
 
         private void btnGoBack_Click(object sender, EventArgs e)

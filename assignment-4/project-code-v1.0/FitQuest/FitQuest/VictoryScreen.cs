@@ -13,12 +13,13 @@ namespace FitQuest
 {
     public partial class VictoryScreen : UserControl
     {
-        public VictoryScreen(Rewards rewardsObj)
+        public VictoryScreen(Rewards rewardsObj, string enemyName)
         {
             InitializeComponent();
 
             this.GoldValueLabel.Text = rewardsObj.getCurrency().ToString();
             this.itemsListLabel.Text = "";
+            this.enemyNameVictoryLabel.Text += enemyName;
             if (rewardsObj.getItemsList() == null)
             {
                 this.itemsListLabel.Text = "No items won!";
