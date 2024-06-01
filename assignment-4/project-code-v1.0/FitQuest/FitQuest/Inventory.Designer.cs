@@ -309,7 +309,9 @@ namespace FitQuest
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.listView1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Inventory";
+            this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.Inventory_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

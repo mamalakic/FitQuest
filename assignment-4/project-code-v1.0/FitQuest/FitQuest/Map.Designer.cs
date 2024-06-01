@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Map));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -85,8 +86,9 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Map";
-            this.Text = "Form1";
+            this.Text = "FitQuest";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
