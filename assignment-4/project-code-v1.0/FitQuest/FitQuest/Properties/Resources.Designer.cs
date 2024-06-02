@@ -253,9 +253,29 @@ namespace FitQuest.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Runepowder_Bomb {
+            get {
+                object obj = ResourceManager.GetObject("Runepowder Bomb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sword {
             get {
                 object obj = ResourceManager.GetObject("sword", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Throwing_knife {
+            get {
+                object obj = ResourceManager.GetObject("Throwing knife", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

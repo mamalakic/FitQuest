@@ -216,6 +216,12 @@
     <None Include="Resources\Untitled-2.bmp" />
     <None Include="Resources\enemy-goblin.bmp" />
     <None Include="Resources\mc.bmp" />
+    <None Include="Resources\King of the hill.jpg" />
+    <None Include="Resources\Flaming Sword.jpg" />
+    <None Include="Resources\Runepowder bomb.jpg" />
+    <None Include="Resources\Throwing knife.jpg" />
+    <None Include="Resources\Grenade.jpg" />
+    <None Include="Resources\King of the castle.jpg" />
     <Content Include="spathi.png" />
     <Content Include="stemma.png" />
   </ItemGroup>

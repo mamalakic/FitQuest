@@ -121,15 +121,6 @@
   <data name="placeholder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\placeholder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="King of the castle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stemma.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Grenade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\aspida.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Flaming Sword" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\spathi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="map_backgroung" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map_backgroung.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -188,5 +179,20 @@
   </data>
   <data name="sword" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flaming Sword" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flaming Sword.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Grenade" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Grenade.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="King of the castle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\King of the castle.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Runepowder Bomb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Runepowder bomb.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Throwing knife" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Throwing knife.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
