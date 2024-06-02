@@ -203,6 +203,11 @@ namespace FitQuest
             get { return areExercisesPopulated; }
             set { areExercisesPopulated = value; }
         }
+
+        public bool hasInternetConnection()
+        {
+            return true;
+        }
     }
 
     public class Exercise

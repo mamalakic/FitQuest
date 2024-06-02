@@ -27,7 +27,7 @@ namespace FitQuest
             this.mainmenu = mainmenu;
             InitializeComponent();
 
-            this.hasInternetConnectionBool = hasInternetConnection();
+            this.hasInternetConnectionBool = userProfile.hasInternetConnection();
 
 
             // Attach the event handler to the Load event of the form
@@ -218,11 +218,6 @@ namespace FitQuest
         private void txtfriendLink_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private bool hasInternetConnection()
-        {
-            return true;
         }
 
         private void buttonGenerateFriendLink_Click(object sender, EventArgs e)

@@ -29,7 +29,7 @@ namespace FitQuest
             //initialize connection and components
             this.connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
             this.connection = new SQLiteConnection(connectionString); // Initialize the connection
-            this.hasInternetConnectionBool = hasInternetConnection();
+            this.hasInternetConnectionBool = userProfile.hasInternetConnection();
             connection.Open();
 
 
@@ -284,10 +284,6 @@ namespace FitQuest
             userProfile.UpdateTeamId(clanName);
             this.team_id = clanName;
            LoadClanCamp();
-        }
-        private bool hasInternetConnection()
-        {
-            return true;
         }
 
         private void leaveclanButton_Click(object sender, EventArgs e)
