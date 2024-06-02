@@ -75,6 +75,7 @@
     <Compile Include="Clan.Designer.cs">
       <DependentUpon>Clan.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConsumableItemInstance.cs" />
     <Compile Include="DefeatScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>

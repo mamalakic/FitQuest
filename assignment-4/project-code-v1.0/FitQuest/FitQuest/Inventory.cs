@@ -20,6 +20,7 @@ namespace FitQuest
         private int Gold;
         private bool accessedFromCombatSystem = false;
         private MainMenu mainmenu;
+        private CombatSystem combatSystem;
 
         public Inventory(MainMenu mainmenu, Profile userProfile, bool accessedFromCombatSystem)
         {
@@ -31,6 +32,18 @@ namespace FitQuest
             this.Load += new System.EventHandler(this.Inventory_Load);
             this.accessedFromCombatSystem = accessedFromCombatSystem;
 
+        }
+
+        public Inventory(MainMenu mainmenu, Profile userProfile, bool accessedFromCombatSystem, CombatSystem combatSystem)
+        {
+            this.mainmenu = mainmenu;
+            this.userProfile = userProfile;
+            this.id = userProfile.id;
+            this.Gold = userProfile.Gold;
+            InitializeComponent();
+            this.Load += new System.EventHandler(this.Inventory_Load);
+            this.accessedFromCombatSystem = accessedFromCombatSystem;
+            this.combatSystem = combatSystem;
         }
 
         private void Inventory_Load(object sender, EventArgs e)
@@ -195,6 +208,7 @@ namespace FitQuest
                 int quantity = int.Parse(selectedItem.SubItems[3].Text);
                 string itemName = selectedItem.SubItems[0].Text; //Get the name of the item
 
+
                 if (quantity > 0)
                 {
                     quantity--;
@@ -243,19 +257,20 @@ namespace FitQuest
                             attributesCommand.Parameters.AddWithValue("@name", itemName);
                             attributesCommand.Parameters.AddWithValue("@category", selectedItem.SubItems[1].Text);
                             attributesCommand.Parameters.AddWithValue("@description", selectedItem.SubItems[2].Text);
+                            ConsumableItemInstance currentItem = new ConsumableItemInstance(itemName);
 
                             using (SQLiteDataReader reader = attributesCommand.ExecuteReader())
                             {
-                                StringBuilder attributesText = new StringBuilder();
                                 while (reader.Read())
                                 {
                                     string attribute = reader["Attribute"].ToString();
                                     int value = int.Parse(reader["Value"].ToString());
-                                    attributesText.AppendLine($"Attribute: {attribute}, Value: {value}");
+                                    currentItem.addStats(attribute, value);
                                 }
 
-                                //Display the item's attributes and values
-                                MessageBox.Show(attributesText.ToString(), "Item Attributes");
+                                combatSystem.useConsumable(currentItem);
+
+                                
                             }
                         }
                     }

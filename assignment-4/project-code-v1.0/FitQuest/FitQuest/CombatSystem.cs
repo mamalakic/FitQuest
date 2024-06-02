@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace FitQuest
 {
@@ -88,12 +89,47 @@ namespace FitQuest
             exerciseDataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
+        public void useConsumable(ConsumableItemInstance consumable)
+        {
+            Hashtable hashtable = consumable.GetStats();
+            // Get the first key-value pair
+            if (hashtable.Count > 0)
+            {
+                DictionaryEntry firstEntry = hashtable.Cast<DictionaryEntry>().First();
+                object Attr = firstEntry.Key;
+                object AttrValue= firstEntry.Value;
+
+                switch ((string)Attr)
+                {
+                    case "instantDamage":
+                        dealDamageWrapper((int)AttrValue);
+                        return;
+
+                    default:
+                        return;
+                }
+
+            }
+
+        }
+
         private void updateEnemyInfo()
         {
             this.enemyHealthBar.Maximum = this.combatEnemy.maxHP;
             this.enemyHealthBar.Value = this.combatEnemy.currentHP;
             this.healthBarLabel.Text = this.enemyHealthBar.Value.ToString() + "/" + this.enemyHealthBar.Maximum.ToString();
             this.enemyNameLabel.Text = this.combatEnemy.EnemyName;
+        }
+
+        public void dealDamageWrapper(int damage)
+        {
+            this.combatEnemy.takeDamage(damage);
+            updateEnemyInfo();
+            if (this.combatEnemy.isDead())
+            {
+                victorySequence();
+            }
+
         }
 
         private void attackButton_Click(object sender, EventArgs e)
@@ -106,12 +142,8 @@ namespace FitQuest
 
                 // Call function to calculate damage
                 int damageDeal = calculateDamage(combatEnemy, userProfile, currentLevel, rep);
-                this.combatEnemy.takeDamage(damageDeal);
-                updateEnemyInfo();
-                if (this.combatEnemy.isDead())
-                {
-                    victorySequence();
-                }
+                dealDamageWrapper(damageDeal);
+
 
                 //get the selected row
                 DataGridViewRow selectedRow = exerciseDataGrid.SelectedRows[0];
@@ -445,7 +477,7 @@ namespace FitQuest
 
         private void inventoryButton_Click(object sender, EventArgs e)
         {
-            Inventory inventoryForm = new Inventory(mainmenu, userProfile, true); // Indicate it's accessed from CombatSystem
+            Inventory inventoryForm = new Inventory(mainmenu, userProfile, true, this); // Indicate it's accessed from CombatSystem
             inventoryForm.LoadInventoryData(true);
             inventoryForm.Show();
         }
