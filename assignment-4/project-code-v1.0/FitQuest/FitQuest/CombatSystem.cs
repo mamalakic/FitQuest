@@ -14,8 +14,8 @@ namespace FitQuest
     public partial class CombatSystem : Form
     {
         private readonly Level currentLevel;
-        private readonly int afkMaxSeconds = 10; // original 300
-        private readonly int inactivityMaxSeconds = 5; // original 60
+        private readonly int afkMaxSeconds = 300; // original 300
+        private readonly int inactivityMaxSeconds = 60; // original 60
         private int inactivitySeconds = 0;
         // 0 is for afk timer, 1 is for waiting for activity
         private int inactiveTimerType = 0;
@@ -28,6 +28,7 @@ namespace FitQuest
         private Profile userProfile;
         private MainMenu mainmenu;
         private String teamName;
+        private Inventory openInventory;
         public CombatSystem(MainMenu mainmenu, Profile userProfile, Level currentLevel, String teamName)
         {
             InitializeComponent();
@@ -186,6 +187,10 @@ namespace FitQuest
 
         private void victorySequence()
         {
+            if (openInventory != null)
+            {
+                openInventory.Close();
+            }
             stopCombat();
             userProfile.AreExercisesPopulated=false;
             userProfile.TimesTrained += 1;
@@ -197,6 +202,10 @@ namespace FitQuest
 
         private void defeatSequence()
         {
+            if (openInventory != null)
+            {
+                openInventory.Close();
+            }
             stopCombat();
             userProfile.AreExercisesPopulated = false;
             userProfile.TimesTrained += 1;
@@ -477,9 +486,14 @@ namespace FitQuest
 
         private void inventoryButton_Click(object sender, EventArgs e)
         {
-            Inventory inventoryForm = new Inventory(mainmenu, userProfile, true, this); // Indicate it's accessed from CombatSystem
-            inventoryForm.LoadInventoryData(true);
-            inventoryForm.Show();
+            if (openInventory != null)
+            {
+                openInventory.Close();
+            }
+
+            this.openInventory = new Inventory(mainmenu, userProfile, true, this); // Indicate it's accessed from CombatSystem
+            this.openInventory.LoadInventoryData(true);
+            this.openInventory.Show();
         }
 
     }

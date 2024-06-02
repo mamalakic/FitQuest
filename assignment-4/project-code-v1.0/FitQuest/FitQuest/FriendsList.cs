@@ -149,7 +149,62 @@ namespace FitQuest
 
         private bool sendFriendReq(string friendName)
         {
-            // network success
+            // connection
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                con.Open();
+
+                // is player already friends
+                string query = "SELECT COUNT(*) FROM Friends WHERE (playerID1 = @friendID AND playerID2 = @playerID) or (playerID1 = @playerID AND playerID2 = @friendID)";
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    // Add the parameter and its value
+                    command.Parameters.AddWithValue("@playerID", userProfile.id);
+                    command.Parameters.AddWithValue("@friendID", friendName);
+
+                    // Execute the command and retrieve the count
+                    int rowCount = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (rowCount > 0)
+                    {
+                    return false;
+                    }
+                }
+
+                // does player exist
+                string query2 = "SELECT COUNT(*) FROM Profiles WHERE id=@playerID";
+                using (SQLiteCommand command2 = new SQLiteCommand(query2, con))
+                {
+                    // Add the parameter and its value
+                    command2.Parameters.AddWithValue("@playerID", friendName);
+
+                    // Execute the command and retrieve the count
+                    int rowCount = Convert.ToInt32(command2.ExecuteScalar());
+
+                    
+                    if (rowCount < 1)
+                    {
+                        return false;
+                    }
+                }
+
+                string query3 = "INSERT INTO PendingFriendRequests VALUES (@senderID,@receiverID)";
+                using (SQLiteCommand command3 = new SQLiteCommand(query3, con))
+                {
+                    // Add the parameter and its value
+                    command3.Parameters.AddWithValue("@senderID", userProfile.id);
+                    command3.Parameters.AddWithValue("@receiverID", friendName);
+
+                    // Execute the command
+                    int rowsAffected = command3.ExecuteNonQuery();
+
+                    if (rowsAffected != 0)
+                    {
+                        fetchFriendsList();
+                        return true;
+                    }
+                }
+            }
             return true;
         }
 
