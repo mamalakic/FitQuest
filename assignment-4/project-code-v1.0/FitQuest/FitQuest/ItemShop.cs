@@ -287,23 +287,6 @@ namespace FitQuest
             }
         }
 
-        private void ExecuteNonQuery(string query, string name, string category, string description, int quantity)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@name", name);
-                    command.Parameters.AddWithValue("@category", category);
-                    command.Parameters.AddWithValue("@description", description);
-                    command.Parameters.AddWithValue("@quantity", quantity);
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
         private void itemAttributes_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
