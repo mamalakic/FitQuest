@@ -18,6 +18,10 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
+using static System.Data.Entity.Infrastructure.Design.Executor;
+using System.Collections.Generic;
 
 namespace FitQuest
 {
@@ -42,18 +46,18 @@ namespace FitQuest
                 ImageSize = new Size(64, 64)
             };
 
+           
             // Add images from resources
+            /*
             imageList.Images.Add("Flaming sword", Properties.Resources.Flaming_Sword);
             imageList.Images.Add("King of the castle", Properties.Resources.King_of_the_castle);
             imageList.Images.Add("Grenade", Properties.Resources.Grenade);
+            imageList.Images.Add("Throwing knife", Properties.Resources.Throwing_knife); 
+            imageList.Images.Add("Runepowder Bomb", Properties.Resources.Runepowder_bomb);*/
 
             itemsList.LargeImageList = imageList;
             itemsList.View = View.LargeIcon;
             itemsList.DrawItem += ItemsList_DrawItem;
-
-            ListViewItem item = new ListViewItem("Strength");
-            item.SubItems.Add("+5");
-            itemAttributes.Items.Add(item);
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -72,7 +76,20 @@ namespace FitQuest
                 try
                 {
                     connection.Open();
-                    string query = "SELECT * FROM ItemList"; // Ensure this matches your table name
+
+                    string query;
+                    /*if (userProfile.hasInternetConnection()) {
+                        query = @"SELECT * FROM ItemList";
+                    } else {
+                        query = @"SELECT il.Name, il.Category, il.Description, il.Gold, ia.Attribute, ia.Value
+                                  FROM ItemList il
+                                  LEFT JOIN ItemAttributes ia ON il.ID = ia.ID";
+                    }*/
+                     query = @"SELECT il.ID, il.Name, il.Category, il.Description, il.Gold, group_concat(ia.Attribute) Attributes, group_concat(ia.Value) 'Values'
+                                  FROM ItemList il
+                                  LEFT JOIN ItemAttributes ia ON il.ID = ia.ID
+								  GROUP BY il.Name";
+                    
                     using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
                         using (SQLiteDataReader reader = command.ExecuteReader())
@@ -80,18 +97,46 @@ namespace FitQuest
                             itemsList.Items.Clear();
                             while (reader.Read())
                             {
+                                string itemid = reader["ID"].ToString(); // for use when purchasing item
                                 string name = reader["Name"].ToString();
                                 string category = reader["Category"].ToString();
                                 string description = reader["Description"].ToString();
                                 int gold = Convert.ToInt32(reader["Gold"]); // Retrieve gold value
+                                string attribute = reader["Attributes"].ToString();
+                                string value = reader["Values"].ToString();
 
                                 ListViewItem item = new ListViewItem(name);
                                 item.SubItems.Add(category); // Adding the category as a sub-item
                                 item.SubItems.Add(gold.ToString()); // Adding gold value as a sub-item
-                                item.ImageKey = name.ToLower(); // Ensure the key matches the added images
                                 item.ToolTipText = description;
+                                item.Tag = new string[] {attribute, value, itemid}; //
+                               // item.ImageKey = name.ToLower(); // Ensure the key matches the added images
+                                
+                                // Load image
+                                Type resourceType = typeof(Properties.Resources);
+                                PropertyInfo resourceProperty = resourceType.GetProperty(name.Replace(" ", "_"), BindingFlags.NonPublic | BindingFlags.Static);
+                                var resourceValue = resourceProperty.GetValue(null, null);
+
+                                if (resourceValue != null) {
+                                    // Handle the resource, for example, if it's an image
+                                    if (resourceValue is System.Drawing.Bitmap bitmap)
+                                    {
+                                        // Use the bitmap, e.g., assign it to a PictureBox
+                                        imageList.Images.Add(name, bitmap);
+                                        item.ImageKey = name.ToLower(); // Ensure the key matches the added images
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Resource type: " + resourceValue.GetType());
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Resource '{name}' not found.");
+                                }
 
                                 itemsList.Items.Add(item);
+
                             }
                         }
                     }
@@ -129,6 +174,20 @@ namespace FitQuest
 
                 // Display gold of the selected item in TextBox1
                 textBox1.Text = selectedItem.SubItems[2].Text; // Assuming gold is the third sub-item
+
+                // Clear previous attributes
+                itemAttributes.Items.Clear();
+
+                // Display all attributes of an item
+                string[] attributes = ((string[])selectedItem.Tag)[0].Split(',');
+                string[] values = ((string[])selectedItem.Tag)[1].Split(',');
+
+                for (int i=0; i<attributes.Length; i++) {
+                    ListViewItem item = new ListViewItem(attributes[i]);
+                    item.SubItems.Add(values[i]);
+                    itemAttributes.Items.Add(item);
+                }
+                
             }
         }
 
@@ -164,14 +223,46 @@ namespace FitQuest
 
         private void AddItemToInventory(ListViewItem item)
         {
-            string name = item.Text;
-            string category = item.SubItems[1].Text;
-            string description = item.ToolTipText;
+            string playerID = userProfile.id;
+            string itemID = ((string[]) item.Tag)[2];
             int quantity = 1; // Assuming the default quantity is 1 for a newly purchased item
 
             // Insert the item into the user's inventory in the database
-            string insertQuery = "INSERT INTO Inventory (Name, Category, Description, Quantity) VALUES (@name, @category, @description, @quantity)";
-            ExecuteNonQuery(insertQuery, name, category, description, quantity);
+            string insertQuery = "INSERT OR IGNORE INTO Inventory (playerID, itemID, quantity) VALUES (@playerID, @itemID, @quantity)";                   
+            string updateQuery = "UPDATE Inventory SET quantity = quantity + @quantity WHERE playerID = @playerID AND itemID = @itemID";
+
+            int numAffectedRows;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@playerID", playerID);
+                        command.Parameters.AddWithValue("@itemID", itemID);
+                        command.Parameters.AddWithValue("quantity", quantity);
+                        numAffectedRows = command.ExecuteNonQuery();
+                    }
+
+                    // In case item already exists, update quantity
+                    if (numAffectedRows == 0) {
+                        using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@playerID", playerID);
+                            command.Parameters.AddWithValue("@itemID", itemID);
+                            command.Parameters.AddWithValue("quantity", quantity);
+                            numAffectedRows = command.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating inventory: " + ex.Message);
+                }
+            }
         }
 
         private void UpdateUserGold(string query, string userId, int newGoldAmount)

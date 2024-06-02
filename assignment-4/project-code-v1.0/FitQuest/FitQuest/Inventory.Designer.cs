@@ -11,7 +11,7 @@ namespace FitQuest
         private System.Windows.Forms.ColumnHeader columnHeaderCategory;
         private System.Windows.Forms.ColumnHeader columnHeaderDescription;
         private System.Windows.Forms.ColumnHeader columnHeaderQuantity;
-        private System.Windows.Forms.ColumnHeader columnHeaderValue;
+        private System.Windows.Forms.ColumnHeader columnHeaderAttribute;
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -44,7 +44,7 @@ namespace FitQuest
             this.columnHeaderCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderQuantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAttribute = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -60,6 +60,7 @@ namespace FitQuest
             this.label13 = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listView1
@@ -70,11 +71,12 @@ namespace FitQuest
             this.columnHeaderCategory,
             this.columnHeaderDescription,
             this.columnHeaderQuantity,
+            this.columnHeaderAttribute,
             this.columnHeaderValue});
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(1, 62);
+            this.listView1.Location = new System.Drawing.Point(1, 82);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(361, 485);
+            this.listView1.Size = new System.Drawing.Size(593, 465);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -100,17 +102,17 @@ namespace FitQuest
             this.columnHeaderQuantity.Text = "Quantity";
             this.columnHeaderQuantity.Width = 100;
             // 
-            // columnHeaderValue
+            // columnHeaderAttribute
             // 
-            this.columnHeaderValue.Text = "Value";
-            this.columnHeaderValue.Width = 100;
+            this.columnHeaderAttribute.Text = "Attribute";
+            this.columnHeaderAttribute.Width = 100;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(382, 152);
+            this.textBox6.Location = new System.Drawing.Point(641, 172);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(227, 20);
+            this.textBox6.Size = new System.Drawing.Size(227, 26);
             this.textBox6.TabIndex = 3;
             // 
             // button2
@@ -124,7 +126,7 @@ namespace FitQuest
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Papyrus", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(368, 62);
+            this.button2.Location = new System.Drawing.Point(627, 82);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(119, 64);
             this.button2.TabIndex = 4;
@@ -144,7 +146,7 @@ namespace FitQuest
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Papyrus", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(493, 62);
+            this.button5.Location = new System.Drawing.Point(752, 82);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(119, 64);
             this.button5.TabIndex = 5;
@@ -163,7 +165,7 @@ namespace FitQuest
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Font = new System.Drawing.Font("Papyrus", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(480, 451);
+            this.button6.Location = new System.Drawing.Point(739, 471);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(129, 64);
             this.button6.TabIndex = 6;
@@ -173,15 +175,15 @@ namespace FitQuest
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(382, 205);
+            this.textBox7.Location = new System.Drawing.Point(641, 225);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(227, 20);
+            this.textBox7.Size = new System.Drawing.Size(227, 26);
             this.textBox7.TabIndex = 7;
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(382, 258);
+            this.textBox8.Location = new System.Drawing.Point(641, 278);
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
@@ -190,18 +192,18 @@ namespace FitQuest
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(382, 357);
+            this.textBox9.Location = new System.Drawing.Point(641, 377);
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(227, 20);
+            this.textBox9.Size = new System.Drawing.Size(227, 26);
             this.textBox9.TabIndex = 9;
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(382, 400);
+            this.textBox10.Location = new System.Drawing.Point(641, 420);
             this.textBox10.Name = "textBox10";
             this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(227, 20);
+            this.textBox10.Size = new System.Drawing.Size(227, 26);
             this.textBox10.TabIndex = 10;
             // 
             // label9
@@ -210,9 +212,9 @@ namespace FitQuest
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Papyrus", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(379, 132);
+            this.label9.Location = new System.Drawing.Point(638, 152);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(46, 19);
+            this.label9.Size = new System.Drawing.Size(63, 28);
             this.label9.TabIndex = 11;
             this.label9.Text = "Name:";
             // 
@@ -222,9 +224,9 @@ namespace FitQuest
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Papyrus", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(379, 185);
+            this.label10.Location = new System.Drawing.Point(638, 205);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(66, 19);
+            this.label10.Size = new System.Drawing.Size(92, 28);
             this.label10.TabIndex = 12;
             this.label10.Text = "Category:";
             // 
@@ -234,9 +236,9 @@ namespace FitQuest
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Papyrus", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(379, 238);
+            this.label11.Location = new System.Drawing.Point(638, 258);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(79, 19);
+            this.label11.Size = new System.Drawing.Size(106, 28);
             this.label11.TabIndex = 13;
             this.label11.Text = "Description:";
             // 
@@ -246,9 +248,9 @@ namespace FitQuest
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Papyrus", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(379, 337);
+            this.label12.Location = new System.Drawing.Point(638, 357);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(62, 19);
+            this.label12.Size = new System.Drawing.Size(88, 28);
             this.label12.TabIndex = 14;
             this.label12.Text = "Quantity:";
             // 
@@ -258,9 +260,9 @@ namespace FitQuest
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Papyrus", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(379, 380);
+            this.label13.Location = new System.Drawing.Point(638, 400);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(44, 19);
+            this.label13.Size = new System.Drawing.Size(61, 28);
             this.label13.TabIndex = 15;
             this.label13.Text = "Value:";
             // 
@@ -282,11 +284,16 @@ namespace FitQuest
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Papyrus", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(260, 1);
+            this.label7.Location = new System.Drawing.Point(330, -9);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(183, 58);
+            this.label7.Size = new System.Drawing.Size(264, 88);
             this.label7.TabIndex = 18;
             this.label7.Text = "Inventory";
+            // 
+            // columnHeaderValue
+            // 
+            this.columnHeaderValue.Text = "Value";
+            this.columnHeaderValue.Width = 70;
             // 
             // Inventory
             // 
@@ -351,5 +358,6 @@ namespace FitQuest
         private Label label13;
         private Button backButton;
         private Label label7;
+        private ColumnHeader columnHeaderValue;
     }
 }
