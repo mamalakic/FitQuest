@@ -48,10 +48,10 @@
             this.clantablabel.AutoSize = true;
             this.clantablabel.BackColor = System.Drawing.Color.Transparent;
             this.clantablabel.Font = new System.Drawing.Font("Papyrus", 35.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clantablabel.Location = new System.Drawing.Point(514, 6);
-            this.clantablabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.clantablabel.ForeColor = System.Drawing.Color.White;
+            this.clantablabel.Location = new System.Drawing.Point(343, 4);
             this.clantablabel.Name = "clantablabel";
-            this.clantablabel.Size = new System.Drawing.Size(374, 112);
+            this.clantablabel.Size = new System.Drawing.Size(247, 74);
             this.clantablabel.TabIndex = 2;
             this.clantablabel.Text = "Item Shop";
             // 
@@ -61,11 +61,10 @@
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
             this.backButton.ForeColor = System.Drawing.Color.Transparent;
             this.backButton.Image = global::FitQuest.Properties.Resources.btnGoBack_Image;
-            this.backButton.Location = new System.Drawing.Point(45, 29);
-            this.backButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.backButton.Location = new System.Drawing.Point(30, 19);
             this.backButton.Name = "backButton";
             this.backButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.backButton.Size = new System.Drawing.Size(189, 83);
+            this.backButton.Size = new System.Drawing.Size(126, 54);
             this.backButton.TabIndex = 3;
             this.backButton.UseVisualStyleBackColor = false;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
@@ -73,24 +72,32 @@
             // itemsList
             // 
             this.itemsList.HideSelection = false;
-            this.itemsList.Location = new System.Drawing.Point(312, 98);
+            this.itemsList.Location = new System.Drawing.Point(208, 64);
+            this.itemsList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.itemsList.Name = "itemsList";
             this.itemsList.OwnerDraw = true;
             this.itemsList.ShowItemToolTips = true;
-            this.itemsList.Size = new System.Drawing.Size(786, 602);
+            this.itemsList.Size = new System.Drawing.Size(525, 393);
             this.itemsList.TabIndex = 4;
             this.itemsList.UseCompatibleStateImageBehavior = false;
             this.itemsList.SelectedIndexChanged += new System.EventHandler(this.itemsList_SelectedIndexChanged);
             // 
             // purchaseButton
             // 
-            this.purchaseButton.BackColor = System.Drawing.Color.LimeGreen;
-            this.purchaseButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.purchaseButton.Location = new System.Drawing.Point(1244, 678);
+            this.purchaseButton.BackColor = System.Drawing.Color.Transparent;
+            this.purchaseButton.BackgroundImage = global::FitQuest.Properties.Resources.button;
+            this.purchaseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.purchaseButton.FlatAppearance.BorderSize = 0;
+            this.purchaseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.purchaseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.purchaseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.purchaseButton.Font = new System.Drawing.Font("Papyrus", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.purchaseButton.Location = new System.Drawing.Point(829, 441);
+            this.purchaseButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.purchaseButton.Name = "purchaseButton";
-            this.purchaseButton.Size = new System.Drawing.Size(159, 112);
+            this.purchaseButton.Size = new System.Drawing.Size(106, 73);
             this.purchaseButton.TabIndex = 6;
-            this.purchaseButton.Text = "PURCHASE";
+            this.purchaseButton.Text = "Purchase";
             this.purchaseButton.UseVisualStyleBackColor = false;
             this.purchaseButton.Click += new System.EventHandler(this.purchaseButton_Click);
             // 
@@ -98,10 +105,12 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.label1.Location = new System.Drawing.Point(1161, 238);
+            this.label1.Font = new System.Drawing.Font("Papyrus", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(774, 155);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(239, 55);
+            this.label1.Size = new System.Drawing.Size(172, 51);
             this.label1.TabIndex = 8;
             this.label1.Text = "Item Stats";
             // 
@@ -121,9 +130,10 @@
             this.attributeColumn,
             this.valueColumn});
             this.itemAttributes.HideSelection = false;
-            this.itemAttributes.Location = new System.Drawing.Point(1156, 310);
+            this.itemAttributes.Location = new System.Drawing.Point(771, 202);
+            this.itemAttributes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.itemAttributes.Name = "itemAttributes";
-            this.itemAttributes.Size = new System.Drawing.Size(248, 252);
+            this.itemAttributes.Size = new System.Drawing.Size(167, 165);
             this.itemAttributes.TabIndex = 7;
             this.itemAttributes.UseCompatibleStateImageBehavior = false;
             this.itemAttributes.View = System.Windows.Forms.View.Details;
@@ -133,40 +143,40 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.label2.Location = new System.Drawing.Point(1150, 588);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Font = new System.Drawing.Font("Papyrus", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(767, 382);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(145, 29);
+            this.label2.Size = new System.Drawing.Size(95, 25);
             this.label2.TabIndex = 10;
             this.label2.Text = "Gold Value:";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(1156, 623);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox1.Location = new System.Drawing.Point(771, 405);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(244, 26);
+            this.textBox1.Size = new System.Drawing.Size(164, 20);
             this.textBox1.TabIndex = 11;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::FitQuest.Properties.Resources.placeholder;
-            this.pictureBox1.Location = new System.Drawing.Point(1198, 56);
+            this.pictureBox1.Location = new System.Drawing.Point(799, 36);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(170, 160);
+            this.pictureBox1.Size = new System.Drawing.Size(113, 104);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
             // ItemShop
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.BackgroundImage = global::FitQuest.Properties.Resources.itemshop;
-            this.ClientSize = new System.Drawing.Size(1444, 849);
+            this.ClientSize = new System.Drawing.Size(963, 552);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
@@ -177,7 +187,6 @@
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.clantablabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ItemShop";
             this.Text = "FitQuest";
             this.Load += new System.EventHandler(this.ItemShop_Load);
