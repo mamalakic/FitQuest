@@ -294,35 +294,92 @@ namespace FitQuest
             {
                 ListViewItem selectedItem = listView1.SelectedItems[0];
                 int quantity = int.Parse(selectedItem.SubItems[3].Text);
-                int value = int.Parse(selectedItem.SubItems[4].Text);
+                int goldValue = int.Parse(textBox10.Text); // Get the gold value from textBox10
 
                 if (quantity > 0)
                 {
                     quantity--;
 
-                    if (quantity == 0)
-                    {
-                        // Delete the item from the database
-                        string deleteQuery = "DELETE FROM Inventory WHERE Name = @name AND Category = @category AND Description = @description";
-                        ExecuteNonQuery(deleteQuery, selectedItem);
-                        listView1.Items.Remove(selectedItem);
-                    }
-                    else
-                    {
-                        // Update the quantity in the database
-                        string updateQuery = "UPDATE Inventory SET Quantity = @quantity WHERE Name = @name AND Category = @category AND Description = @description";
-                        ExecuteNonQuery(updateQuery, selectedItem, quantity);
-                        selectedItem.SubItems[3].Text = quantity.ToString();
-                    }
+                    string itemName = selectedItem.SubItems[0].Text;
+                    string itemCategory = selectedItem.SubItems[1].Text;
+                    string itemDescription = selectedItem.SubItems[2].Text;
 
-                    this.Gold += value;
-                    string updateGoldQuery = "UPDATE Profiles SET gold = @gold WHERE id = @id";
-                    UpdateUserGold(updateGoldQuery, this.id, this.Gold);
+                    string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
 
-                    MessageBox.Show($"You just got {value} gold. Item sold successfully.");
+                    using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                    {
+                        try
+                        {
+                            connection.Open();
+
+                            // Get itemID from ItemList table
+                            string itemIdQuery = "SELECT ID FROM ItemList WHERE Name = @name AND Category = @category AND Description = @description";
+                            int itemId;
+
+                            using (SQLiteCommand itemIdCommand = new SQLiteCommand(itemIdQuery, connection))
+                            {
+                                itemIdCommand.Parameters.AddWithValue("@name", itemName);
+                                itemIdCommand.Parameters.AddWithValue("@category", itemCategory);
+                                itemIdCommand.Parameters.AddWithValue("@description", itemDescription);
+
+                                var result = itemIdCommand.ExecuteScalar();
+                                if (result == null)
+                                {
+                                    MessageBox.Show("Item not found in ItemList.");
+                                    return;
+                                }
+                                itemId = Convert.ToInt32(result);
+                            }
+
+                            if (quantity == 0)
+                            {
+                                // Delete the item from the database
+                                string deleteQuery = "DELETE FROM Inventory WHERE itemID = @itemID AND playerID = @playerID";
+                                using (SQLiteCommand deleteCommand = new SQLiteCommand(deleteQuery, connection))
+                                {
+                                    deleteCommand.Parameters.AddWithValue("@itemID", itemId);
+                                    deleteCommand.Parameters.AddWithValue("@playerID", userProfile.id);
+                                    deleteCommand.ExecuteNonQuery();
+                                }
+                                listView1.Items.Remove(selectedItem);
+                            }
+                            else
+                            {
+                                // Update the quantity in the database
+                                string updateQuery = "UPDATE Inventory SET quantity = @quantity WHERE itemID = @itemID AND playerID = @playerID";
+                                using (SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, connection))
+                                {
+                                    updateCommand.Parameters.AddWithValue("@quantity", quantity);
+                                    updateCommand.Parameters.AddWithValue("@itemID", itemId);
+                                    updateCommand.Parameters.AddWithValue("@playerID", userProfile.id);
+                                    updateCommand.ExecuteNonQuery();
+                                }
+                                selectedItem.SubItems[3].Text = quantity.ToString();
+                            }
+
+                            // Update user's gold
+                            this.Gold += goldValue;
+                            string updateGoldQuery = "UPDATE Profiles SET gold = @gold WHERE id = @id";
+                            using (SQLiteCommand updateGoldCommand = new SQLiteCommand(updateGoldQuery, connection))
+                            {
+                                updateGoldCommand.Parameters.AddWithValue("@gold", this.Gold);
+                                updateGoldCommand.Parameters.AddWithValue("@id", this.id);
+                                updateGoldCommand.ExecuteNonQuery();
+                            }
+
+                            MessageBox.Show($"You just got {goldValue} gold. Item sold successfully.");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                    }
                 }
             }
         }
+
+
+
         private void ExecuteNonQuery(string query, ListViewItem item, int? quantity = null)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQLiteDB"].ConnectionString;
